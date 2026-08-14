@@ -160,13 +160,13 @@ local function initialize_settings()
             rooms_cfg[i].max_p = backup_p + 5
         end
         
-        -- Жёсткая страховка: если в памяти чипа ноль, принудительно ставим комнатные 20 °C (293.15 K)
-        if backup_t and backup_t > 0 then
+        -- Контур аппаратной страховки от пустых ячеек памяти (Кельвины * 100)
+        -- Порог 27315 соответствует ровно 0 °C. Если в памяти ноль или мусор:
+        if backup_t and backup_t >= 27315 then
             rooms_cfg[i].target_t = backup_t / 100
         else
-            if rooms_cfg[i].target_t < 278.15 then -- Если температура ушла в глубокий минус
-                rooms_cfg[i].target_t = (i == 7) and 298.15 or 293.15
-            end
+            -- Принудительно выставляем дефолтные комнатные 20 °C (293.15 K)
+            rooms_cfg[i].target_t = 293.15
         end
     end
     return persist_loaded
