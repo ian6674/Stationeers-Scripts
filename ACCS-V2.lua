@@ -415,8 +415,6 @@ local function render_settings()
     s:element({ id = "settings_bg", type = "panel", rect = { unit = "px", x = 0, y = 0, w = W, h = H }, style = { bg = C.bg } })
     s:element({ id = "settings_title", type = "label", rect = { unit = "px", x = 12, y = 8, w = 300, h = 18 }, props = { text = "ACCS - Конфигурация параметров комнат" }, style = { font_size = 14, color = C.accent, align = "left" } })
 
-    local idx = settings_page
-    local cfg = rooms_cfg[idx]
     if cached_dropdowns == nil then populate_device_caches() end
     local idx = settings_page
     local cfg = rooms_cfg[idx]
