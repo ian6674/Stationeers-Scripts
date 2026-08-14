@@ -561,33 +561,41 @@ end
 -- ======================================================================
 
 local function save_settings_to_storage()
-    local state = {
-        devices = accs_devices,
-        rooms = {}
-    }
-    -- Пакуем измененные пользователем лимиты давлений и температур
+    if ic.persist == nil then return false end
+    
+    local state = { devices = accs_devices, rooms = {} }
     for i = 1, BOX_COUNT do
-        state.rooms[i] = {
-            min_p = rooms_cfg[i].min_p,
-            max_p = rooms_cfg[i].max_p,
-            target_t = rooms_cfg[i].target_t
-        }
+        if rooms_cfg[i] then
+            state.rooms[i] = { 
+                min_p = rooms_cfg[i].min_p, 
+                max_p = rooms_cfg[i].max_p, 
+                target_t = rooms_cfg[i].target_t 
+            }
+        end
     end
     
+    -- Кодируем всю таблицу в JSON-строку
     local ok, json_str = pcall(util.json.encode, state)
     if ok and json_str then
-        pcall(storage_write, json_str) -- Запись на flash-карту памяти консоли
+        -- Нативно сохраняем в энергонезависимую память чипа под ключом "settings"
+        ic.persist.set("settings", json_str)
+        return true
     end
+    return false
 end
 
 local function initialize_settings()
-    local ok, json_str = pcall(storage_read)
-    if not ok or json_str == nil or json_str == "" then return false end
+    if ic.persist == nil or not ic.persist.has("settings") then return false end
 
+    -- Считываем JSON-строку из памяти чипа
+    local json_str = ic.persist.get("settings")
+    if type(json_str) ~= "string" or json_str == "" then return false end
+
+    -- Декодируем JSON обратно в таблицу Lua
     local decode_ok, decoded = pcall(util.json.decode, json_str)
     if not decode_ok or type(decoded) ~= "table" then return false end
 
-    -- Восстанавливаем привязки физических приборов из памяти
+    -- Восстанавливаем динамические привязки всех датчиков и вентиляторов
     if type(decoded.devices) == "table" then
         for i = 1, BOX_COUNT do
             if decoded.devices[i] then
@@ -599,7 +607,7 @@ local function initialize_settings()
         end
     end
 
-    -- Восстанавливаем уставки лимитов климата комнат
+    -- Восстанавливаем уставки лимитов давления и температур комнат
     if type(decoded.rooms) == "table" then
         for i = 1, BOX_COUNT do
             if decoded.rooms[i] then
