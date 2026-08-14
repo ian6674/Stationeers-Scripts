@@ -62,9 +62,6 @@ local active_display_room = 1
 local base_global_status = STATE_NOMINAL
 local settings_page = 1
 
--- ИСПРАВЛЕНИЕ: Добавлена пропущенная переменная индекса страниц настроек
-local settings_page = 1
-
 -- Для выпадающего списка выбора комнат на экране настроек
 local settings_room_open = "false"
 local room_options_str = "Тамбур|Производственная|Плавки металлов|Жилая комната|Аппаратная связи|Комната ACCS|Теплица (CO2)|Фильтрация газов"
