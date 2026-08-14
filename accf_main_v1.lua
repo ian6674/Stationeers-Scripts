@@ -325,7 +325,7 @@ local function render_overview()
         end
 
         local p_txt = data.is_online and string.format("%.0f", data.pressure) or "--"
-        local t_txt = data.is_online and string.format("%.0f", data.temperature - 293.15) or "--"
+        local t_txt = data.is_online and string.format("%.1f", data.temperature - 273.15) or "--"
         local o2_txt = data.is_online and string.format("%.1f", data.ratio_o2 * 100) or "--"
         local n2_txt = data.is_online and string.format("%.1f", data.ratio_n2 * 100) or "--"
         local co2_txt = data.is_online and string.format("%.1f", data.ratio_co2 * 100) or "--"
@@ -438,7 +438,7 @@ local function render_settings()
             local o = tonumber(opt) or 0 accs_devices[idx].sensor.sel = o dropdown_open[idx].sensor = "false"
             if o == 0 then accs_devices[idx].sensor.prefab = 0 accs_devices[idx].sensor.namehash = 0
             else local d = cached_dropdowns.sensor_devs[o] accs_devices[idx].sensor.prefab = d.prefab_hash accs_devices[idx].sensor.namehash = d.name_hash end
-            render_settings() draw_navigation_tabs()
+            render_settings() draw_navigation_tabs() save_settings_to_storage()
         end
     })
 
@@ -470,7 +470,7 @@ local function render_settings()
             local o = tonumber(opt) or 0 accs_devices[idx].vent_out.sel = o dropdown_open[idx].vent_out = "false"
             if o == 0 then accs_devices[idx].vent_out.prefab = 0 accs_devices[idx].vent_out.namehash = 0
             else local d = cached_dropdowns.vent_devs[o] accs_devices[idx].vent_out.prefab = d.prefab_hash accs_devices[idx].vent_out.namehash = d.name_hash end
-            render_settings() draw_navigation_tabs()
+            render_settings() draw_navigation_tabs() save_settings_to_storage()
         end
     })
 
@@ -615,6 +615,7 @@ end
 -- ==================== ЗАПУСК СИСТЕМЫ ЖИЗНЕОБЕСПЕЧЕНИЯ ====================
 s = surfaces.overview 
 ss.ui.activate("overview") 
+initialize_settings()
 populate_device_caches() 
 render_overview() 
 draw_navigation_tabs()
@@ -638,4 +639,3 @@ while true do
     end
     ic.yield()
 end
---А и Б сидели на трубе
