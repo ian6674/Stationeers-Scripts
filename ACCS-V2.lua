@@ -427,8 +427,6 @@ local function render_settings()
     local room_options_str = table.concat(dynamic_options, "|")
 
     local pane_x, pane_y, pane_w, pane_h = 12, 54, W - 24, H - 66
-
-    local pane_x, pane_y, pane_w, pane_h = 12, 54, W - 24, H - 66
     s:element({ id = "room_pane_single", type = "panel", rect = { unit = "px", x = pane_x, y = pane_y, w = pane_w, h = pane_h }, style = { bg = C.panel, border_color = "#1E2538", border_width = 1 } })
     
     -- Выбор настраиваемого помещения (Широкий выпадающий список)
@@ -461,12 +459,11 @@ local function render_settings()
 
     -- Установка ТЕМПЕРАТУРЫ (Крупный жирный шрифт 14px, без мусорных префиксов)
     local y_t = item_start_y + step_y
-        s:element({ id = "t_cfg_lbl", type = "label", rect = { unit = "px", x = pane_x + 14, y = y_t + 2, w = label_w, h = 16 }, props = { text = "Настройка температуры:" }, style = { font_size = 11, color = C.text, align = "left" } })
-        s:element({ id = "t_minus_b", type = "button", rect = { unit = "px", x = input_x, y = y_t, w = 18, h = 18 }, props = { text = "-" }, style = { bg = "#1E2538", text = C.text, font_size = 11 }, on_click = function() cfg.target_t = math.max(273.15, cfg.target_t - 1.0) render_settings() draw_navigation_tabs() save_settings_to_storage() end })
-        local current_t_c = math.floor(cfg.target_t - 273.15 + 0.5)
-        s:element({ id = "t_val_lbl", type = "label", rect = { unit = "px", x = input_x + 22, y = y_t + 2, w = 55, h = 16 }, props = { text = string.format("%d °C", current_t_c) }, style = { font_size = 14, color = C.yellow, align = "center" } })
-        s:element({ id = "t_plus_b", type = "button", rect = { unit = "px", x = input_x + 81, y = y_t, w = 18, h = 18 }, props = { text = "+" }, style = { bg = "#1E2538", text = C.text, font_size = 11 }, on_click = function() cfg.target_t = math.min(323.15, cfg.target_t + 1.0) render_settings() draw_navigation_tabs() save_settings_to_storage() end })
-    end
+    s:element({ id = "t_cfg_lbl", type = "label", rect = { unit = "px", x = pane_x + 14, y = y_t + 2, w = label_w, h = 16 }, props = { text = "Настройка температуры:" }, style = { font_size = 11, color = C.text, align = "left" } })
+    s:element({ id = "t_minus_b", type = "button", rect = { unit = "px", x = input_x, y = y_t, w = 18, h = 18 }, props = { text = "-" }, style = { bg = "#1E2538", text = C.text, font_size = 11 }, on_click = function() cfg.target_t = math.max(273.15, cfg.target_t - 1.0) render_settings() draw_navigation_tabs() save_settings_to_storage() end })
+    local current_t_c = math.floor(cfg.target_t - 273.15 + 0.5)
+    s:element({ id = "t_val_lbl", type = "label", rect = { unit = "px", x = input_x + 22, y = y_t + 2, w = 55, h = 16 }, props = { text = string.format("%d °C", current_t_c) }, style = { font_size = 14, color = C.yellow, align = "center" } })
+    s:element({ id = "t_plus_b", type = "button", rect = { unit = "px", x = input_x + 81, y = y_t, w = 18, h = 18 }, props = { text = "+" }, style = { bg = "#1E2538", text = C.text, font_size = 11 }, on_click = function() cfg.target_t = math.min(323.15, cfg.target_t + 1.0) render_settings() draw_navigation_tabs() save_settings_to_storage() end })
 
     -- Установка ДАВЛЕНИЯ (Крупный жирный шрифт 14px)
     local y_p = y_t + step_y
@@ -521,19 +518,19 @@ local function render_settings()
         end
     })
 
-        local y_vl = y_v2 + step_y
-        s:element({ id = "vlv_cfg_lbl", type = "label", rect = { unit = "px", x = pane_x + 14, y = y_vl + 4, w = label_w, h = 16 }, props = { text = "Клапан радиатора:" }, style = { font_size = 10, color = C.yellow, align = "left" } })
-        s:element({
-            id = "sel_vlv_single", type = "select", rect = { unit = "px", x = input_x, y = y_vl, w = drop_w, h = 20 },
-            props = { options = table.concat(cached_dropdowns.valve, "|"), selected = accs_devices[idx].valve.sel, open = dropdown_open[idx].valve },
-            on_toggle = function() dropdown_open[idx].valve = dropdown_open[idx].valve == "true" and "false" or "true" render_settings() draw_navigation_tabs() end,
-            on_change = function(opt)
-                local o = tonumber(opt) or 0 accs_devices[idx].valve.sel = o dropdown_open[idx].valve = "false"
-                if o == 0 then accs_devices[idx].valve.prefab = 0 accs_devices[idx].valve.namehash = 0
-                else local d = cached_dropdowns.valve_devs[o] accs_devices[idx].valve.prefab = d.prefab_hash accs_devices[idx].valve.namehash = d.name_hash end
-                render_settings() draw_navigation_tabs() save_settings_to_storage()
-            end
-        })
+    local y_vl = y_v2 + step_y
+    s:element({ id = "vlv_cfg_lbl", type = "label", rect = { unit = "px", x = pane_x + 14, y = y_vl + 4, w = label_w, h = 16 }, props = { text = "Клапан радиатора:" }, style = { font_size = 10, color = C.yellow, align = "left" } })
+    s:element({
+        id = "sel_vlv_single", type = "select", rect = { unit = "px", x = input_x, y = y_vl, w = drop_w, h = 20 },
+        props = { options = table.concat(cached_dropdowns.valve, "|"), selected = accs_devices[idx].valve.sel, open = dropdown_open[idx].valve },
+        on_toggle = function() dropdown_open[idx].valve = dropdown_open[idx].valve == "true" and "false" or "true" render_settings() draw_navigation_tabs() end,
+        on_change = function(opt)
+            local o = tonumber(opt) or 0 accs_devices[idx].valve.sel = o dropdown_open[idx].valve = "false"
+            if o == 0 then accs_devices[idx].valve.prefab = 0 accs_devices[idx].valve.namehash = 0
+            else local d = cached_dropdowns.valve_devs[o] accs_devices[idx].valve.prefab = d.prefab_hash accs_devices[idx].valve.namehash = d.name_hash end
+            render_settings() draw_navigation_tabs() save_settings_to_storage()
+        end
+    })
     s:commit()
 end
 
