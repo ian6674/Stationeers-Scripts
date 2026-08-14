@@ -638,3 +638,4 @@ while true do
     end
     ic.yield()
 end
+--А и Б сидели на трубе
