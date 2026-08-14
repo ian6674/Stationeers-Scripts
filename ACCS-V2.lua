@@ -164,7 +164,7 @@ local function initialize_settings()
         if backup_t and backup_t > 0 then
             rooms_cfg[i].target_t = backup_t / 100
         else
-            if rooms_cfg[i].target_t < 50 then -- Если температура ушла в глубокий минус
+            if rooms_cfg[i].target_t < 278.15 then -- Если температура ушла в глубокий минус
                 rooms_cfg[i].target_t = (i == 7) and 298.15 or 293.15
             end
         end
@@ -287,7 +287,7 @@ local function execute_accs_logic()
         else
             safe_batch_write_name(v_in.prefab, v_in.namehash, LT.On, 0)
             safe_batch_write_name(v_out.prefab, v_out.namehash, LT.On, 0)
-            afe_batch_write_name(v_valve.prefab, v_valve.namehash, LT.On, 0)
+            safe_batch_write_name(v_valve.prefab, v_valve.namehash, LT.On, 0)
         end
     end
 end
@@ -415,7 +415,6 @@ local function render_settings()
     s:element({ id = "settings_bg", type = "panel", rect = { unit = "px", x = 0, y = 0, w = W, h = H }, style = { bg = C.bg } })
     s:element({ id = "settings_title", type = "label", rect = { unit = "px", x = 12, y = 8, w = 300, h = 18 }, props = { text = "ACCS - Конфигурация параметров комнат" }, style = { font_size = 14, color = C.accent, align = "left" } })
 
-    if cached_dropdowns == nil then populate_device_caches() end
     local idx = settings_page
     local cfg = rooms_cfg[idx]
     if cached_dropdowns == nil then populate_device_caches() end
