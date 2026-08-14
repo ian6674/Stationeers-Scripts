@@ -544,7 +544,11 @@ end
 
 local function update_hardware_console()
     local name_hash = ic.hash("Central_ACCS_Console")
-    local disp_data = accs_data[active_display_room]
+    local room_idx = settings_page or 1
+    local disp_data = accs_data[room_idx]
+    
+    if disp_data == nil then return end
+
     local room_status = base_global_status == STATE_NOMINAL and disp_data.room_status or base_global_status
 
     local hardware_color = 0
