@@ -1,6 +1,9 @@
 -- ======================================================================
 -- ACCS - AIR COMPOSITION & CONTROL SYSTEM (INDUSTRIAL EDITION 2026) 0.0.3
 -- ======================================================================
+-- ======================================================================
+
+
 
 local surfaces = {
     overview = ss.ui.surface("overview"),
@@ -57,6 +60,7 @@ local dropdown_open = {}
 local cached_dropdowns = nil
 local active_display_room = 1
 local base_global_status = STATE_NOMINAL
+local settings_page = 1
 
 -- ИСПРАВЛЕНИЕ: Добавлена пропущенная переменная индекса страниц настроек
 local settings_page = 1
@@ -120,7 +124,7 @@ local function populate_device_caches()
             table.insert(cached_dropdowns.sensor, label)
             table.insert(cached_dropdowns.sensor_devs, dev)
         elseif ph == ACTIVE_VENT_HASH then
-            table.insert(cached_dropdowns.vent, label)
+            table.insert(cached_dropdowns.vent, label .. " (" .. string.sub(dev.display_name or "", -5) .. ")")
             table.insert(cached_dropdowns.vent_devs, dev)
         elseif ph == VALVE_HASH then
             table.insert(cached_dropdowns.valve, label)
@@ -454,8 +458,9 @@ local function render_settings()
         on_change = function(opt)
             local o = tonumber(opt) or 0 accs_devices[idx].vent_in.sel = o dropdown_open[idx].vent_in = "false"
             if o == 0 then accs_devices[idx].vent_in.prefab = 0 accs_devices[idx].vent_in.namehash = 0
-            else local d = cached_dropdowns.vent_devs[o] accs_devices[idx].vent_in.prefab = d.prefab_hash accs_devices[idx].vent_in.namehash = d.name_hash end
-            render_settings() draw_navigation_tabs()
+                else local d = cached_dropdowns.vent_devs[o] accs_devices[idx].vent_in.prefab = d.prefab_hash accs_devices[idx].vent_in.namehash = d.name_hash end
+                save_settings_to_storage()
+                render_settings() draw_navigation_tabs()
         end
     })
 
@@ -487,6 +492,7 @@ local function render_settings()
                 local o = tonumber(opt) or 0 accs_devices[idx].valve.sel = o dropdown_open[idx].valve = "false"
                 if o == 0 then accs_devices[idx].valve.prefab = 0 accs_devices[idx].valve.namehash = 0
                 else local d = cached_dropdowns.valve_devs[o] accs_devices[idx].valve.prefab = d.prefab_hash accs_devices[idx].valve.namehash = d.name_hash end
+                save_settings_to_storage()
                 render_settings() draw_navigation_tabs()
             end
         })
@@ -637,6 +643,4 @@ while true do
         refresh_tick = 0
     end
     ic.yield()
-end 
-
-
+end
