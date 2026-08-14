@@ -623,8 +623,8 @@ end
 -- ==================== ЗАПУСК СИСТЕМЫ ЖИЗНЕОБЕСПЕЧЕНИЯ ====================
 s = surfaces.overview 
 ss.ui.activate("overview") 
-initialize_settings()
-populate_device_caches() 
+populate_device_caches() -- СНАЧАЛА сканируем сеть и создаем таблицы cached_dropdowns
+initialize_settings()    -- ЗАТЕМ подгружаем сохраненные привязки из памяти чипа
 render_overview() 
 draw_navigation_tabs()
 
