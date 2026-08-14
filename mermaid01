@@ -1,0 +1,46 @@
+graph TD
+    %% Стилизация блоков
+    classDef init fill:#1E293B,stroke:#38BDF8,stroke-width:2px,color:#FFF;
+    classDef scan fill:#0F172A,stroke:#94A3B8,stroke-width:1px,color:#FFF;
+    classDef logic fill:#1E1B4B,stroke:#818CF8,stroke-width:2px,color:#FFF;
+    classDef nominal fill:#064E3B,stroke:#10B981,stroke-width:2px,color:#FFF;
+    classDef yellow fill:#78350F,stroke:#F59E0B,stroke-width:2px,color:#FFF;
+    classDef orange fill:#7C2D12,stroke:#EA580C,stroke-width:2px,color:#FFF;
+    classDef red fill:#450A0A,stroke:#EF4444,stroke-width:2px,color:#FFF;
+
+    %% Основной поток
+    Start([1. СТАРТ ЧИПА]) --> Init[2. Инициализация памяти:<br>Вычитка mem_read и ic.persist]
+    Init --> Cache[3. Сканирование кабельной сети:<br>Поиск датчиков, вентиляторов, фильтров]
+    
+    %% Системный цикл
+    Cache --> LoopStart{4. НАЧАЛО ЦИКЛА ТИКА}
+    LoopStart --> ReadSensors[5. Опрос датчиков по всем 8 Зонам:<br>Давление, Температура, Химия]
+    ReadSensors --> Analyze[6. ХИМИЧЕСКИЙ АНАЛИЗАТОР:<br>Определение уровня угрозы для каждой Зоны]
+    
+    %% Ветвление конечного автомата (Уровни тревоги)
+    Analyze --> Choice{Каков статус Зоны?}
+    
+    Choice -->|НОМИНАЛ / ПРЕДУПРЕЖДЕНИЕ| StateNominal[7. ЗЕЛЕНЫЙ СТАТУС<br>- Вентиляция держит уставки давления<br>- Вентилятор откачки кидает излишки в общую трубу<br>- Если есть микропримеси: Вкл локальный фильтр]
+    Choice -->|ОПАСНО ДЛЯ ДЫХАНИЯ<br>O2 < 18% / CO2 > 2% / X > 0.05%| StateYellow[8. ЖЕЛТАЯ ТРЕВОГА<br>- Вкл сирену и световую индикацию Желтым<br>- Персонал надевает шлемы скафандров<br>- Вентиляция на максимум циркуляции через фильтр]
+    Choice -->|ВЗРЫВООПАСНО / ПОЖАР<br>H2+O2 близко к вспышке / T > 50°C| StateOrange[9. ОРАНЖЕВАЯ ТРЕВОГА<br>- Закрыть гермодвери между отсеками базы<br>- Изолировать опасный бокс<br>- Запуск принудительной продувки воздухом]
+    Choice -->|РАЗГЕРМЕТИЗАЦИЯ / КАТАСТРОФА<br>P падает стремительно к 0| StateRed[10. КРАСНАЯ ТРЕВОГА<br>- Проверка: P == 0?<br>- Если Да: Намертво блокировать двери и клапаны зоны<br>- Если Нет: Тотальная эвакуация газа в баки отходов]
+
+    %% Слияние потоков и завершение тика
+    StateNominal --> Termostat[11. ТЕРМОСТАТ:<br>Управление клапанами радиаторов по гистерезису +-0.5°C]
+    StateYellow --> Termostat
+    StateOrange --> Termostat
+    StateRed --> Termostat
+    
+    Termostat --> HardwareConsole[12. Вывод параметров на внешнюю Консоль 2х2]
+    HardwareConsole --> ScreenRefresh[13. Обновление графического интерфейса матрицы 8 зон]
+    ScreenRefresh --> Yield[14. ic.yield - Передача кванта времени игре]
+    Yield --> LoopStart
+
+    %% Применение стилей
+    class Start,Init,Cache init;
+    class LoopStart,ReadSensors,Analyze,Choice scan;
+    class Termostat,HardwareConsole,ScreenRefresh,Yield logic;
+    class StateNominal nominal;
+    class StateYellow yellow;
+    class StateOrange orange;
+    class StateRed red;
