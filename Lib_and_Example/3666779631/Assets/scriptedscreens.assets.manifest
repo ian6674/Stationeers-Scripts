@@ -1,0 +1,198 @@
+ManifestFileVersion: 0
+CRC: 1938382301
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 821ad9c5e423fb1863eda78d092cb991
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7ca14c7b6592ae960ac85b697b8ebfa5
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 821ad9c5e423fb1863eda78d092cb991
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 19001, guid: 0000000000000000e000000000000000, type: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 94d50e858330fe644bf7ec54acefcbfb, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 508dcd00dd7b46948a8aae8e7e6e4bba, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4cb0eb96c6a177c409791bad92d84674, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a1b2c3d4e5f60718293a4b5c6d7e8f90, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b0a9f8e7d6c5b4a39281706f5e4d3c2b, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.ColorSwatch
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.IndestructableDamageState
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.Interactable
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.Item/DecayMixture
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.Slot
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.ToolUse
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Alcohol
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Astroloy
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Biomass
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Carbon
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Cheese
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Cobalt
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Cocoa
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorBlue
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorGreen
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorOrange
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorRed
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorYellow
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Constantan
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Copper
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Corn
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Egg
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Electrum
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Fenoxitone
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Flour
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Gold
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Hastelloy
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Hydrocarbon
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Inconel
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Invar
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Iron
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Lead
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Milk
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Mushroom
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Nickel
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Oil
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Plastic
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Potato
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Pumpkin
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ReagentMixture
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Rice
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.SalicylicAcid
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Silicon
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Silver
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Solder
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Soy
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Steel
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Stellite
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Sugar
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Tomato
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Uranium
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Waspaloy
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Wheat
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.FaceInfo
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.Glyph
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.GlyphMetrics
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.GlyphRect
+- AssemblyName: UnityEngine.TextCoreTextEngineModule
+  ClassName: UnityEngine.TextCore.Text.Character
+- AssemblyName: UnityEngine.TextCoreTextEngineModule
+  ClassName: UnityEngine.TextCore.Text.FontAssetCreationEditorSettings
+- AssemblyName: UnityEngine.TextCoreTextEngineModule
+  ClassName: UnityEngine.TextCore.Text.FontFeatureTable
+- AssemblyName: UnityEngine.TextCoreTextEngineModule
+  ClassName: UnityEngine.TextCore.Text.FontWeightPair
+Assets:
+- Assets/Prefabs/CartridgeIntegratedCircuitLuaWirelessBlueprint.prefab
+- Assets/Prefabs/CartridgeIntegratedCircuitLuaWireless.prefab
+- Assets/Prefabs/MotherboardIntegratedCircuit.prefab
+- Assets/Prefabs/CircuitboardIntegratedCircuit.prefab
+- Assets/Prefabs/ProgrammableVisorGlassesBlueprint.prefab
+- Assets/Prefabs/CircuitboardIntegratedCircuitBlueprint.prefab
+- Assets/Resources/fonts/SS_DejaVu_Fallback.asset
+- Assets/Prefabs/CartridgeIntegratedCircuitLua.prefab
+- Assets/Prefabs/ProgrammableVisorGlasses.prefab
+- Assets/Prefabs/ItemSensorLenses.fbx
+- Assets/Prefabs/ItemSensorLenses_0.fbx
+- Assets/Prefabs/MotherboardIntegratedCircuitBlueprint.prefab
+- Assets/Prefabs/CartridgeIntegratedCircuitLuaBlueprint.prefab
+Dependencies: []

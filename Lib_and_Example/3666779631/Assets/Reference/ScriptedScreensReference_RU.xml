@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Справочные данные ScriptedScreens Lua API для панели справки IC10Editor.
+  Компилируется как EmbeddedResource. Загружается ScriptedScreensReferenceProvider.cs
+  и регистрируется через LuaReferenceData посредством рефлексии.
+  
+  Схема: <LuaReference> → <Section> → <Category> → <Entry>
+-->
+<LuaReference>
+
+  <Section name="ScriptedScreens">
+
+    <Category name="API поверхности">
+      <Entry name="surface:element" signature="surface:element(def)" description="Создать или обновить UI-элемент. def — таблица с type, id, rect, props, style, on_click, on_change и т.д." example="local h = surface:element({type='label', id='t', rect={0,0,200,30}, props={text='Hello'}})" />
+      <Entry name="surface:clear" signature="surface:clear()" description="Удалить все элементы с поверхности." />
+      <Entry name="surface:remove" signature="surface:remove(id)" description="Удалить конкретный элемент по его id." />
+      <Entry name="surface:get" signature="surface:get(id)" description="Получить дескриптор существующего элемента по id. Возвращает таблицу или nil." />
+      <Entry name="surface:commit" signature="surface:commit()" description="Немедленно отправить ожидающие изменения UI клиентам." />
+      <Entry name="surface:size" signature="surface:size()" description="Получить физический размер экрана. Возвращает {w, h}." />
+      <Entry name="surface:set_resolution" signature="surface:set_resolution(w, h)" description="Установить виртуальное разрешение. Передайте 0,0 для возврата к физическому размеру." />
+      <Entry name="surface:get_resolution" signature="surface:get_resolution()" description="Получить текущее эффективное разрешение. Возвращает {w, h}." />
+      <Entry name="surface:measure_text" signature="surface:measure_text(text [, maxWidth, fontSize, wrap])" description="Измерить размеры текста. Возвращает {w, h}." />
+      <Entry name="surface:layout" signature="surface:layout(def)" description="Создать дерево вложенной компоновки. Возвращает таблицу дескрипторов по id элементов." example="local h = surface:layout({layout='flex', rect={0,0,400,300}, children={...}})" />
+      <Entry name="surface:on_frame" signature="surface:on_frame(callback)" description="Зарегистрировать callback, вызываемый каждый кадр. Передайте nil для отмены." />
+      <Entry name="surface:on_keydown" signature="surface:on_keydown(handler)" description="Зарегистрировать обработчик нажатия клавиш на этой поверхности." />
+      <Entry name="surface:on_keyup" signature="surface:on_keyup(handler)" description="Зарегистрировать обработчик отпускания клавиш на этой поверхности." />
+      <Entry name="surface:poll_input" signature="surface:poll_input()" description="Извлечь и вернуть все ожидающие события ввода в виде таблицы." />
+    </Category>
+
+    <Category name="Типы элементов">
+      <Entry name="label" signature="type='label'" description="Текстовая метка. Props: text. Style: font_size, color, align. Rich text TMP, кроме случая с &lt;noparse&gt; в тексте." example="surface:element({type='label', id='lbl', rect={0,0,200,30}, props={text='Hello'}, style={font_size=18, color='#FFF'}})" />
+      <Entry name="panel" signature="type='panel'" description="Цветной прямоугольник. Style: bg; опционально gradient, gradient_dir (без border_* — рамка через rect_outline)." />
+      <Entry name="button" signature="type='button'" description="Кнопка с текстом. Props: text, value. Style: bg, text, font_size. События: on_click." />
+      <Entry name="interface_button" signature="type='interface_button'" description="Кнопка, открывающая игровой интерфейс (напр. выбор слота). Props: text." />
+      <Entry name="progress" signature="type='progress'" description="Индикатор прогресса. Props: value, min, max, indeterminate, direction (ss.direction...). Style: bg, fill, color_stops, speed, gradient, gradient_dir." />
+      <Entry name="spinner" signature="type='spinner'" description="Спиннер. Style: color, track_color, thickness, arc_length, speed." />
+      <Entry name="image" signature="type='image'" description="Удалённое изображение (PNG/JPG/GIF). Props: url." example="surface:element({type='image', id='img', rect={0,0,128,128}, props={url='https://...'}})" />
+      <Entry name="checkbox" signature="type='checkbox'" description="Флажок. Props: text, checked. Style: bg, check_color, text, font_size. События: on_click." />
+      <Entry name="radio" signature="type='radio'" description="Радиокнопка. Props: text, selected. Style: bg, radio_color, text, font_size. События: on_click (группы в скрипте)." />
+      <Entry name="slider" signature="type='slider'" description="Ползунок. Props: value, min, max, direction (ss.direction...). Style: bg, fill, handle. События: on_change." />
+      <Entry name="toggle" signature="type='toggle'" description="Переключатель. Props: value. Style: on_color, off_color, knob. События: on_click." />
+      <Entry name="select" signature="type='select'" description="Выпадающий список. Props: options, selected, multi, open. Style: bg, text, font_size, selected_bg. События: on_change; on_toggle опционально (шапка списка)." />
+      <Entry name="textinput" signature="type='textinput'" description="Поле ввода. Props: value, placeholder, title. Style: bg, text, placeholder_color, font_size. События: on_change." />
+      <Entry name="table" signature="type='table'" description="Таблица данных с заголовками и строками. Props: columns, rows, headerColor, rowColor, on_click, sort_rows." />
+      <Entry name="sparkline" signature="type='sparkline'" description="Мини-график. Props: data (таблица чисел), color, lineWidth." />
+      <Entry name="gauge" signature="type='gauge'" description="Круговой индикатор. Props: value (0..1), min, max, color, label." />
+      <Entry name="barchart" signature="type='barchart'" description="Столбчатая диаграмма. Props: data, labels, colors, maxValue." />
+      <Entry name="linechart" signature="type='linechart'" description="Линейный график с осями. Props: series, labels, colors, maxY." />
+      <Entry name="canvas" signature="type='canvas'" description="Пиксельная поверхность для рисования. Используйте методы canvas_*." example="surface:element({type='canvas', id='c', rect={0,0,128,64}})" />
+      <Entry name="media" signature="type='media'" description="Элемент воспроизведения видео/аудио (экспериментальный). Props: url, autoplay, loop, volume." />
+      <Entry name="sound" signature="type='sound'" description="Элемент воспроизведения аудио. Props: url, volume, loop." />
+      <Entry name="line" signature="type='line'" description="Линия между точками. Props: x1,y1,x2,y2. Style: color, thickness." />
+      <Entry name="rect_outline" signature="type='rect_outline'" description="Контур прямоугольника. Style: color, thickness (по умолчанию 2)." />
+      <Entry name="border" signature="type='border'" description="Псевдоним rect_outline. Style: color, thickness." />
+      <Entry name="circle" signature="type='circle'" description="Эллипс по rect (style.bg) или кольцо (props.filled=false, style.color, style.thickness); равные w/h — круг, меш." />
+      <Entry name="icon" signature="type='icon'" description="Игровая иконка. Props: name, icon_type. Style: tint." />
+      <Entry name="divider" signature="type='divider'" description="Разделитель. Style: color." />
+      <Entry name="scrollview" signature="type='scrollview'" description="Прокручиваемый контейнер. Props: contentHeight. Дочерние элементы размещаются внутри." />
+    </Category>
+
+    <Category name="Методы дескриптора элемента">
+      <Entry name="handle:set_props" signature="handle:set_props({...})" description="Обновить свойства элемента (text, value, checked и т.д.)." example="h:set_props({text='Обновлено', fontSize=20})" />
+      <Entry name="handle:set_style" signature="handle:set_style({...})" description="Обновить стиль элемента (те же ключи, что в style у surface:element: bg, text, fill, gradient и т.д.)." />
+      <Entry name="handle:on" signature="handle:on(event, handler)" description="Зарегистрировать обработчик события. События: click, change, toggle." example="h:on('click', function(val, player) ... end)" />
+      <Entry name="handle:off" signature="handle:off(event)" description="Отменить регистрацию обработчика события." />
+      <Entry name="handle:element" signature="handle:element(def)" description="Создать вложенный дочерний элемент внутри этого элемента." />
+    </Category>
+
+    <Category name="Рисование на Canvas">
+      <Entry name="canvas_clear" signature="surface:canvas_clear(canvasId, r, g, b [, a])" description="Очистить холст сплошным цветом." />
+      <Entry name="canvas_pixel" signature="surface:canvas_pixel(canvasId, x, y, r, g, b [, a])" description="Установить один пиксель на холсте." />
+      <Entry name="canvas_line" signature="surface:canvas_line(canvasId, x0, y0, x1, y1, r, g, b [, a, thickness])" description="Нарисовать линию между двумя точками." />
+      <Entry name="canvas_hline" signature="surface:canvas_hline(canvasId, y, x1, x2, r, g, b [, a])" description="Нарисовать горизонтальную линию." />
+      <Entry name="canvas_vline" signature="surface:canvas_vline(canvasId, x, y1, y2, r, g, b [, a])" description="Нарисовать вертикальную линию." />
+      <Entry name="canvas_rect" signature="surface:canvas_rect(canvasId, x, y, w, h, r, g, b [, a])" description="Нарисовать заполненный прямоугольник." />
+      <Entry name="canvas_rect_outline" signature="surface:canvas_rect_outline(canvasId, x, y, w, h, r, g, b [, a, thickness])" description="Нарисовать контур прямоугольника." />
+      <Entry name="canvas_circle" signature="surface:canvas_circle(canvasId, cx, cy, radius, r, g, b [, a, thickness])" description="Нарисовать контур круга." />
+      <Entry name="canvas_fill_circle" signature="surface:canvas_fill_circle(canvasId, cx, cy, radius, r, g, b [, a])" description="Нарисовать заполненный круг." />
+      <Entry name="canvas_fill_triangle" signature="surface:canvas_fill_triangle(canvasId, x0, y0, x1, y1, x2, y2, r, g, b [, a])" description="Нарисовать заполненный треугольник." />
+      <Entry name="canvas_polyline" signature="surface:canvas_polyline(canvasId, points, r, g, b [, a, thickness])" description="Нарисовать соединённые отрезки. points = {x1,y1,x2,y2,...}." />
+      <Entry name="canvas_arc" signature="surface:canvas_arc(canvasId, cx, cy, radius, startAngle, endAngle, r, g, b [, a, thickness])" description="Нарисовать дугу. Углы в градусах." />
+      <Entry name="canvas_apply" signature="surface:canvas_apply(canvasId)" description="Применить ожидающие изменения холста к текстуре." />
+    </Category>
+
+    <Category name="Система компоновки">
+      <Entry name="layout: flex" signature="layout='flex'" description="Flex-контейнер. Props: direction ('row'/'column'), gap, padding, align, justify." example="surface:layout({layout='flex', direction='column', gap=4, children={...}})" />
+      <Entry name="layout: grid" signature="layout='grid'" description="Grid-контейнер. Props: cols, gap, padding, row_height." example="surface:layout({layout='grid', cols=3, gap=4, row_height=30, children={...}})" />
+      <Entry name="child: flex" signature="flex=N" description="В flex-компоновке — пропорциональный вес дочернего элемента." example="{id='a', flex=1, ...}  -- занимает 1 долю доступного пространства" />
+      <Entry name="child: fixed size" signature="rect={w=N} or rect={h=N}" description="В flex-компоновке — фиксированный размер в пикселях." example="{id='b', rect={w=100}, ...}  -- ровно 100px в ширину" />
+      <Entry name="padding" signature="padding=N or padding={top,right,bottom,left}" description="Внутренние отступы для контейнеров компоновки. Одно число или таблица по сторонам." />
+    </Category>
+
+  </Section>
+
+</LuaReference>

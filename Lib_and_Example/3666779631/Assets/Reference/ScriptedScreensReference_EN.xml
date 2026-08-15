@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ScriptedScreens Lua API Reference Data for the IC10Editor in-game reference panel.
+  Compiled as EmbeddedResource. Loaded by ScriptedScreensReferenceProvider.cs
+  and registered with StationeersLua's LuaReferenceData via reflection.
+  
+  Schema: <LuaReference> ΓåÆ <Section> ΓåÆ <Category> ΓåÆ <Entry>
+-->
+<LuaReference>
+
+  <Section name="ScriptedScreens">
+
+    <Category name="Root API">
+      <Entry name="ss.ui.surface" signature="ss.ui.surface(name [, screenIndex])" description="Create a surface table for the given surface name. Returns a surface handle with methods for creating/managing UI elements. Defaults to 'main' if name is omitted. screenIndex defaults to 0 for main surfaces or 1 for 'config'." example="local ui = ss.ui.surface('mainui')" />
+      <Entry name="ss.ui.activate" signature="ss.ui.activate(name [, screenIndex])" description="Activate the given surface on the screen. Only one surface is visible per screen index at a time. Call this before committing elements so the surface is displayed." example="ss.ui.activate('mainui')" />
+      <Entry name="ss.ui.icons" signature="ss.ui.icons" description="Table of icon name constants for use with the 'icon' element type. Contains sub-tables: gas, slot, prefab." />
+      <Entry name="ss.ui.icons.gas" signature="ss.ui.icons.gas" description="Gas icon constants. Keys are gas names (e.g. Oxygen, CarbonDioxide, Nitrogen, Volatiles, Pollutant, Water, NitrousOxide, Hydrogen). Values are 'gas:Name' strings for use in icon element props." example="props = { iconName = ss.ui.icons.gas.Oxygen }" />
+      <Entry name="ss.ui.icons.slot" signature="ss.ui.icons.slot" description="Slot icon constants. Keys are SlotType enum names (e.g. Helmet, Suit, Back, GasFilter, GasCanister, Battery, Motherboard). Values are 'slot:Name' strings." example="props = { iconName = ss.ui.icons.slot.Helmet }" />
+      <Entry name="ss.ui.icons.prefab" signature="ss.ui.icons.prefab" description="Prefab icon constants. Curated shortcuts to common game item icons. Keys are short names (e.g. ore_iron, ingot_gold, pipe_straight, solar_panel). Values are 'prefab:PrefabName' strings." example="props = { iconName = ss.ui.icons.prefab.solar_panel }" />
+      <Entry name="ss.ui.grid" signature="ss.ui.grid(cols, gap, padding)" description="Helper that returns a grid layout definition table. Shorthand for {layout='grid', cols=cols, gap=gap, padding=padding}." example="local g = ss.ui.grid(3, 4, 8)" />
+      <Entry name="ss.ui.flex" signature="ss.ui.flex(direction, gap, padding)" description="Helper that returns a flex layout definition table. Shorthand for {layout='flex', direction=direction, gap=gap, padding=padding}." example="local f = ss.ui.flex('column', 4, 8)" />
+      <Entry name="ss.ui.gradient" signature="ss.ui.gradient(startColor, endColor [, direction])" description="Helper that returns a gradient style string for backgrounds. direction defaults to 'vertical'." example="style = { bg = ss.ui.gradient('#ff0000', '#0000ff') }" />
+      <Entry name="ss.play_sound" signature="ss.play_sound(src [, opts])" description="Play a sound by name or URL. opts is an optional table with volume (0..1, default 1), loop (bool, default false), and id (string). Returns the sound id for later stopping." example="local id = ss.play_sound('alert_warning', {volume=0.5})" />
+      <Entry name="ss.stop_sound" signature="ss.stop_sound(id)" description="Stop a playing sound by its id (returned from ss.play_sound)." />
+      <Entry name="ss.stop_all_sounds" signature="ss.stop_all_sounds()" description="Stop all currently playing sounds on this board." />
+      <Entry name="ss.sounds" signature="ss.sounds" description="Table of built-in sound name constants. Contains named keys like 'click', 'beep', 'alarm', etc. Also contains ss.sounds.alerts sub-table." example="ss.play_sound(ss.sounds.click)" />
+      <Entry name="ss.direction" signature="ss.direction" description="Table of direction constants for progress bars and sliders. Keys: LeftToRight ('ltr'), RightToLeft ('rtl'), TopToBottom ('ttb'), BottomToTop ('btt')." example="props = { direction = ss.direction.TopToBottom }" />
+      <Entry name="ss.exit_interface_mode" signature="ss.exit_interface_mode()" description="Exit the current interface mode (if active). Interface mode provides a full-screen cursor for precise UI interaction." />
+      <Entry name="ss.is_interface_mode" signature="ss.is_interface_mode()" description="Returns true if the player is currently in interface mode." />
+    </Category>
+
+    <Category name="Tablet API">
+      <Entry name="ss.tablet.target" signature="ss.tablet.target(callback [, interval, includeRoomAtmos])" description="Subscribe to target detection events. When the player looks at a Thing while holding the tablet, the callback is invoked with a target data table containing fields like referenceId, prefabHash, displayName, customName, logicValues, slots, and atmospherics. interval controls update frequency in seconds (default 0.1). Pass nil as callback to unsubscribe." example="ss.tablet.target(function(data) print(data.displayName) end, 0.5)" />
+      <Entry name="ss.tablet.wireless.list" signature="ss.tablet.wireless.list()" description="List available wireless networks. Returns a table of network info tables. Requires a wireless-capable cartridge." />
+      <Entry name="ss.tablet.wireless.connect" signature="ss.tablet.wireless.connect(networkId)" description="Connect to a wireless network by its network ID. Requires a wireless-capable cartridge." />
+      <Entry name="ss.tablet.wireless.disconnect" signature="ss.tablet.wireless.disconnect()" description="Disconnect from the current wireless network." />
+      <Entry name="ss.tablet.wireless.status" signature="ss.tablet.wireless.status()" description="Get the current wireless connection status. Returns a table with connected (bool), networkId, and signal strength." />
+    </Category>
+
+    <Category name="Surface API">
+      <Entry name="surface:element" signature="surface:element(def)" description="Create or update a UI element. def is a table with type, id, rect, props, style, on_click, on_change, etc." example="local h = surface:element({type='label', id='t', rect={0,0,200,30}, props={text='Hello'}})" />
+      <Entry name="surface:clear" signature="surface:clear()" description="Remove all elements from the surface." />
+      <Entry name="surface:remove" signature="surface:remove(id)" description="Remove a specific element by its id." />
+      <Entry name="surface:get" signature="surface:get(id)" description="Get a handle to an existing element by id. Returns a handle table or nil." />
+      <Entry name="surface:commit" signature="surface:commit()" description="Flush pending UI changes to clients immediately." />
+      <Entry name="surface:size" signature="surface:size()" description="Get the physical screen size. Returns {w, h}." />
+      <Entry name="surface:set_resolution" signature="surface:set_resolution(w, h)" description="Set a virtual resolution override. Pass 0,0 to revert to physical size." />
+      <Entry name="surface:get_resolution" signature="surface:get_resolution()" description="Get the current effective resolution. Returns {w, h}." />
+      <Entry name="surface:measure_text" signature="surface:measure_text(text [, maxWidth, fontSize, wrap])" description="Measure text dimensions. Returns {w, h}." />
+      <Entry name="surface:layout" signature="surface:layout(def)" description="Create a nested layout tree. Returns a handles table mapping element id to handle." example="local h = surface:layout({layout='flex', rect={0,0,400,300}, children={...}})" />
+      <Entry name="surface:on_frame" signature="surface:on_frame(callback)" description="Register a callback invoked every frame. Pass nil to unregister." />
+      <Entry name="surface:on_keydown" signature="surface:on_keydown(handler)" description="Register a handler for key-down events on this surface." />
+      <Entry name="surface:on_keyup" signature="surface:on_keyup(handler)" description="Register a handler for key-up events on this surface." />
+      <Entry name="surface:poll_input" signature="surface:poll_input()" description="Drain and return all pending input events as a table." />
+    </Category>
+
+    <Category name="Element Types">
+      <Entry name="label" signature="type='label'" description="Text label. Props: text. Style: font_size, color, align. TMP rich text unless text contains &lt;noparse&gt;." example="surface:element({type='label', id='lbl', rect={0,0,200,30}, props={text='Hello'}, style={font_size=18, color='#FFF'}})" />
+      <Entry name="panel" signature="type='panel'" description="Colored rectangle. Style: bg; optional gradient via gradient, gradient_dir (no border_* keys — use rect_outline sibling)." />
+      <Entry name="button" signature="type='button'" description="Clickable button with text. Props: text, value. Style: bg, text, font_size. Events: on_click." />
+      <Entry name="interface_button" signature="type='interface_button'" description="Button that opens a game interface (e.g. slot selection). Props: text." />
+      <Entry name="progress" signature="type='progress'" description="Progress bar. Props: value, min, max, indeterminate, direction (ss.direction.LeftToRight/.RightToLeft/.TopToBottom/.BottomToTop). Style: bg, fill, color_stops, speed, gradient, gradient_dir." />
+      <Entry name="spinner" signature="type='spinner'" description="Animated loading spinner. Style: color, track_color, thickness, arc_length, speed." />
+      <Entry name="image" signature="type='image'" description="Remote image (PNG/JPG/GIF). Props: url." example="surface:element({type='image', id='img', rect={0,0,128,128}, props={url='https://...'}})" />
+      <Entry name="checkbox" signature="type='checkbox'" description="Checkbox. Props: text, checked. Style: bg, check_color, text, font_size. Events: on_click." />
+      <Entry name="radio" signature="type='radio'" description="Radio button. Props: text, selected. Style: bg, radio_color, text, font_size. Events: on_click (grouping is script-side)." />
+      <Entry name="slider" signature="type='slider'" description="Draggable slider. Props: value, min, max, direction (ss.direction.LeftToRight/.RightToLeft/.TopToBottom/.BottomToTop). Style: bg, fill, handle. Events: on_change." />
+      <Entry name="toggle" signature="type='toggle'" description="Toggle switch. Props: value (true/false). Style: on_color, off_color, knob. Events: on_click." />
+      <Entry name="select" signature="type='select'" description="Dropdown select. Props: options (table of strings), selected, multi ('none'/'highlight'/'checkbox'), open. Style: bg, text, font_size, selected_bg. Events: on_change; on_toggle optional (dropdown header)." />
+      <Entry name="textinput" signature="type='textinput'" description="Text input. Props: value, placeholder, title. Style: bg, text, placeholder_color, font_size. Events: on_change." />
+      <Entry name="table" signature="type='table'" description="Data table with headers and rows. Props: columns, rows, headerColor, rowColor, on_click, sort_rows." />
+      <Entry name="sparkline" signature="type='sparkline'" description="Mini line chart. Props: data (table of numbers), color, lineWidth." />
+      <Entry name="gauge" signature="type='gauge'" description="Circular gauge. Props: value (0..1), min, max, color, label." />
+      <Entry name="barchart" signature="type='barchart'" description="Bar chart. Props: data, labels, colors, maxValue." />
+      <Entry name="linechart" signature="type='linechart'" description="Line chart with axes. Props: series, labels, colors, maxY." />
+      <Entry name="canvas" signature="type='canvas'" description="Pixel-addressable drawing surface. Use canvas_* methods to draw." example="surface:element({type='canvas', id='c', rect={0,0,128,64}})" />
+      <Entry name="media" signature="type='media'" description="Video/audio playback element (experimental). Props: url, autoplay, loop, volume." />
+      <Entry name="sound" signature="type='sound'" description="Audio playback element. Props: url, volume, loop." />
+      <Entry name="line" signature="type='line'" description="Line between two points. Props: x1,y1,x2,y2. Style: color, thickness." />
+      <Entry name="rect_outline" signature="type='rect_outline'" description="Rectangle outline only. Style: color, thickness (default 2)." />
+      <Entry name="border" signature="type='border'" description="Alias for rect_outline. Style: color, thickness." />
+      <Entry name="circle" signature="type='circle'" description="Filled ellipse in rect (style.bg) or ring (props.filled=false, style.color, style.thickness); equal w/h = circle mesh." />
+      <Entry name="icon" signature="type='icon'" description="Game icon. Props: name, icon_type. Style: tint." />
+      <Entry name="divider" signature="type='divider'" description="Divider bar. Style: color." />
+      <Entry name="scrollview" signature="type='scrollview'" description="Scrollable container. Props: contentHeight. Children are placed inside." />
+    </Category>
+
+    <Category name="Element Handle Methods">
+      <Entry name="handle:set_props" signature="handle:set_props({...})" description="Update the element's props (text, value, checked, etc.)." example="h:set_props({text='Updated', fontSize=20})" />
+      <Entry name="handle:set_style" signature="handle:set_style({...})" description="Update the element's style (same keys as surface:element style: bg, text, fill, gradient, etc.)." />
+      <Entry name="handle:on" signature="handle:on(event, handler)" description="Register an event handler. Events: click, change, toggle." example="h:on('click', function(val, player) ... end)" />
+      <Entry name="handle:off" signature="handle:off(event)" description="Unregister an event handler." />
+      <Entry name="handle:element" signature="handle:element(def)" description="Create a nested child element inside this element." />
+    </Category>
+
+    <Category name="Canvas Drawing">
+      <Entry name="surface:canvas_clear" signature="surface:canvas_clear(canvasId, r, g, b [, a])" description="Clear the canvas to a solid color." />
+      <Entry name="surface:canvas_pixel" signature="surface:canvas_pixel(canvasId, x, y, r, g, b [, a])" description="Set a single pixel on the canvas." />
+      <Entry name="surface:canvas_line" signature="surface:canvas_line(canvasId, x0, y0, x1, y1, r, g, b [, a, thickness])" description="Draw a line between two points." />
+      <Entry name="surface:canvas_hline" signature="surface:canvas_hline(canvasId, y, x1, x2, r, g, b [, a])" description="Draw a horizontal line." />
+      <Entry name="surface:canvas_vline" signature="surface:canvas_vline(canvasId, x, y1, y2, r, g, b [, a])" description="Draw a vertical line." />
+      <Entry name="surface:canvas_rect" signature="surface:canvas_rect(canvasId, x, y, w, h, r, g, b [, a])" description="Draw a filled rectangle." />
+      <Entry name="surface:canvas_rect_outline" signature="surface:canvas_rect_outline(canvasId, x, y, w, h, r, g, b [, a, thickness])" description="Draw a rectangle outline." />
+      <Entry name="surface:canvas_circle" signature="surface:canvas_circle(canvasId, cx, cy, radius, r, g, b [, a, thickness])" description="Draw a circle outline." />
+      <Entry name="surface:canvas_fill_circle" signature="surface:canvas_fill_circle(canvasId, cx, cy, radius, r, g, b [, a])" description="Draw a filled circle." />
+      <Entry name="surface:canvas_fill_triangle" signature="surface:canvas_fill_triangle(canvasId, x0, y0, x1, y1, x2, y2, r, g, b [, a])" description="Draw a filled triangle." />
+      <Entry name="surface:canvas_polyline" signature="surface:canvas_polyline(canvasId, points, r, g, b [, a, thickness])" description="Draw connected line segments. points is {x1,y1,x2,y2,...}." />
+      <Entry name="surface:canvas_arc" signature="surface:canvas_arc(canvasId, cx, cy, radius, startAngle, endAngle, r, g, b [, a, thickness])" description="Draw an arc. Angles in degrees." />
+      <Entry name="surface:canvas_apply" signature="surface:canvas_apply(canvasId)" description="Apply pending canvas changes to the texture (flush draw commands)." />
+    </Category>
+
+    <Category name="Layout System">
+      <Entry name="layout: flex" signature="layout='flex'" description="Flex layout container. Props: direction ('row'/'column'), gap, padding, align, justify." example="surface:layout({layout='flex', direction='column', gap=4, children={...}})" />
+      <Entry name="layout: grid" signature="layout='grid'" description="Grid layout container. Props: cols, gap, padding, row_height." example="surface:layout({layout='grid', cols=3, gap=4, row_height=30, children={...}})" />
+      <Entry name="child: flex" signature="flex=N" description="In a flex layout, proportional size weight for a child." example="{id='a', flex=1, ...}  -- takes 1 share of available space" />
+      <Entry name="child: fixed size" signature="rect={w=N} or rect={h=N}" description="In a flex layout, fixed pixel size for a child." example="{id='b', rect={w=100}, ...}  -- exactly 100px wide" />
+      <Entry name="padding" signature="padding=N or padding={top,right,bottom,left}" description="Inner padding for layout containers. Single number or per-side table." />
+    </Category>
+
+  </Section>
+
+</LuaReference>

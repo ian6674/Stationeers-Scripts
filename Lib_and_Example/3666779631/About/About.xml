@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ScriptedScreens [StationeersLaunchPad]</Name>
+	<Author>zedle</Author>
+	<Version>0.9.5.0</Version>
+	<Description>
+[h1]ScriptedScreens[/h1]
+[i]Custom touchscreen UIs for Stationeers using Lua — dashboards, monitoring, control panels, and games rendered on in-game screens and tablets.[/i]
+
+[url=https://discord.gg/HxvySSu5G3][img]https://img.shields.io/badge/Discord-Orbital%20Foundry-5865F2?logo=discord&amp;logoColor=white[/img][/url]  [url=https://ko-fi.com/G2G61S5ZB5][img]https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=ko-fi&amp;logoColor=white[/img][/url]
+
+[hr][/hr]
+
+[h2]v0.9 highlights[/h2]
+[list]
+[*] [b]Programmable Visor:[/b] glasses with Lua HUD overlays (ss.hud), new HUD samples (draggable panels, status overlays, Pong), and lens tint from Lua or the item UI. Thanks to WIKUS for the visor model!
+[*] [b]UI and layout:[/b] draggable panels, drag groups, payload drag-and-drop, optional drag_bounds, row/column layout helpers, and ss.client_overlay() with helpers to place HUDs around vanilla hands, suit, inventories, and Stationpedia.
+[*] [b]Multiplayer and polish:[/b] visor sizing and overlays behave on dedicated servers and for late joiners; pause no longer reboots nearby ScriptedScreens Lua; on_frame survives drop and re-equip; smarter select dropdowns; easier clicking on large and wall-mounted screens when using the free mouse cursor.
+[*] [b]Power users:[/b] same optional StationeersLua [b]MCP[/b] and REST story as before — list boards and cartridges, patch UI Lua, stream logs when you enable matching settings in StationeersLua; canvas_begin_update / canvas_commit_update batching, on_frame, wireless cartridges with ic.net parity, z_index and pin_label still ship with the mod.
+[/list]
+
+[hr][/hr]
+
+[h2]Requirements[/h2]
+[list]
+[*] [url=https://github.com/BepInEx/BepInEx]BepInEx 5.x[/url] — Unity mod framework
+[*] [url=https://github.com/StationeersLaunchPad/StationeersLaunchPad]StationeersLaunchPad[/url] — Stationeers modding framework
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3659911735]StationeersLua[/url] — Lua scripting for programmable chips [b](REQUIRED — install first; ScriptedScreens will not load without it)[/b]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3592775931]IC10Editor[/url] — In-game code editor (Steam Workshop)
+[/list]
+[i]Script version lines track StationeersLua compatibility — skim both workshop pages after major game updates.[/i]
+
+[hr][/hr]
+
+[h2]Crafted hardware[/h2]
+Boards are crafted at the electronics printer. [b]Programmable Visor (Lua Chip)[/b] is crafted at the tool manufactory (Tier 2). [b]Motherboard (Lua Chip)[/b] slots into a Computer with one [b]Integrated Circuit (Lua)[/b] socket, six device ports (d0–d5), and two screen surfaces — ideal for fixed installs. [b]Circuitboard (Lua Chip)[/b] is the compact variant with the same chip slot. [b]Cartridge (Lua Chip)[/b] is the wired tablet package. [b]Cartridge (Lua Chip, Wireless)[/b] adds omni tethering so your UI and ic.net batching behave like a desk board while you EVA.
+
+[hr][/hr]
+
+[h2]Declarative UI system[/h2]
+Define layouts with Lua tables: element kinds, anchors, styles, and callbacks — no C# required. Rich widgets include labels, panels, dividers, lines, circles, rectangles, icons, buttons, checkboxes, radios, toggles, sliders, dropdowns, text inputs, sparklines, bar and line charts, arc gauges, sortable tables, remote images (PNG, JPG, animated GIF), video streaming, built-in and remote audio, scroll views with customizable scrollbars, flex rows and columns, grids, nested containers via ui:layout(), pixel and percentage placement, and virtual resolutions up to 4096x4096. Switch named surfaces with ss.ui.activate() and optionally refresh inactive surfaces in the background.
+
+[hr][/hr]
+
+[h2]Canvas, media, and sound[/h2]
+Pixel-level canvas APIs power custom graphics and lightweight games. Pair batching helpers with on_frame for fluid motion. Game icons and slot thumbnails resolve by name or hash with painted variants where supported. 3D spatialized audio follows the screen; atmosphere-aware volume; Ctrl+Alt+Scroll adjusts per-screen volume when enabled.
+
+[hr][/hr]
+
+[h2]Input and targeting[/h2]
+Pointer click, change, and toggle events cover most panels. Interface Mode captures the full keyboard for text entry and games; click the panel to enter and press ALT to exit. Frame-aligned input polling complements event callbacks for twitchy interactions.
+
+[hr][/hr]
+
+[h2]Multiplayer and persistence[/h2]
+UI state replicates to clients with the same mod installed; busy canvases use batched begin/commit updates with XOR diffs and LZ4 for remote parity. Join snapshots bring late players current. Board UI state persists across saves. Unicode text renders through bundled font assets.
+
+[hr][/hr]
+
+[h2]Samples and editor quality[/h2]
+The [b]Examples/[/b] folder ships monitoring stacks, arcade mini-games, airlock templates, sparkline telemetry, and flex-heavy console shells. Recent work tightens multiplayer ordering for overlapping widgets, safer hot-reload defaults, and clearer IC10Editor diagnostics when a surface callback throws.
+
+[hr][/hr]
+
+[h2]🚀 Quick start[/h2]
+[olist]
+[*] Install BepInEx, StationeersLaunchPad, StationeersLua, and IC10Editor, then subscribe to ScriptedScreens.
+[*] Place a Computer, insert a ScriptedScreens motherboard or circuitboard, and add an Integrated Circuit (Lua) in the built-in slot.
+[*] Open IC10Editor, paste an example from the Examples folder, and publish to the chip.
+[*] If nothing draws, call ss.ui.activate("main") or the surface name you defined.
+[/olist]
+See [b]GUIDE.MD[/b] for walkthroughs, API tables, and advanced patterns.
+
+[hr][/hr]
+
+[h2]Troubleshooting[/h2]
+[list]
+[*] [b]Blank UI?[/b] Confirm you are on a ScriptedScreens board, the Lua chip is present, and the active surface name matches your script.
+[*] [b]Clicks ignored?[/b] The element must sit on the active surface and sit above neighbors in z_index.
+[*] [b]Keyboard stuck?[/b] Exit Interface Mode with ALT.
+[*] [b]Mod missing?[/b] StationeersLua must load first; check the BepInEx log for dependency errors.
+[*] [b]Canvas desync?[/b] Every player needs ScriptedScreens installed for reliable canvas replication.
+[/list]
+
+[hr][/hr]
+
+[h2]Documentation[/h2]
+[list]
+[*] [url=https://orbitalfoundrymodteam.github.io/ScriptedScreensDocs/]📖 Online documentation[/url] — full API reference, guides, and screenshots
+[*] [b]GUIDE.MD[/b] — comprehensive feature tour with copy-paste samples
+[*] [b]Examples/[/b] — 30+ ready scripts spanning dashboards, games, HUDs, and industrial panels
+[/list]
+
+[hr][/hr]
+
+[h2]Support and community[/h2]
+[list]
+[*] [url=https://discord.gg/HxvySSu5G3]Discord — Orbital Foundry Mod Team[/url]
+[*] [url=https://ko-fi.com/G2G61S5ZB5]Support on Ko-fi[/url]
+[/list]
+</Description>
+	<WorkshopHandle>3666779631</WorkshopHandle>
+	<Tags>
+		<Tag>Mod</Tag>
+		<Tag>BepInEx</Tag>
+		<Tag>StationeersLaunchPad</Tag>
+	</Tags>
+	<Dependencies>
+		<Mod>
+			<Id>3592775931</Id>
+		</Mod>
+		<Mod>
+			<Id>3659911735</Id>
+		</Mod>
+	</Dependencies>
+	<LoadBefore></LoadBefore>
+</ModMetadata><!-- LastProcessedCommit: HEAD --><!-- LastProcessedVersion: 1.0.0.0 -->

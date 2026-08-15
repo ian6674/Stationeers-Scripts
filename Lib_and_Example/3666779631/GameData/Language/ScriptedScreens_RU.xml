@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language>
+    <Name>ScriptedScreens</Name>
+    <Code>RU</Code>
+    <Font></Font>
+    <Things>
+        <RecordThing>
+            <Key>CircuitboardIntegratedCircuit</Key>
+            <Value>Плата (Чип Lua)</Value>
+            <Description>Плата, принимающая только Интегральную схему (Lua).</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>MotherboardIntegratedCircuit</Key>
+            <Value>Материнская плата (Чип Lua)</Value>
+            <Description>Материнская плата, принимающая только Интегральную схему (Lua).</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>CartridgeIntegratedCircuitLua</Key>
+            <Value>Картридж (Чип Lua)</Value>
+            <Description>Картридж планшета, принимающий только Интегральную схему (Lua).</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>CartridgeIntegratedCircuitLuaWireless</Key>
+            <Value>Картридж (Чип Lua, Беспроводной)</Value>
+            <Description>Беспроводной картридж планшета, принимающий только Интегральную схему (Lua). При активной привязке пассивно расходует заряд батареи планшета.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>ProgrammableVisorGlasses</Key>
+            <Value>Программируемый визор (Чип Lua)</Value>
+            <Description>Питаемые очки со слотом для Интегральной схемы (Lua) и опциональной беспроводной привязкой к сети данных. Для HUD-интерфейса в Lua используйте ss.hud.</Description>
+        </RecordThing>
+    </Things>
+    <Interface>
+        <Record>
+            <Key>ScriptedScreensGuideButton</Key>
+            <Value>ScriptedScreens</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessCartridgeInsertTablet</Key>
+            <Value>Вставьте этот картридж во включённый планшет для использования беспроводного доступа к сети.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudShow</Key>
+            <Value>Показать HUD</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHide</Key>
+            <Value>Скрыть HUD</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHiddenByUser</Key>
+            <Value>Программируемый HUD скрыт (используйте «Показать HUD»).</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightOff</Key>
+            <Value>Визор выключен или нет батареи.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNoChip</Key>
+            <Value>Чип не установлен.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNotLua</Key>
+            <Value>Установите Lua-чип.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightRunning</Key>
+            <Value>Чип работает без ошибок.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightReady</Key>
+            <Value>Визор включён: чип запустится в слоте очков.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorGlassTintNext</Key>
+            <Value>Цвет линзы: {0}</Value>
+        </Record>
+    </Interface>
+    <HomePageButtonsOverride>
+        <SPDAHomePageButtonOverride>
+            <CategoryName>ScriptedScreensGuideButton</CategoryName>
+            <ThingNameForImage>MotherboardIntegratedCircuit</ThingNameForImage>
+            <LinkedPageKey>ScriptedScreens_Guide</LinkedPageKey>
+        </SPDAHomePageButtonOverride>
+    </HomePageButtonsOverride>
+    <HelpPage>
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 1: Главное руководство (стартовая страница)
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_Guide</Key>
+            <Title>Руководство ScriptedScreens</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1000</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:ScriptedScreens}}-
+
+ScriptedScreens позволяет создавать [b]пользовательские сенсорные интерфейсы[/b] на компьютерах, консолях и планшетах Stationeers с помощью Lua. Создавайте панели управления, дашборды, игры и инструменты, отображаемые прямо на экранах в игре.
+
+{{HEADER:Предметы, добавляемые модом}}
+{LIST}
+- {{LINK:ThingCircuitboardIntegratedCircuit;Плата (Чип Lua)}} — вставьте в компьютер для интерфейса на одном экране.
+- {{LINK:ThingMotherboardIntegratedCircuit;Материнская плата (Чип Lua)}} — вставьте в компьютер для интерфейса на нескольких экранах (два дисплея).
+- {{LINK:ThingCartridgeIntegratedCircuitLua;Картридж (Чип Lua)}} — вставьте в планшет для портативного интерфейса.
+- {{LINK:ThingCartridgeIntegratedCircuitLuaWireless;Картридж (Чип Lua, Беспроводной)}} — беспроводной картридж планшета с сетевой привязкой.
+- {{LINK:ThingProgrammableVisorGlasses;Программируемый визор (Чип Lua)}} — HUD в слоте очков для Lua; в скриптах используйте ss.hud. Изготавливается на инструментальном производстве (уровень 2). Подробнее: {{LINK:ScriptedScreens_VisorHUD;HUD программируемого визора}}.
+{/LIST}
+
+Все платы принимают только {{THING:ItemIntegratedCircuitLua}} из мода StationeersLua.
+
+{{HEADER:Требования}}
+{LIST}
+- [b]BepInEx 5.x[/b] — фреймворк для модов
+- [b]StationeersLaunchPad[/b] — загрузчик модов
+- [b]StationeersLua[/b] (ScriptedScreens зависит от него)
+- [b]IC10Editor[/b] (рекомендуется — для редактирования скриптов Lua в игре)
+{/LIST}
+
+{{HEADER:Настройка в игре}}
+{LIST}
+- Разместите [b]Компьютер[/b] или [b]Консоль[/b] (или используйте Планшет).
+- Вставьте [b]Интегральную схему (Lua)[/b] в слот чипа на плате ScriptedScreens.
+- Вставьте плату в компьютер.
+- Откройте IC10Editor и вставьте скрипт Lua.
+- Чтобы подключить внешние устройства к пинам d0–d5: используйте [b]отвёртку[/b] на болте сбоку консоли для открытия экрана конфигурации, или вставьте [b]Дата-диск[/b] в слот для диска компьютера.
+{/LIST}
+
+{{HEADER:Основные концепции}}
+
+[b]Поверхность:[/b] Именованный вид интерфейса (как страница). Создайте с помощью [b]ss.ui.surface("main")[/b]. Только активная поверхность отображается. Переключите с помощью [b]ss.ui.activate("main")[/b].
+
+[b]Элемент:[/b] Виджет интерфейса (метка, кнопка, панель и т.д.), идентифицируемый уникальной строкой [b]id[/b]. Создаётся через [b]ui:element({ id, type, rect, props, style })[/b].
+
+[b]Rect:[/b] Позиция и размер. Используйте [b]unit = "px"[/b] для пикселей или [b]unit = "%"[/b] для процентов. Начало координат — левый верхний угол (Y растёт вниз).
+
+[b]Commit:[/b] Изменения накапливаются в буфере. Вызовите [b]ui:commit()[/b] для немедленного применения, или оно произойдёт автоматически в конце тика.
+
+{{HEADER:Пример быстрого старта}}
+
+[b]local ui = ss.ui.surface("main")[/b]
+[b]ss.ui.activate("main")[/b]
+[b]ui:clear()[/b]
+
+[b]ui:element({[/b]
+[b]    id = "bg", type = "panel",[/b]
+[b]    rect = { unit = "px", x = 0, y = 0, w = 480, h = 272 },[/b]
+[b]    style = { bg = "#0F172A" }[/b]
+[b]})[/b]
+
+[b]ui:element({[/b]
+[b]    id = "title", type = "label",[/b]
+[b]    rect = { unit = "px", x = 20, y = 10, w = 200, h = 40 },[/b]
+[b]    props = { text = "ПРИВЕТ МИР" },[/b]
+[b]    style = { font_size = 24, color = "#22C55E" }[/b]
+[b]})[/b]
+
+[b]ui:element({[/b]
+[b]    id = "btn", type = "button",[/b]
+[b]    rect = { unit = "px", x = 20, y = 212, w = 180, h = 40 },[/b]
+[b]    props = { text = "НАЖМИ МЕНЯ" },[/b]
+[b]    style = { bg = "#334155", text = "#FFFFFF" },[/b]
+[b]    on_click = function(player) print("Нажал: " .. player) end[/b]
+[b]})[/b]
+
+[b]ui:commit()[/b]
+
+{{HEADER:Справочные страницы}}
+{LIST}
+- {{LINK:ScriptedScreens_Elements;Справочник типов элементов}} — все отображаемые, интерактивные и контейнерные элементы
+- {{LINK:ScriptedScreens_UI_API;Справочник UI API}} — Surface API, дескрипторы, события, режим интерфейса, виртуальное разрешение
+- {{LINK:ScriptedScreens_VisorHUD;HUD программируемого визора}} — [b]ss.hud[/b] для оверлея в слоте очков; когда выполняется Lua; [b]ss.client_overlay[/b]; примеры
+- {{LINK:ScriptedScreens_Charts;Графики, таблицы и разметка}} — Sparkline, гистограмма, линейный график, датчик, таблица, сетка, flex, вложенная разметка
+- {{LINK:ScriptedScreens_Media;Холст, изображения, звук и планшет}} — рисование пикселей, удалённые изображения, воспроизведение звука, управление планшетом
+{/LIST}
+
+{{HEADER:Примеры скриптов}}
+Смотрите папку [b]Examples/[/b] в комплекте с модом:
+{LIST}
+- [b]WidgetShowcase.lua[/b] — демонстрация всех виджетов: графики, таблицы, датчики
+- [b]LiveDashboard.lua[/b] — анимированный живой дашборд станции
+- [b]GradientShowcase.lua[/b] — многоцветные градиенты, все направления, хелпер цветов
+- [b]ProgressSpinnerDemo.lua[/b] — цветовые пороги прогресс-бара, спиннеры, инвертированный датчик
+- [b]AtmosAnalyzer.lua[/b] — анализатор атмосферы для планшета
+- [b]SoundDemo.lua[/b] — демонстрация воспроизведения звука
+- [b]ImageElement.lua[/b] — отображение удалённых изображений
+- [b]CCTVDashboard.lua[/b] — панель камер видеонаблюдения (требуется мод CCTV)
+- [b]FindByName.lua[/b] — поиск устройств по имени Маркировщика (ic.find / ic.find_all)
+- [b]Games/[/b] — Змейка, Тетрис, Doom
+- [b]NetChat.lua[/b], [b]NetPeerMonitor.lua[/b] — сетевые примеры интерфейса
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 2: Справочник типов элементов
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_Elements</Key>
+            <Title>ScriptedScreens: Типы элементов</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1001</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Справочник типов элементов ScriptedScreens}}
+
+Каждый элемент — это таблица Lua с [b]id[/b] (строка), [b]type[/b] (строка), [b]rect[/b] (таблица) и необязательными [b]props[/b], [b]style[/b] и обработчиками событий.
+
+{{HEADER:Отображаемые элементы}}
+
+[b]label[/b] — текстовая метка. Поддерживает теги TMP rich text.
+{LIST}
+- Props: [b]text[/b] (строка, поддерживает теги форматирования — жирный, цвет и т.д.)
+- Style: [b]font_size[/b] (по умолчанию 16), [b]color[/b] (цвет текста), [b]align[/b] ("left"/"center"/"right")
+{/LIST}
+
+[b]panel[/b] — прямоугольный фон. Неинтерактивный.
+{LIST}
+- Style: [b]bg[/b] (цвет фона, по умолчанию тёмный), [b]gradient[/b] (конечный цвет градиента от bg), [b]gradient_dir[/b] ("horizontal"/"vertical"/"diagonal"/"radial")
+{/LIST}
+
+[b]progress[/b] — прогресс-бар с заполненной частью. Поддерживает цветовые пороги, неопределённый режим и настраиваемое направление заполнения.
+{LIST}
+- Props: [b]value[/b], [b]min[/b] (по умолчанию 0), [b]max[/b] (по умолчанию 1), [b]indeterminate[/b] (анимированное скользящее заполнение), [b]direction[/b] (ss.direction.LeftToRight, .RightToLeft, .TopToBottom, .BottomToTop — направление заполнения, по умолчанию LeftToRight)
+- Style: [b]bg[/b] (цвет трека), [b]fill[/b] (базовый цвет заполнения), [b]color_stops[/b] (массив пар { fraction, "#color" }), [b]speed[/b] (скорость анимации неопределённого режима)
+{/LIST}
+
+[b]spinner[/b] — вращающийся дуговой индикатор загрузки. Анимируется непрерывно.
+{LIST}
+- Style: [b]color[/b] (цвет дуги), [b]track_color[/b] (фоновый трек), [b]thickness[/b] (по умолчанию 4), [b]arc_length[/b] (доля, по умолчанию 0.3), [b]speed[/b] (оборотов/сек, по умолчанию 2)
+{/LIST}
+
+[b]Градиенты:[/b] Элементы panel, button и progress поддерживают свойства стиля [b]gradient[/b] и [b]gradient_dir[/b]. gradient принимает одну цветовую строку (2-цветный от bg), массив hex-строк (равномерные многоцветные пороги) или массив пар {position, "#color"} (явные пороги). Направления: "horizontal", "vertical", "diagonal", "radial". [b]ss.ui.gradient(from, to, steps)[/b] возвращает массив интерполированных hex-цветов.
+
+[b]line[/b] — линия между двумя точками (rect игнорируется).
+{LIST}
+- Props: [b]x1[/b], [b]y1[/b], [b]x2[/b], [b]y2[/b] (начальная и конечная точки)
+- Style: [b]color[/b] (по умолчанию белый), [b]thickness[/b] (по умолчанию 2)
+{/LIST}
+
+[b]rect_outline[/b] / [b]border[/b] — прямоугольный контур (без заливки).
+{LIST}
+- Style: [b]color[/b] (цвет контура), [b]thickness[/b] (по умолчанию 1)
+{/LIST}
+
+[b]circle[/b] — залитая или контурная окружность.
+{LIST}
+- Style: [b]color[/b], [b]thickness[/b] (0 = залитая, по умолчанию 0)
+{/LIST}
+
+[b]divider[/b] — горизонтальный или вертикальный разделитель.
+{LIST}
+- Style: [b]color[/b] (по умолчанию серый)
+{/LIST}
+
+[b]icon[/b] — отображение игровой иконки (газ, слот, префаб). Использует встроенный атлас иконок.
+{LIST}
+- Props: [b]name[/b] (значение перечисления из ss.ui.icons.* или строка), [b]icon_type[/b] ("gas"/"slot"/"prefab"/"resource", нужен только для строк), [b]color_index[/b] (необязательный вариант с покраской)
+- Style: [b]tint[/b] (оттенок иконки, по умолчанию белый)
+- Значения перечислений из [b]ss.ui.icons.gas.*[/b], [b]ss.ui.icons.slot.*[/b], [b]ss.ui.icons.prefab.*[/b] автоматически определяют тип иконки.
+{/LIST}
+
+{{HEADER:Интерактивные элементы}}
+
+[b]button[/b] — кнопка с нажатием.
+{LIST}
+- Props: [b]text[/b] (текст кнопки), [b]value[/b] (необязательное значение, передаваемое в on_click)
+- Style: [b]bg[/b], [b]text[/b] (цвет текста), [b]font_size[/b]
+- Событие: [b]on_click(playerName)[/b]
+{/LIST}
+
+[b]interface_button[/b] — как button, но нажатие активирует Режим интерфейса (захват клавиатуры).
+{LIST}
+- Props: [b]text[/b] (по умолчанию "INTERFACE")
+- Style: [b]bg[/b], [b]text[/b], [b]font_size[/b]
+{/LIST}
+
+[b]checkbox[/b] — флажок с меткой. Переключается через on_click.
+{LIST}
+- Props: [b]text[/b] (метка), [b]checked[/b] ("true"/"false")
+- Style: [b]bg[/b], [b]check_color[/b], [b]text[/b], [b]font_size[/b]
+- Событие: [b]on_click(playerName)[/b]
+{/LIST}
+
+[b]radio[/b] — радиокнопка с меткой. Группируйте вручную через общую логику on_click.
+{LIST}
+- Props: [b]text[/b] (метка), [b]selected[/b] ("true"/"false")
+- Style: [b]bg[/b], [b]radio_color[/b], [b]text[/b], [b]font_size[/b]
+- Событие: [b]on_click(playerName)[/b]
+{/LIST}
+
+[b]toggle[/b] — переключатель вкл/выкл со скользящим ползунком.
+{LIST}
+- Props: [b]value[/b] ("true"/"false")
+- Style: [b]on_color[/b] (по умолчанию зелёный), [b]off_color[/b] (по умолчанию тёмный), [b]knob[/b] (по умолчанию белый)
+- Событие: [b]on_click(playerName)[/b]
+{/LIST}
+
+[b]slider[/b] — слайдер с настраиваемым направлением.
+{LIST}
+- Props: [b]value[/b], [b]min[/b] (по умолчанию 0), [b]max[/b] (по умолчанию 100), [b]direction[/b] (ss.direction.LeftToRight, .RightToLeft, .TopToBottom, .BottomToTop)
+- Style: [b]bg[/b] (трек), [b]fill[/b], [b]handle[/b]
+- Событие: [b]on_change(value, playerName)[/b]
+{/LIST}
+
+[b]select[/b] — выпадающий список. Поддерживает одиночный и множественный выбор.
+{LIST}
+- Props: [b]options[/b] (массив или "A|B|C"), [b]selected[/b] (индекс или через запятую для множественного выбора), [b]open[/b] ("true"/"false"), [b]multi[/b] ("none", "highlight" или "checkbox")
+- Style: [b]bg[/b], [b]text[/b], [b]font_size[/b], [b]selected_bg[/b] (цвет выделения выбранного элемента)
+- События: [b]on_toggle(playerName)[/b] (открыть/закрыть), [b]on_change(optionIndex, playerName)[/b]
+{/LIST}
+
+[b]textinput[/b] — однострочное поле ввода текста.
+{LIST}
+- Props: [b]value[/b], [b]placeholder[/b], [b]title[/b] (заголовок диалога вне режима интерфейса)
+- Style: [b]bg[/b], [b]text[/b], [b]placeholder_color[/b], [b]font_size[/b]
+- Событие: [b]on_change(value, playerName)[/b]
+- В режиме интерфейса: прямой ввод. Вне режима: открывает модальный диалог.
+{/LIST}
+
+{{HEADER:Контейнерные элементы}}
+
+[b]scrollview[/b] — прокручиваемый контейнер. Добавляйте дочерние элементы через возвращённый дескриптор.
+{LIST}
+- Props: [b]content_height[/b] (полная прокручиваемая высота, по умолчанию 500)
+- Style: [b]bg[/b], [b]scrollbar_bg[/b], [b]scrollbar_handle[/b], [b]scroll_speed[/b] (по умолчанию 20), [b]padding_bottom[/b] (по умолчанию 20)
+- Создавайте дочерние элементы через [b]scroll:element({ ... })[/b] на возвращённом дескрипторе.
+{/LIST}
+
+{{HEADER:Медиа-элементы}}
+
+[b]camera[/b] — трансляция камер видеонаблюдения в реальном времени. [b]Требуется мод CCTV[/b] (StructureSecurityCamera).
+{LIST}
+- Props: [b]device[/b] (индекс слота устройства в виде строки, напр. "0" для d0)
+- Каждый элемент независимо выбирает, какую камеру отображать. Несколько элементов могут одновременно показывать одну и ту же камеру.
+- Смена канала на лету: [b]handle:set_props({ device = "2" })[/b]
+- C# сторона управляет жизненным циклом подключения (счётчик Connections, создание RenderTextureHD, корутина рендеринга).
+{/LIST}
+
+{{HEADER:Цвета}}
+Все цвета принимают: [b]"#RRGGBB"[/b] или [b]"#RRGGBBAA"[/b] (hex), [b]"rgb(r, g, b)"[/b] (r/g/b 0–255) или [b]"rgba(r, g, b, a)"[/b] (a — 0.0–1.0). Работает везде: свойства стиля, градиенты, color_stops, функции холста, ss.ui.gradient().
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 3: Справочник UI API
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_UI_API</Key>
+            <Title>ScriptedScreens: UI API</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1002</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Справочник UI API ScriptedScreens}}
+
+{{HEADER:Программируемый визор (HUD в очках)}}
+Скрипты в {{LINK:ThingProgrammableVisorGlasses;программируемом визоре}} используют [b]ss.hud[/b] так же, как ниже [b]ss.ui[/b] ([b]ss.hud.surface[/b], [b]ss.hud.activate[/b], [b]ss.hud.lens_color[/b], затем API поверхности у возвращённого дескриптора). Подробности: {{LINK:ScriptedScreens_VisorHUD;HUD программируемого визора}} — когда выполняются [b]tick[/b] / [b]on_frame[/b], кнопки [b]Показать HUD[/b] / [b]Скрыть HUD[/b], [b]Цвет линзы[/b] (Button1) и [b]ss.client_overlay[/b] для разметки вокруг штатного HUD.
+
+{{HEADER:Корневое пространство имён}}
+{LIST}
+- [b]ss[/b] — пространство имён ScriptedScreens ([b]cc[/b] существует как устаревший псевдоним).
+- [b]ss.ui.surface(name [, screenIndex])[/b] — создать или получить именованную поверхность. screenIndex начинается с 0 (по умолчанию 0).
+- [b]ss.ui.activate(name [, screenIndex])[/b] — установить видимую поверхность на физическом экране.
+- [b]ss.is_interface_mode()[/b] — возвращает true если активен режим интерфейса.
+- [b]ss.exit_interface_mode()[/b] — выйти из режима интерфейса (вернуться к обычному вводу игры).
+{/LIST}
+
+{{HEADER:Surface API}}
+Для [b]local ui = ss.ui.surface("main")[/b]:
+
+{LIST}
+- [b]ui:size()[/b] — возвращает { w, h } (эффективное разрешение).
+- [b]ui:clear()[/b] — удалить все элементы с поверхности.
+- [b]ui:element(def)[/b] — создать или обновить элемент. Возвращает дескриптор элемента.
+- [b]ui:get(id)[/b] — получить существующий дескриптор элемента по id.
+- [b]ui:remove(id)[/b] — удалить элемент и отменить регистрацию его обработчиков.
+- [b]ui:commit()[/b] — немедленно применить накопленные операции.
+- [b]ui:measure_text(text, maxWidth, fontSize, wrap)[/b] — возвращает { w, h } для определения размеров текстовой разметки.
+{/LIST}
+
+{{HEADER:Дескрипторы элементов}}
+[b]ui:element(def)[/b] и [b]ui:get(id)[/b] возвращают дескриптор для удобного обновления:
+
+{LIST}
+- [b]handle:set_props({ key = value })[/b] — обновить props элемента.
+- [b]handle:set_style({ key = value })[/b] — обновить style элемента.
+- [b]handle:on(event, handler)[/b] — динамически зарегистрировать обработчик события.
+- [b]handle:off(event)[/b] — отменить регистрацию обработчика события.
+- [b]handle:element(def)[/b] — создать дочерний элемент (вложенная разметка с автоматически добавляемым префиксом id).
+{/LIST}
+
+Дочерние элементы, созданные через [b]parent:element({ id = "title" })[/b], получают id с префиксом, например [b]"parent/title"[/b].
+
+{{HEADER:События ввода}}
+Обработчики событий элементов устанавливаются непосредственно в определении элемента:
+{LIST}
+- [b]on_click[/b] — кнопки, флажки, радио, переключатели. Получает (playerName).
+- [b]on_change[/b] — слайдеры, списки, текстовый ввод. Получает (value, playerName).
+- [b]on_toggle[/b] — открытие/закрытие выпадающего списка. Получает (playerName).
+{/LIST}
+
+Обработчики могут быть функцией или строкой с именем глобальной Lua-функции.
+
+{{HEADER:Клавиатурные события (уровень поверхности)}}
+{LIST}
+- [b]ui:on_keydown(handler)[/b] — handler(key). Получает имя KeyCode Unity (например, "Return", "A", "Escape").
+- [b]ui:on_keyup(handler)[/b] — handler(key).
+- Передайте nil для отмены регистрации.
+- Клавиатурные события работают только в [b]Режиме интерфейса[/b]. Войдите нажатием на [b]interface_button[/b] или экран. Выйдите с помощью Alt.
+{/LIST}
+
+{{HEADER:Покадровый ввод (on_frame)}}
+Для плавного рендеринга на 60fps (игры, анимации):
+
+{LIST}
+- [b]ui:on_frame(callback)[/b] — выполняется каждый кадр Unity Update. Передайте nil для отмены.
+- [b]ui:poll_input()[/b] — возвращает массив событий ввода текущего кадра: { event, id, value }.
+- События: "keydown", "keyup", "click", "change".
+- Оба метода: on_frame опрос и тиковые обработчики получают события (совместимы).
+{/LIST}
+
+{{HEADER:Режим интерфейса}}
+Режим интерфейса — опциональный режим, захватывающий ввод с клавиатуры и показывающий курсор мыши.
+
+{LIST}
+- Войти: нажать на элемент [b]interface_button[/b] или на экран.
+- Выйти: нажать [b]Alt[/b] или вызвать [b]ss.exit_interface_mode()[/b].
+- Элементы [b]textinput[/b] поддерживают прямой ввод в режиме интерфейса. Вне него нажатие открывает модальный диалог.
+- Событие [b]interface_mode[/b] срабатывает с payload "1" (вход) или "0" (выход).
+{/LIST}
+
+{{HEADER:Виртуальное разрешение}}
+Переопределите разрешение экрана по умолчанию (480x272 для консолей):
+
+{LIST}
+- [b]ui:set_resolution(w, h)[/b] — установить виртуальное разрешение (например, 960x544 для двойной детализации).
+- [b]ui:get_resolution()[/b] — возвращает { w, h }.
+- [b]ui:size()[/b] также возвращает эффективное разрешение.
+- Все позиции элементов используют виртуальное пространство координат. Интерфейс автоматически масштабируется.
+- Установите 0, 0 для сброса до размера физического экрана. Максимум настраивается (по умолчанию 4096px).
+{/LIST}
+
+{{HEADER:Несколько поверхностей (видов)}}
+Создайте несколько именованных видов и переключайтесь между ними:
+
+{LIST}
+- Создание: [b]local main = ss.ui.surface("main")[/b], [b]local settings = ss.ui.surface("settings")[/b]
+- Переключение: [b]ss.ui.activate("main")[/b] или [b]ss.ui.activate("settings")[/b]
+- Неактивные поверхности продолжают получать обновления и показывают актуальное состояние при активации.
+- Имя поверхности [b]"config"[/b] зарезервировано для встроенного интерфейса назначения устройств.
+{/LIST}
+
+{{HEADER:Единицы измерения Rect / разметка}}
+{LIST}
+- [b]unit = "px"[/b] — пиксельные координаты. Наиболее распространённый вариант.
+- [b]unit = "%"[/b] или [b]"percent"[/b] — 0..100 процентов размера экрана.
+- unit не указан или [b]"normalized"[/b] — 0..1 относительно экрана.
+- Начало координат — левый верхний угол. Y растёт вниз.
+{/LIST}
+
+{{HEADER:Видимость}}
+Установите [b]props.visible = "false"[/b] (или "0") чтобы скрыть элемент без удаления. Серверный снапшот продолжает обновляться, поэтому элемент показывает актуальное состояние при повторном отображении.
+
+{{HEADER:Сохранение и загрузка}}
+[b]Снапшот UI (автоматически):[/b] на консольных платах, платах схем, картриджах планшета и программируемом визоре ScriptedScreens сохраняет элементы, пиксели холстов и прокрутку с миром. Обычные корпуса IC не используют UI ScriptedScreens.
+
+[b]Состояние скрипта:[/b] используйте [b]ic.persist[/b] из StationeersLua. Сохраняется при сохранении/загрузке, циклах питания и извлечении/вставке чипа при неизменном коде. Читайте ключи на уровне модуля. См. руководство StationeersLua и [b]Examples/PersistExample.lua[/b].
+
+[b]Изменение исходного кода чипа:[/b] при сохранении нового кода в редакторе IC UI хоста очищается, чтобы новый скрипт нарисовал свежий интерфейс.
+
+[b]Устаревшее:[/b] [b]serialize()[/b] / [b]deserialize(blob)[/b] — по-прежнему работают; для новых скриптов предпочтительнее [b]ic.persist[/b].
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 4: HUD программируемого визора (ss.hud)
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_VisorHUD</Key>
+            <Title>HUD программируемого визора</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1003</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:HUD программируемого визора}}
+
+{{LINK:ThingProgrammableVisorGlasses;Программируемый визор (Чип Lua)}} — питаемый предмет в слоте очков со слотом для Lua-чипа (тот же {{THING:ItemIntegratedCircuitLua}}, что и у других хостов ScriptedScreens). Изготавливается на [b]инструментальном производстве[/b] (уровень 2). HUD рисуется как [b]экранный оверлей[/b] поверх игры, пока визор надет.
+
+{{HEADER:ss.hud и ss.ui}}
+
+Используйте [b]ss.hud[/b] так же, как [b]ss.ui[/b]: [b]local hud = ss.hud.surface("main")[/b], [b]ss.hud.activate("main")[/b], затем [b]hud:element[/b], [b]hud:commit[/b], API холста, [b]surface:on_frame[/b], [b]interface_button[/b], а также [b]ss.is_interface_mode[/b] / [b]ss.exit_interface_mode[/b]. Вызов [b]ss.ui[/b] из чипа, который работает только во визоре, обычно даёт ошибку «не тот хост»; переключитесь на [b]ss.hud[/b]. Типы виджетов, графики, холст и ввод совпадают с {{LINK:ScriptedScreens_UI_API;справочником UI API}} и {{LINK:ScriptedScreens_Elements;типами элементов}}.
+
+{{HEADER:Когда выполняется Lua}}
+
+[b]tick()[/b], колбэки симуляции IC и [b]surface:on_frame[/b] выполняются только пока визор [b]надет в слот очков[/b], [b]включён[/b] и в батарее есть [b]запас энергии[/b]. В руке или на полке логика чипа часто не крутится, но исходник по-прежнему можно править в IC10Editor или по сети.
+
+{{HEADER:Показать / скрыть HUD}}
+
+В строке инвентаря визора есть [b]Показать HUD[/b] / [b]Скрыть HUD[/b] (Interact Activate). Скрытие HUD убирает оверлей, но чип остаётся загруженным, пока снова не включите отображение.
+
+{{HEADER:Цвет линзы из Lua}}
+
+[b]ss.hud.lens_color()[/b] без аргументов возвращает текущий оттенок линзы строкой (имя [b]ColorType[/b], например [b]Purple[/b]). [b]ss.hud.lens_color("purple")[/b] задаёт цвет по имени (без учёта регистра); имя должно входить в палитру визора (тот же набор, что у кнопки [b]Цвет линзы[/b]). [b]ss.hud.lens_color(n)[/b] при необходимости задаёт по числовому индексу палитры (с обрезкой). Тот же контекст хоста, что у [b]ss.hud.surface[/b]: чип в очках [b]Programmable Visor[/b].
+
+{{HEADER:Разметка вокруг штатного HUD}}
+
+[b]ss.client_overlay()[/b] возвращает таблицу с описанием штатного HUD в [b]координатах холста визора[/b] (начало координат вверху слева, ось Y направлена вниз) - это то же пространство, что используют [b]hud:size()[/b] и прямоугольники элементов. Используйте [b]ss.hud.safe_area()[/b] или [b]ss.hud.first_free_anchor()[/b], чтобы размещать панели без ручного пересчёта координат, и [b]ss.hud.on_overlay_change(fn)[/b], чтобы перестраивать HUD только когда штатная раскладка действительно меняется. Поле [b]source[/b]: [b]"local"[/b], если этот клиент носит визор, или [b]"remote_client"[/b] в мультиплеере, когда снимок пришёл от носящего игрока. Снимок также содержит [b]panels[/b] (с [b]kind[/b], необязательным [b]title[/b] и [b]x/y/w/h[/b]), [b]canvas_w[/b] / [b]canvas_h[/b] и [b]version[/b] для диагностики. При [b]ok = false[/b] и поле [b]reason[/b] - нет пригодного снимка (например, выделенный сервер без подключённого клиента носящего).
+
+{{HEADER:Примеры скриптов}}
+
+Примеры во [b]Examples/[/b]: [b]VisorHudLayoutDemo.lua[/b], [b]VisorHudStopwatch.lua[/b], [b]VisorHudSciFiTicker.lua[/b], [b]VisorHudMissionDeck.lua[/b], [b]VisorHudMultiPanel.lua[/b], [b]UiContextProbe.lua[/b] и [b]VisorHudPong.lua[/b] (холст + [b]on_frame[/b]). Перетаскиваемые HUD-примеры используют колбэки [b]hud:on_drag(...)[/b], [b]hud:drag_offset(...)[/b] и [b]ss.hud.on_overlay_change(...)[/b]; в Pong [b]hud:poll_input()[/b] остаётся только для игровых клавиш.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 5: Графики, таблицы и разметка
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_Charts</Key>
+            <Title>Графики, таблицы и разметка</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1004</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Графики, таблицы и разметка}}
+
+ScriptedScreens включает встроенные элементы графиков, таблиц и датчиков, а также хелперы разметки для автоматического позиционирования.
+
+{{HEADER:Sparkline}}
+Линейный график для живых сенсорных данных или графиков истории.
+
+{LIST}
+- Тип: [b]sparkline[/b]
+- Props: [b]data[/b] (массив чисел), [b]min[/b] (необязательно), [b]max[/b] (необязательно, автоопределяется)
+- Style: [b]bg[/b], [b]line_color[/b] (по умолчанию зелёный), [b]fill_color[/b] (заливка под линией), [b]thickness[/b] (по умолчанию 2)
+{/LIST}
+
+{{HEADER:Гистограмма}}
+Вертикальная гистограмма с метками, индивидуальными цветами столбцов и подписями значений.
+
+{LIST}
+- Тип: [b]barchart[/b]
+- Props: [b]labels[/b] (массив строк), [b]values[/b] (массив чисел), [b]colors[/b] (необязательные hex-цвета для каждого столбца), [b]min[/b] (по умолчанию 0), [b]max[/b] (автоопределяется)
+- Style: [b]bg[/b], [b]bar_color[/b] (цвет по умолчанию), [b]label_color[/b], [b]value_color[/b], [b]font_size[/b], [b]gap[/b] (по умолчанию 4), [b]show_values[/b] ("true" для отображения)
+{/LIST}
+
+{{HEADER:Линейный график}}
+Многосерийный линейный график с осями, сетью и легендой.
+
+{LIST}
+- Тип: [b]linechart[/b]
+- Props: [b]series[/b] (массив массивов чисел), [b]series_colors[/b] (массив hex-цветов), [b]series_labels[/b] (массив строк), [b]x_labels[/b] (массив), [b]min[/b], [b]max[/b]
+- Style: [b]bg[/b], [b]grid_color[/b], [b]axis_color[/b], [b]label_color[/b], [b]thickness[/b] (по умолчанию 2), [b]font_size[/b], [b]show_grid[/b] ("true"), [b]show_legend[/b] ("true"), [b]fill[/b] ("true")
+{/LIST}
+
+{{HEADER:Датчик (Gauge)}}
+Полукруговой датчик с цветными зонами порогов и стрелкой.
+
+{LIST}
+- Тип: [b]gauge[/b]
+- Props: [b]value[/b], [b]min[/b], [b]max[/b], [b]warn[/b] (доля 0..1, по умолчанию 0.6), [b]danger[/b] (доля, по умолчанию 0.85), [b]invert[/b] (реверс цветовых зон), [b]label[/b], [b]unit[/b] (суффикс)
+- Style: [b]bg[/b], [b]arc_color[/b], [b]needle_color[/b], [b]normal_color[/b], [b]warn_color[/b], [b]danger_color[/b], [b]value_color[/b], [b]label_color[/b], [b]arc_thickness[/b] (по умолчанию 10), [b]font_size[/b]
+{/LIST}
+
+{{HEADER:Таблица}}
+Таблица данных с заголовками столбцов, чередующимися цветами строк, выбором строк и сортируемыми столбцами.
+
+{LIST}
+- Тип: [b]table[/b]
+- Props: [b]columns[/b] (массив строк заголовков), [b]rows[/b] (массив массивов строк), [b]col_widths[/b] (относительные ширины), [b]selected_row[/b] (с 1, 0 — ничего не выбрано), [b]sort_column[/b] (с 1), [b]sort_dir[/b] ("asc"/"desc")
+- Style: [b]header_bg[/b], [b]header_color[/b], [b]row_bg[/b], [b]alt_row_bg[/b], [b]row_color[/b], [b]selected_bg[/b], [b]selected_color[/b], [b]font_size[/b], [b]row_height[/b]
+- События: [b]on_click(rowIndex, playerName)[/b], [b]on_change(columnIndex, playerName)[/b] (клик на заголовок для сортировки)
+- Отдельные ячейки можно стилизовать: { text = "ТРЕВОГА", style = { color = "#EF4444" } }
+{/LIST}
+
+{{HEADER:Живые обновления}}
+Используйте дескрипторы элементов с [b]set_props[/b] в функции [b]tick()[/b] для обновления графиков каждый тик:
+
+[b]spark:set_props({ data = history })[/b]
+[b]gauge:set_props({ value = "101.3" })[/b]
+[b]ui:commit()[/b]
+
+Ограничьте частоту обновлений до 2–4 Гц с помощью накопителя времени, чтобы избежать избыточных перестроек интерфейса.
+
+{{HEADER:Сеточная разметка (Grid)}}
+[b]ss.ui.grid(opts, children)[/b] вычисляет rect ячеек для фиксированного количества столбцов.
+
+{LIST}
+- Опции: [b]rect[/b] (контейнер), [b]cols[/b] (по умолчанию 2), [b]gap[/b] (по умолчанию 4), [b]padding[/b], [b]row_height[/b] (необязательно, по умолчанию квадратные ячейки)
+- Возвращает массив children с применёнными rect. Итерируйте и вызывайте [b]ui:element(def)[/b] для каждого.
+{/LIST}
+
+{{HEADER:Flex-разметка}}
+[b]ss.ui.flex(opts, children)[/b] вычисляет rect в стиле flexbox для строк/столбцов.
+
+{LIST}
+- Опции: [b]rect[/b], [b]direction[/b] ("row"/"column", по умолчанию "row"), [b]gap[/b] (по умолчанию 4), [b]padding[/b], [b]align[/b] ("stretch"/"start"/"center"/"end"), [b]justify[/b] ("start"/"center"/"end"/"between"/"evenly")
+- Дочерние элементы с [b]flex = N[/b] делят оставшееся пространство пропорционально. Без flex используют rect.w (строка) или rect.h (столбец) как фиксированный размер.
+- Возвращает массив children с применёнными rect.
+{/LIST}
+
+{{HEADER:Вложенная разметка (ui:layout)}}
+[b]ui:layout(def)[/b] рекурсивно обрабатывает дерево вложенных контейнеров разметки и выводит все листовые элементы одним вызовом.
+
+{LIST}
+- Возвращает таблицу дескрипторов, отображающую [b]id[/b] каждого элемента на его дескриптор для последующих обновлений.
+- Узлы-контейнеры имеют [b]children[/b] и необязательный [b]layout[/b] ("flex"/"grid").
+- Листовые узлы имеют [b]id[/b] и [b]type[/b], но нет children.
+- Узлы с [b]id[/b] и [b]children[/b] выводятся как элементы (по умолчанию "panel") с дочерними элементами внутри.
+- Размеры: [b]flex = N[/b] для пропорциональных, [b]rect = { w = N }[/b] или [b]rect = { h = N }[/b] для фиксированных, иначе 40px по умолчанию.
+{/LIST}
+
+Рекомендуемый способ построения сложных интерфейсов — без ручного позиционирования в пикселях.
+
+{{HEADER:Отступы (Padding)}}
+Все хелперы разметки поддерживают опцию [b]padding[/b]:
+{LIST}
+- Равномерный: [b]padding = 8[/b]
+- Посторонний: [b]padding = { top = 4, right = 8, bottom = 4, left = 8 }[/b]
+- Сокращённый: [b]padding = { vertical = 6, horizontal = 10 }[/b]
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 6: Холст, изображения, звук и планшет
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_Media</Key>
+            <Title>Холст, изображения, звук и планшет</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1005</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Холст, изображения, звук и планшет}}
+
+{{HEADER:Рисование на холсте}}
+Элемент [b]canvas[/b] даёт буфер пикселей для прямого рисования — полезен для графиков, игр или пользовательских визуализаций.
+
+Создание: [b]ui:element({ id = "c", type = "canvas", rect = { ... } })[/b]
+
+Функции рисования (цвета принимают hex-строки "#RRGGBB" или "#RRGGBBAA"):
+{LIST}
+- [b]ui:canvas_clear(id, color)[/b] — очистить до однотонного цвета.
+- [b]ui:canvas_pixel(id, x, y, color)[/b] — нарисовать один пиксель.
+- [b]ui:canvas_hline(id, y, x1, x2, color)[/b] — горизонтальная линия.
+- [b]ui:canvas_vline(id, x, y1, y2, color)[/b] — вертикальная линия.
+- [b]ui:canvas_line(id, x0, y0, x1, y1, color [, thickness])[/b] — линия между двумя точками.
+- [b]ui:canvas_rect(id, x, y, w, h, color)[/b] — залитый прямоугольник.
+- [b]ui:canvas_rect_outline(id, x, y, w, h, color [, thickness])[/b] — контур прямоугольника.
+- [b]ui:canvas_circle(id, cx, cy, r, color [, thickness])[/b] — контур окружности.
+- [b]ui:canvas_fill_circle(id, cx, cy, r, color)[/b] — залитая окружность.
+- [b]ui:canvas_fill_triangle(id, x0, y0, x1, y1, x2, y2, color)[/b] — залитый треугольник.
+- [b]ui:canvas_polyline(id, {x,y,...}, color [, thickness])[/b] — ломаная линия.
+- [b]ui:canvas_arc(id, cx, cy, r, startDeg, endDeg, color [, thickness])[/b] — дуга (0=вверх, по часовой стрелке).
+- [b]ui:canvas_apply(id)[/b] — применить буфер пикселей к экрану. Всегда вызывайте после рисования.
+- [b]ui:canvas_begin_update(id)[/b] / [b]ui:canvas_end_update(id)[/b] — сгруппировать много вызовов рисования в один сетевой пакет при допустимых лимитах (анимации, кадры целиком).
+- [b]ui:canvas_with_update(id, function)[/b] — то же, что begin/end вокруг [b]синхронной[/b] функции (без yield).
+{/LIST}
+
+{{HEADER:Холст в мультиплеере}}
+Изображение на холсте реплицируется ближайшим клиентам автоматически (по умолчанию: [b]репликация команд[/b] в BepInEx [b]ScriptedScreens.cfg[/b], раздел [b]Multiplayer[/b], [b]CanvasCommandReplication[/b]). Сервер записывает операции рисования; клиенты воспроизводят их — [b]canvas_apply[/b] по-прежнему нужен.
+
+[b]Пакетирование для плавности:[/b] Без [b]canvas_begin_update[/b] / [b]canvas_end_update[/b] каждая примитива может уйти отдельным сетевым пакетом. Оборачивайте целый шаг анимации, чтобы сервер мог отправить [b]один[/b] пакет на логический кадр при лимитах по операциям/байтам. Очень большие кадры могут уйти полным RGBA-снимком или быть разбиты (настройки мода [b]CanvasDenseFrameOpThreshold[/b], [b]CanvasDenseFrameSnapshotMaxPixels[/b], [b]CanvasCommandMaxOpsPerBatch[/b]).
+
+[b]Частота отправки:[/b] [b]CanvasCommandMinSyncAutoTune[/b] / [b]CanvasCommandMinSyncInterval[/b] ограничивают сервер, когда в очереди [b]несколько[/b] пакетов. Если осталась ровно [b]одна[/b] группа и в ней [b]больше одной[/b] операции рисования (типичный сгруппированный кадр), для этого сброса задержка min-sync [b]не[/b] применяется — анимация не искусственно тормозится как при накопившемся хвосте.
+
+[b]Отображение у клиента:[/b] По умолчанию клиент может объединить несколько принятых пакетов за один кадр Unity в [b]одно[/b] обновление текстуры GPU (экономия GPU; промежуточные шаги могут не отображаться). Для максимально плавного движения при частых пакетах на [b]клиентском[/b] ПК установите [b]CanvasRemoteEveryBatchGpuUpload = true[/b] в том же разделе Multiplayer (больше нагрузки на GPU).
+
+[b]Выделенные серверы:[/b] Lua выполняется на сервере. Если [b]canvas_begin_update[/b] отсутствует в рантайме, установите актуальную сборку [b]ScriptedScreens[/b] в папку модов [b]сервера[/b], а не только у себя на клиенте.
+
+{{HEADER:Элемент изображения}}
+Отображайте удалённые изображения (PNG, JPG, анимированный GIF) с помощью [b]type = "image"[/b].
+
+{LIST}
+- Props: [b]url[/b] (HTTP/HTTPS URL изображения)
+- Каждый клиент загружает изображение самостоятельно. Анимированные GIF воспроизводятся с правильным таймингом и прозрачностью.
+- Изображения кэшируются в LRU-кэше на стороне клиента (по умолчанию 64 записи).
+- Конфигурация сервера: [b]AllowRemoteImages[/b] (по умолчанию true), [b]MaxImageDimension[/b] (по умолчанию 1024), [b]ImageCacheSize[/b] (по умолчанию 64).
+- Выделенные серверы не загружают и не рендерят изображения локально.
+- Обычная синхронизация UI передаёт только свойство URL — отдельный транспорт для изображений не требуется.
+{/LIST}
+
+Пример:
+[b]ui:element({ id = "logo", type = "image",[/b]
+[b]    rect = { unit = "px", x = 10, y = 10, w = 200, h = 120 },[/b]
+[b]    props = { url = "https://example.com/image.png" } })[/b]
+
+{{HEADER:Воспроизведение звука}}
+Воспроизводите звуки из скриптов. Звуки исходят из позиции экрана/планшета и зависят от атмосферы (приглушены в вакууме).
+
+[b]Воспроизведение звуков:[/b]
+{LIST}
+- [b]ss.play_sound(src [, opts])[/b] — воспроизвести звук. Возвращает строку id звука.
+- [b]src[/b] — встроенное имя звука из [b]ss.sounds.*[/b] или HTTP URL (wav/mp3/ogg).
+- Опции: [b]volume[/b] (0..1, по умолчанию 1), [b]loop[/b] (boolean, по умолчанию false), [b]id[/b] (явный id для последующей остановки).
+{/LIST}
+
+[b]Остановка звуков:[/b]
+{LIST}
+- [b]ss.stop_sound(id)[/b] — остановить конкретный звук по id.
+- [b]ss.stop_all_sounds()[/b] — остановить все звуки на этом устройстве.
+{/LIST}
+
+[b]Встроенные звуки (ss.sounds):[/b]
+{LIST}
+- Интерфейс: ActivateButton, SwitchOn, SwitchOff, DialTurn, CompletedChime, DirectionNextButton, DirectionPreviousButton, Label, LabelConfirm, LabelCancel
+- Логика/ИС: LogicOnBeep, LogicOffBeep, LogicError, LogicOn, LogicOff, LogicRead, LogicWrite, LogicMath, Error
+- Механика: LeverDown, LeverUp, PipeDeviceOn, PipeDeviceOff, ShutterOpen, ShutterClose, VentInwards, VentOutwards, WrenchOneShot, ScrewDriverOneShot
+- Питание: ApcOpen, ApcClose, ApcOn, ApcOff, ApcCharged, ApcDischarged, ElectricalFailure
+{/LIST}
+
+[b]Объявления (ss.sounds.alerts):[/b]
+Danger, Warning, Alert, IntruderAlert, SystemFailure, Welcome, FireFireFire, StormIncoming, Depressurising, Pressurising, AirlockCycling, PowerLow, PressureHigh, PressureLow, TemperatureHigh, TemperatureLow и другие.
+
+Удалённый звук требует [b]AllowMediaPlayback = true[/b] в конфигурации сервера.
+
+{{HEADER:Управление планшетом (только картриджи)}}
+Определяйте, на что смотрит игрок, используя [b]ss.tablet.target(callback, interval, includeRoomAtmos)[/b].
+
+{LIST}
+- [b]callback(data)[/b] получает таблицу снапшота с информацией о цели.
+- [b]interval[/b] — интервал обновления в секундах (мин. 0.05).
+- [b]includeRoomAtmos[/b] (boolean) — включает данные атмосферы помещения/мира.
+- Передайте nil для отписки: [b]ss.tablet.target(nil)[/b]
+{/LIST}
+
+Ключевые поля снапшота:
+{LIST}
+- [b]has_target[/b] (boolean), [b]display_name[/b], [b]prefab_name[/b], [b]prefab_hash[/b], [b]distance[/b]
+- [b]target_kind[/b] ("human", "entity", "device", "item", "structure", "thing")
+- [b]atmosphere[/b]: pressure, temperature, total_moles, gases (по имени), volume
+- [b]logic[/b]: Setting, Power, Pressure и т.д. (пары ключ-значение)
+- [b]power[/b]: charge, max_charge, charge_ratio
+- [b]power_usage[/b]: used_power, generated_power, net_power
+- [b]slots[/b]: index, type, is_occupied, occupant_name, quantity
+- [b]data_network[/b], [b]power_network[/b]: количество устройств и нагрузка
+- [b]world[/b]: атмосфера окружения (если includeRoomAtmos включён)
+{/LIST}
+
+{{HEADER:Беспроводной планшет (только беспроводные картриджи)}}
+Беспроводные картриджи могут подключаться к всенаправленным передатчикам питания в сети данных. При подключении беспроводные картриджи имеют [b]полный паритет данных[/b] с проводными платами. При [b]активной[/b] связи (в радиусе) батарея планшета расходуется чуть быстрее — примерно с тем же дополнительным расходом, что и у [b]платы беспроводной разработки[/b] костюма. В описании картриджа есть пометка, пока это действует.
+
+{LIST}
+- [b]ss.tablet.wireless.list()[/b] — возвращает массив передатчиков в зоне досягаемости: { name, id, network_id, distance }.
+- [b]ss.tablet.wireless.connect(id [, mesh])[/b] — подключиться к передатчику. mesh=true для бесшовной передачи.
+- [b]ss.tablet.wireless.status()[/b] — возвращает { connected, in_range }.
+- [b]ss.tablet.wireless.disconnect()[/b] — отключиться от сети.
+{/LIST}
+
+[b]Паритет данных:[/b] После подключения следующие операции работают с удалённой сетью:
+{LIST}
+- [b]batch_read[/b] / [b]batch_write[/b] — пакетные операции с устройствами удалённой сети.
+- [b]device_list()[/b] — перечисляет все устройства в удалённой сети.
+- [b]read_id[/b] / [b]write_id[/b] / [b]read_slot_id[/b] / [b]write_slot_id[/b] — чтение/запись любого устройства по ReferenceId.
+- [b]mem_get_id[/b] / [b]mem_put_id[/b] / [b]mem_clear_id[/b] — операции с памятью устройства по id.
+- [b]require("modname")[/b] — загрузка модулей библиотечных чипов из удалённой сети (StationeersLua).
+- [b]ic.net.*[/b] — вся межчиповая сеть (сообщения, pub/sub, RPC) работает через беспроводную связь.
+{/LIST}
+
+[b]Важное ограничение:[/b] Беспроводные картриджи [b]не[/b] предоставляют настраиваемые привязки пинов [b]d0-d5[/b], как проводная плата компьютера или консоли. Используйте операции удалённой сети и адресацию по id.
+
+{{HEADER:Советы и лучшие практики}}
+{LIST}
+- Делайте id элементов стабильными и уникальными.
+- Накапливайте изменения и вызывайте [b]ui:commit()[/b] один раз за обновление.
+- Предпочитайте [b]handle:set_props/set_style[/b] для небольших обновлений вместо полного перестроения.
+- Избегайте [b]ui:clear()[/b] каждый кадр, если вы не намеренно перестраиваете интерфейс.
+- Ограничьте частоту живых обновлений до 2–4 Гц для предотвращения избыточных перестроений.
+- Используйте [b]parent:element()[/b] для контейнеров с дочерними элементами (создаёт иерархические ID).
+- Используйте [b]print(...)[/b] для отладки (вывод виден во вкладке Логи материнской платы Отладчика Lua).
+{/LIST}
+
+{{HEADER:Устранение неполадок}}
+{LIST}
+- Интерфейс не отображается: убедитесь, что вызван [b]ss.ui.activate("main")[/b]. Проверьте индекс экрана. Проверьте координаты rect с помощью [b]ui:size()[/b].
+- Кнопки не срабатывают: убедитесь, что элемент находится на активной поверхности и не перекрыт другим элементом.
+- Клавиатура не работает: войдите в [b]Режим интерфейса[/b], нажав на экран или interface_button. Для выхода нажмите Alt.
+- Холст не обновляется: всегда вызывайте [b]ui:canvas_apply(id)[/b] после рисования.
+- MP: рваная анимация холста или отсутствует [b]canvas_begin_update[/b]: см. раздел [b]Холст в мультиплеере[/b] выше (группировка + [b]CanvasRemoteEveryBatchGpuUpload[/b] на клиенте; версия мода на сервере).
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+    </HelpPage>
+</Language>

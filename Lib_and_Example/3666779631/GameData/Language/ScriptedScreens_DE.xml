@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language>
+    <Name>ScriptedScreens</Name>
+    <Code>DE</Code>
+    <Font></Font>
+    <Things>
+        <RecordThing>
+            <Key>CircuitboardIntegratedCircuit</Key>
+            <Value>Leiterplatte (Lua-Chip)</Value>
+            <Description>Leiterplatte, die nur den integrierten Schaltkreis (Lua-Chip) aufnimmt.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>MotherboardIntegratedCircuit</Key>
+            <Value>Hauptplatine (Lua-Chip)</Value>
+            <Description>Hauptplatine, die nur den integrierten Schaltkreis (Lua-Chip) aufnimmt.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>CartridgeIntegratedCircuitLua</Key>
+            <Value>Kartusche (Lua-Chip)</Value>
+            <Description>Tablet-Kartusche, die nur den integrierten Schaltkreis (Lua-Chip) aufnimmt.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>CartridgeIntegratedCircuitLuaWireless</Key>
+            <Value>Kartusche (Lua-Chip, drahtlos)</Value>
+            <Description>Drahtlose Tablet-Kartusche, die nur den integrierten Schaltkreis (Lua-Chip) aufnimmt. Bei aktiver Verbindung entlädt sie passiv den Tablet-Akku.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>ProgrammableVisorGlasses</Key>
+            <Value>Programmierbarer Visor (Lua-Chip)</Value>
+            <Description>Über 9000! Angetriebene Visor-Brille mit Slot für einen integrierten Schaltkreis (Lua-Chip) und optionalem drahtlosem Datenlink. Lua-Skripte nutzen ss.hud für HUD-Oberflächen.</Description>
+        </RecordThing>
+    </Things>
+    <Interface>
+        <Record>
+            <Key>ScriptedScreensGuideButton</Key>
+            <Value>ScriptedScreens</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessCartridgeInsertTablet</Key>
+            <Value>Setze diese Kartusche in ein eingeschaltetes Tablet ein, um drahtlosen Netzzugang zu nutzen.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudShow</Key>
+            <Value>HUD anzeigen</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHide</Key>
+            <Value>HUD ausblenden</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHiddenByUser</Key>
+            <Value>Programmierbares HUD ausgeblendet (HUD anzeigen nutzen).</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightOff</Key>
+            <Value>Visor ist aus oder hat keine Batterie.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNoChip</Key>
+            <Value>Kein programmierbarer Chip eingesetzt.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNotLua</Key>
+            <Value>Lua-Programmierchip einsetzen.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightRunning</Key>
+            <Value>Chip läuft fehlerfrei.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightReady</Key>
+            <Value>Visor an: Chip startet im Brillen-Slot.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorGlassTintNext</Key>
+            <Value>Linsenfarbe: {0}</Value>
+        </Record>
+    </Interface>
+    <HomePageButtonsOverride>
+        <SPDAHomePageButtonOverride>
+            <CategoryName>ScriptedScreensGuideButton</CategoryName>
+            <ThingNameForImage>MotherboardIntegratedCircuit</ThingNameForImage>
+            <LinkedPageKey>ScriptedScreens_Guide</LinkedPageKey>
+        </SPDAHomePageButtonOverride>
+    </HomePageButtonsOverride>
+    <HelpPage>
+        <!-- ═══════════════════════════════════════════════════════════════════
+             SEITE 1: Hauptanleitung (Startseite)
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_Guide</Key>
+            <Title>ScriptedScreens-Anleitung</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1000</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:ScriptedScreens}}-
+
+Mit ScriptedScreens baust du [b]benutzerdefinierte Touchscreen-UIs[/b] auf Stationeers-Computern, Konsolen und Tablets in Lua: Dashboards, Schaltfelder, Spiele und Werkzeuge, die direkt auf den Spiel-Bildschirmen dargestellt werden.
+
+{{HEADER:Gegenstände dieses Mods}}
+{LIST}
+- {{LINK:ThingCircuitboardIntegratedCircuit;Leiterplatte (Lua-Chip)}} - In einen Computer für UIs auf einem Bildschirm stecken.
+- {{LINK:ThingMotherboardIntegratedCircuit;Hauptplatine (Lua-Chip)}} - In einen Computer für UIs auf mehreren Bildschirmen (zwei Displays) stecken.
+- {{LINK:ThingCartridgeIntegratedCircuitLua;Kartusche (Lua-Chip)}} - In ein Tablet für portable UIs stecken.
+- {{LINK:ThingCartridgeIntegratedCircuitLuaWireless;Kartusche (Lua-Chip, drahtlos)}} - Drahtlose Tablet-Kartusche mit Netz-Anbindung.
+- {{LINK:ThingProgrammableVisorGlasses;Programmierbarer Visor (Lua-Chip)}} - HUD im Brillen-Slot für Lua; in Skripten ss.hud nutzen. Hergestellt in der Tool Manufactory (Stufe 2). Details: {{LINK:ScriptedScreens_VisorHUD;Programmierbarer Visor-HUD}}.
+{/LIST}
+
+Alle Platinen akzeptieren nur den {{THING:ItemIntegratedCircuitLua}} aus dem Mod StationeersLua.
+
+{{HEADER:Voraussetzungen}}
+{LIST}
+- [b]BepInEx 5.x[/b] als Modding-Framework
+- [b]StationeersLaunchPad[/b] als Mod-Loader
+- [b]StationeersLua[/b] (ScriptedScreens benötigt es)
+- [b]IC10Editor[/b] (empfohlen, zum Bearbeiten von Lua-Skripten im Spiel)
+{/LIST}
+
+{{HEADER:Einrichtung im Spiel}}
+{LIST}
+- Stelle einen [b]Computer[/b] oder eine [b]Konsole[/b] auf (oder nutze ein Tablet).
+- Stecke einen [b]integrierten Schaltkreis (Lua)[/b] in den Chip-Slot der ScriptedScreens-Platine.
+- Setze die Platine in den Computer ein.
+- Öffne den IC10Editor und füge ein Lua-Skript ein.
+- Um externe Geräte mit den Pins d0-d5 zu verkabeln: [b]Schraubenzieher[/b] auf die Konsole-Schraube an der Seite für den Konfigurationsbildschirm, oder einen [b]Datenträger (Data Disk)[/b] in einen Computer-Disk-Slot legen.
+{/LIST}
+
+{{HEADER:Kernelemente}}
+
+[b]Surface:[/b] Benannte UI-Ansicht (wie eine Seite). Mit [b]ss.ui.surface("main")[/b] anlegen. Nur die aktive Surface wird gerendert. Wechseln mit [b]ss.ui.activate("main")[/b].
+
+[b]Element:[/b] UI-Steuerelement (Label, Taste, Paneel usw.) mit eindeutigem String-[b]id[/b]. Erzeugt durch [b]ui:element({ id, type, rect, props, style })[/b].
+
+[b]Rect:[/b] Position und Größe. Mit [b]unit = "px"[/b] für Pixel oder [b]unit = "%"[/b] für Prozent. Ursprung oben links (Y nimmt nach unten zu).
+
+[b]Commit:[/b] Änderungen werden gebündelt. [b]ui:commit()[/b] zum sofortigen Schreiben aufrufen, oder automatisch am Tick-Ende leeren.
+
+{{HEADER:Schnellstart-Beispiel}}
+
+[b]local ui = ss.ui.surface("main")[/b]
+[b]ss.ui.activate("main")[/b]
+[b]ui:clear()[/b]
+
+[b]ui:element({[/b]
+[b]    id = "bg", type = "panel",[/b]
+[b]    rect = { unit = "px", x = 0, y = 0, w = 480, h = 272 },[/b]
+[b]    style = { bg = "#0F172A" }[/b]
+[b]})[/b]
+
+[b]ui:element({[/b]
+[b]    id = "title", type = "label",[/b]
+[b]    rect = { unit = "px", x = 20, y = 10, w = 200, h = 40 },[/b]
+[b]    props = { text = "HALLO WELT" },[/b]
+[b]    style = { font_size = 24, color = "#22C55E" }[/b]
+[b]})[/b]
+
+[b]ui:element({[/b]
+[b]    id = "btn", type = "button",[/b]
+[b]    rect = { unit = "px", x = 20, y = 212, w = 180, h = 40 },[/b]
+[b]    props = { text = "KLICK MICH" },[/b]
+[b]    style = { bg = "#334155", text = "#FFFFFF" },[/b]
+[b]    on_click = function(player) print("Geklickt von: " .. player) end[/b]
+[b]})[/b]
+
+[b]ui:commit()[/b]
+
+{{HEADER:Vollständige Referenz}}
+{LIST}
+- {{LINK:ScriptedScreens_Elements;Referenz zu Elementtypen}} - Alle Anzeige-, Bedienungs- und Container-Elemente
+- {{LINK:ScriptedScreens_UI_API;Referenz zur UI-API}} - Surface-API, Handles, Events, Interface-Modus, virtuelle Auflösung
+- {{LINK:ScriptedScreens_VisorHUD;Programmierbarer Visor-HUD}} - [b]ss.hud[/b] für Overlay im Brillen-Slot; wann Lua läuft; [b]ss.client_overlay[/b]; Beispiele
+- {{LINK:ScriptedScreens_Charts;Diagramme, Tabellen und Layout}} - Sparkline, Balkendiagramm, Liniendiagramm, Gauge, Tabelle, Grid, Flex, verschachtelt
+- {{LINK:ScriptedScreens_Media;Leinwand, Bilder, Sound, Tablet}} - Pixelzeichnen, entfernte Bilder, Tonwiedergabe, Tablet-Anvisieren
+{/LIST}
+
+{{HEADER:Beispielskripte}}
+Der Ordner [b]Examples/[/b] im Mod enthält unter anderem:
+{LIST}
+- [b]WidgetShowcase.lua[/b] - Demo aller Chart-/Tabellen-/Gauge-Widgets
+- [b]LiveDashboard.lua[/b] - Animiertes, live aktualisiertes Stations-Dashboard
+- [b]GradientShowcase.lua[/b] - Mehrstufige Farbverläufe, alle Richtungen, Farbhilfen
+- [b]ProgressSpinnerDemo.lua[/b] - Farbstufen an der Fortschrittsanzeige, Spinner, invertierter Gauge
+- [b]AtmosAnalyzer.lua[/b] - Atmosphären-Scanner fürs Tablet
+- [b]SoundDemo.lua[/b] - Ton-Demo
+- [b]ImageElement.lua[/b] - Bilder über URL
+- [b]CCTVDashboard.lua[/b] - CCTV-Kamera-Dashboard (CCTV-Mod erforderlich)
+- [b]FindByName.lua[/b] - Geräte per Beschriftungsname (ic.find / ic.find_all)
+- [b]Games/[/b] - Snake, Tetris, Doom
+- [b]NetChat.lua[/b], [b]NetPeerMonitor.lua[/b] - Netzwerk-UI-Beispiele
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             SEITE 2: Referenz Elementtypen
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_Elements</Key>
+            <Title>ScriptedScreens Elementtypen</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1001</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Referenz zu ScriptedScreens-Elementtypen}}
+
+Jedes Element ist eine Lua-Tabelle mit [b]id[/b] (String), [b]type[/b] (String), [b]rect[/b] (Tabelle) sowie optional [b]props[/b], [b]style[/b] und Ereignis-Handlern.
+
+{{HEADER:Anzeige-Elemente}}
+
+[b]label[/b] - Textanzeige. Unterstützt TMP-Rich-Text-Tags.
+{LIST}
+- Props: [b]text[/b] (String, unterstützt Rich-Text-Tags wie Fett und Farbe)
+- Style: [b]font_size[/b] (Standard 16), [b]color[/b] (Textfarbe), [b]align[/b] ("left"/"center"/"right")
+{/LIST}
+
+[b]panel[/b] - Hintergrund-Rechteck. Nicht interaktiv.
+{LIST}
+- Style: [b]bg[/b] (Hintergrundfarbe, Standard dunkel), [b]gradient[/b] (Endfarbe für Verlauf ab bg), [b]gradient_dir[/b] ("horizontal"/"vertical"/"diagonal"/"radial")
+{/LIST}
+
+[b]progress[/b] - Fortschrittsbalken mit gefülltem Anteil. Unterstützt Farbstufen, unbestimmten Modus und konfigurierbare Füllrichtung.
+{LIST}
+- Props: [b]value[/b], [b]min[/b] (Standard 0), [b]max[/b] (Standard 1), [b]indeterminate[/b] (animierte gleitende Füllung), [b]direction[/b] (ss.direction.LeftToRight, .RightToLeft, .TopToBottom, .BottomToTop - Füllrichtung, Standard LeftToRight)
+- Style: [b]bg[/b] (Spurfarbe), [b]fill[/b] (Basis-Füllfarbe), [b]color_stops[/b] (Array aus { fraction, "#color" }-Paaren), [b]speed[/b] (Animationsgeschwindigkeit im unbestimmten Modus)
+{/LIST}
+
+[b]spinner[/b] - Rotierender Kreisbogen als Ladeanzeige. Läuft durchgehend animiert.
+{LIST}
+- Style: [b]color[/b] (Bogenfarbe), [b]track_color[/b] (Hintergrundspur), [b]thickness[/b] (Standard 4), [b]arc_length[/b] (Anteil, Standard 0.3), [b]speed[/b] (Umdrehungen/s, Standard 2)
+{/LIST}
+
+[b]Verläufe:[/b] Panel-, Button- und Progress-Elemente unterstützen die Style-Props [b]gradient[/b] und [b]gradient_dir[/b]. gradient akzeptiert einen einzelnen Farbstring (2 Farben von bg aus), ein Array von Hex-Strings (gleichmäßig verteilte Mehrfach-Stops) oder ein Array aus {position, "#color"}-Paaren (explizite Stops). Richtungen: "horizontal", "vertical", "diagonal", "radial". [b]ss.ui.gradient(from, to, steps)[/b] liefert ein Array interpolierter Hex-Farben.
+
+[b]line[/b] - Linie zwischen zwei Punkten (rect wird ignoriert).
+{LIST}
+- Props: [b]x1[/b], [b]y1[/b], [b]x2[/b], [b]y2[/b] (Start- und Endpunkt)
+- Style: [b]color[/b] (Standard weiß), [b]thickness[/b] (Standard 2)
+{/LIST}
+
+[b]rect_outline[/b] / [b]border[/b] - Nur Umriss-Rechteck (ohne Füllung).
+{LIST}
+- Style: [b]color[/b] (Linienfarbe), [b]thickness[/b] (Standard 1)
+{/LIST}
+
+[b]circle[/b] - Gefüllter Kreis oder nur Umriss.
+{LIST}
+- Style: [b]color[/b], [b]thickness[/b] (0 = gefüllt, Standard 0)
+{/LIST}
+
+[b]divider[/b] - Waagerechte oder senkrechte Trennlinie.
+{LIST}
+- Style: [b]color[/b] (Standard grau)
+{/LIST}
+
+[b]icon[/b] - Spiel-Ikon anzeigen (Gas, Slot, Prefab). Nutzt den eingebauten Icon-Atlas.
+{LIST}
+- Props: [b]name[/b] (Enum aus ss.ui.icons.* oder Rohstring), [b]icon_type[/b] ("gas"/"slot"/"prefab"/"resource", nur bei Rohstrings nötig), [b]color_index[/b] (optional eingefärbte Variante)
+- Style: [b]tint[/b] (Icon-Einfärbung, Standard weiß)
+- Enum-Werte aus [b]ss.ui.icons.gas.*[/b], [b]ss.ui.icons.slot.*[/b], [b]ss.ui.icons.prefab.*[/b] erkennen den Icon-Typ automatisch.
+{/LIST}
+
+{{HEADER:Interaktive Elemente}}
+
+[b]button[/b] - Klickbare Taste.
+{LIST}
+- Props: [b]text[/b] (Beschriftung), [b]value[/b] (optionaler Wert für on_click)
+- Style: [b]bg[/b], [b]text[/b] (Textfarbe), [b]font_size[/b]
+- Ereignis: [b]on_click(playerName)[/b]
+{/LIST}
+
+[b]interface_button[/b] - Wie eine Taste, aber Klick aktiviert den Interface-Modus (Tastatur-Fokus).
+{LIST}
+- Props: [b]text[/b] (Standard "INTERFACE")
+- Style: [b]bg[/b], [b]text[/b], [b]font_size[/b]
+{/LIST}
+
+[b]checkbox[/b] - Kontrollkästchen mit Beschriftung. Umschalten über on_click.
+{LIST}
+- Props: [b]text[/b] (Beschriftung), [b]checked[/b] ("true"/"false")
+- Style: [b]bg[/b], [b]check_color[/b], [b]text[/b], [b]font_size[/b]
+- Ereignis: [b]on_click(playerName)[/b]
+{/LIST}
+
+[b]radio[/b] - Optionsfeld mit Beschriftung. Gruppe manuell über gemeinsame on_click-Logik.
+{LIST}
+- Props: [b]text[/b] (Beschriftung), [b]selected[/b] ("true"/"false")
+- Style: [b]bg[/b], [b]radio_color[/b], [b]text[/b], [b]font_size[/b]
+- Ereignis: [b]on_click(playerName)[/b]
+{/LIST}
+
+[b]toggle[/b] - Ein/Aus-Schalter mit gleitendem Knauf.
+{LIST}
+- Props: [b]value[/b] ("true"/"false")
+- Style: [b]on_color[/b] (Standard grün), [b]off_color[/b] (Standard dunkel), [b]knob[/b] (Standard weiß)
+- Ereignis: [b]on_click(playerName)[/b]
+{/LIST}
+
+[b]slider[/b] - Zieh-Schieberegler mit konfigurierbarer Richtung.
+{LIST}
+- Props: [b]value[/b], [b]min[/b] (Standard 0), [b]max[/b] (Standard 100), [b]direction[/b] (ss.direction.LeftToRight, .RightToLeft, .TopToBottom, .BottomToTop)
+- Style: [b]bg[/b] (Spur), [b]fill[/b], [b]handle[/b]
+- Ereignis: [b]on_change(value, playerName)[/b]
+{/LIST}
+
+[b]select[/b] - Dropdown-Auswahl. Unterstützt Einzel- und Mehrfachauswahl.
+{LIST}
+- Props: [b]options[/b] (Array oder "A|B|C"), [b]selected[/b] (Index oder kommaseparierte Indizes bei Multi), [b]open[/b] ("true"/"false"), [b]multi[/b] ("none", "highlight" oder "checkbox")
+- Style: [b]bg[/b], [b]text[/b], [b]font_size[/b], [b]selected_bg[/b] (Hervorhebungsfarbe der Auswahl)
+- Ereignisse: [b]on_toggle(playerName)[/b] (öffnen/schließen), [b]on_change(optionIndex, playerName)[/b]
+{/LIST}
+
+[b]textinput[/b] - Einzeiliges Texteingabefeld.
+{LIST}
+- Props: [b]value[/b], [b]placeholder[/b], [b]title[/b] (Dialogtitel außerhalb des Interface-Modus)
+- Style: [b]bg[/b], [b]text[/b], [b]placeholder_color[/b], [b]font_size[/b]
+- Ereignis: [b]on_change(value, playerName)[/b]
+- Im Interface-Modus: direktes Tippen. Außerhalb: öffnet einen Modal-Dialog.
+{/LIST}
+
+{{HEADER:Container-Elemente}}
+
+[b]scrollview[/b] - Scrollbarer Behälter. Kinder über das zurückgegebene Handle hinzufügen.
+{LIST}
+- Props: [b]content_height[/b] (gesamte scrollbar Höhe, Standard 500)
+- Style: [b]bg[/b], [b]scrollbar_bg[/b], [b]scrollbar_handle[/b], [b]scroll_speed[/b] (Standard 20), [b]padding_bottom[/b] (Standard 20)
+- Kinder mit [b]scroll:element({ ... })[/b] auf dem zurückgegebenen Handle erzeugen.
+{/LIST}
+
+{{HEADER:Medien-Elemente}}
+
+[b]camera[/b] - Live-Bild einer Überwachungskamera. [b]Erfordert den CCTV-Mod[/b] (StructureSecurityCamera).
+{LIST}
+- Props: [b]device[/b] (Geräteslot-Index als String, z. B. "0" für d0)
+- Jedes Element wählt unabhängig, welche Kamera angezeigt wird. Mehrere Elemente können dieselbe Kamera gleichzeitig zeigen.
+- Kanal zur Laufzeit wechseln: [b]handle:set_props({ device = "2" })[/b]
+- Die C#-Seite verwaltet den Verbindungslebenszyklus (Connections-Zähler, RenderTextureHD-Erzeugung, Render-Coroutine).
+{/LIST}
+
+{{HEADER:Farben}}
+Alle Farben akzeptieren: [b]"#RRGGBB"[/b] oder [b]"#RRGGBBAA"[/b] (Hex), [b]"rgb(r, g, b)"[/b] (r/g/b 0-255) oder [b]"rgba(r, g, b, a)"[/b] (a 0.0-1.0). Gilt überall: Style-Props, Verläufe, color_stops, Canvas-Funktionen, ss.ui.gradient().
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             SEITE 3: UI-API-Referenz
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_UI_API</Key>
+            <Title>ScriptedScreens UI-API</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1002</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Referenz zur ScriptedScreens-UI-API}}
+
+{{HEADER:Programmierbarer Visor (Brillen-HUD)}}
+Skripte im {{LINK:ThingProgrammableVisorGlasses;programmierbaren Visor}} nutzen [b]ss.hud[/b] wie unten [b]ss.ui[/b] ([b]ss.hud.surface[/b], [b]ss.hud.activate[/b], [b]ss.hud.lens_color[/b], danach die Surface-API auf dem zurückgegebenen Handle). Siehe {{LINK:ScriptedScreens_VisorHUD;Programmierbarer Visor-HUD}} für [b]tick[/b] / [b]on_frame[/b], Inventar [b]HUD anzeigen[/b] / [b]HUD ausblenden[/b], [b]Linsenfarbe[/b] (Button1) und [b]ss.client_overlay[/b] zur Platzierung um den Vanilla-HUD.
+
+{{HEADER:Root-Namespace}}
+{LIST}
+- [b]ss[/b] ist der ScriptedScreens-Namespace ([b]cc[/b] ist ein Legacy-Alias).
+- [b]ss.ui.surface(name [, screenIndex])[/b] - Benannte Surface erzeugen oder holen. screenIndex ist 0-basiert (Standard 0).
+- [b]ss.ui.activate(name [, screenIndex])[/b] - Welche Surface auf einem physischen Bildschirm sichtbar ist.
+- [b]ss.is_interface_mode()[/b] - true, wenn der Interface-Modus aktiv ist.
+- [b]ss.exit_interface_mode()[/b] - Interface-Modus verlassen (normale Spiel-Eingabe).
+{/LIST}
+
+{{HEADER:Surface-API}}
+Mit [b]local ui = ss.ui.surface("main")[/b]:
+
+{LIST}
+- [b]ui:size()[/b] - Liefert { w, h } (effektive Auflösung).
+- [b]ui:clear()[/b] - Alle Elemente von der Surface entfernen.
+- [b]ui:element(def)[/b] - Element einfügen/aktualisieren. Liefert ein Element-Handle.
+- [b]ui:get(id)[/b] - Vorhandenes Element-Handle per id holen.
+- [b]ui:remove(id)[/b] - Element entfernen und Handler abmelden.
+- [b]ui:commit()[/b] - Ausstehende Änderungen sofort anwenden.
+- [b]ui:measure_text(text, maxWidth, fontSize, wrap)[/b] - Liefert { w, h } für Textlayout.
+{/LIST}
+
+{{HEADER:Element-Handles}}
+[b]ui:element(def)[/b] und [b]ui:get(id)[/b] liefern ein Handle für einfache Updates:
+
+{LIST}
+- [b]handle:set_props({ key = value })[/b] - Element-props aktualisieren.
+- [b]handle:set_style({ key = value })[/b] - Element-style aktualisieren.
+- [b]handle:on(event, handler)[/b] - Ereignishandler dynamisch registrieren.
+- [b]handle:off(event)[/b] - Ereignishandler abmelden.
+- [b]handle:element(def)[/b] - Kindelement erzeugen (verschachteltes Layout mit automatischem id-Präfix).
+{/LIST}
+
+Über [b]parent:element({ id = "title" })[/b] erzeugte Kinder erhalten eine Präfix-id wie [b]"parent/title"[/b].
+
+{{HEADER:Eingabe-Ereignisse}}
+Handler werden direkt in der Elementdefinition gesetzt:
+{LIST}
+- [b]on_click[/b] - Tasten, Checkboxen, Radio, Toggle. Erhält (playerName).
+- [b]on_change[/b] - Slider, Auswahl, Texteingabe. Erhält (value, playerName).
+- [b]on_toggle[/b] - Dropdown öffnen/schließen. Erhält (playerName).
+{/LIST}
+
+Handler können eine Funktion sein oder ein String mit dem Namen einer globalen Lua-Funktion.
+
+{{HEADER:Tastatur-Ereignisse (über die gesamte Surface)}}
+{LIST}
+- [b]ui:on_keydown(handler)[/b] - handler(key). Unity-KeyCode-Name (z. B. "Return", "A", "Escape").
+- [b]ui:on_keyup(handler)[/b] - handler(key).
+- nil übergeben zum Abmelden.
+- Tastatur-Ereignisse nur im [b]Interface-Modus[/b]. Eintritt per Klick auf [b]interface_button[/b] oder Bildschirm. Beenden mit Alt.
+{/LIST}
+
+{{HEADER:Rahmenbezogene Eingabe (on_frame)}}
+Für flüssiges 60-FPS-Rendering (Spiele, Animationen):
+
+{LIST}
+- [b]ui:on_frame(callback)[/b] - Pro Unity-Update-Frame. nil zum Abmelden.
+- [b]ui:poll_input()[/b] - Array der Eingabe-Ereignisse dieses Frames: { event, id, value }.
+- Ereignisse: "keydown", "keyup", "click", "change".
+- Sowohl on_frame-Abfrage als auch Tick-Handler erhalten Ereignisse (kompatibel).
+{/LIST}
+
+{{HEADER:Interface-Modus}}
+Optionaler Modus mit Tastatur-Fokus und sichtbarem Mauszeiger.
+
+{LIST}
+- Eintritt: Klick auf [b]interface_button[/b] oder Bildschirm.
+- Austritt: [b]Alt[/b] oder [b]ss.exit_interface_mode()[/b].
+- [b]textinput[/b]: Direktes Tippen im Interface-Modus; außerhalb öffnet Klick einen Modal-Dialog.
+- Ereignis [b]interface_mode[/b] mit Payload "1" (Eintritt) oder "0" (Austritt).
+{/LIST}
+
+{{HEADER:Virtuelle Auflösung}}
+Standard-Auflösung überschreiben (480x272 bei Konsolen):
+
+{LIST}
+- [b]ui:set_resolution(w, h)[/b] - Virtuelle Auflösung setzen (z. B. 960x544 für doppelte Detailstufe).
+- [b]ui:get_resolution()[/b] - Liefert { w, h }.
+- [b]ui:size()[/b] liefert ebenfalls die effektive Auflösung.
+- Alle Positionen nutzen den virtuellen Koordinatenraum; die UI wird automatisch skaliert.
+- 0, 0 setzt auf physische Bildschirmgröße zurück. Maximum konfigurierbar (Standard 4096px).
+{/LIST}
+
+{{HEADER:Mehrere Surfaces (Ansichten)}}
+Mehrere benannte Ansichten pflegen und wechseln:
+
+{LIST}
+- Surfaces anlegen: [b]local main = ss.ui.surface("main")[/b], [b]local settings = ss.ui.surface("settings")[/b]
+- Wechseln: [b]ss.ui.activate("main")[/b] oder [b]ss.ui.activate("settings")[/b]
+- Inaktive Surfaces werden weiter aktualisiert und zeigen beim Aktivieren den letzten Stand.
+- Der Surface-Name [b]"config"[/b] ist für die eingebaute Geräte-Zuordnungs-UI reserviert.
+{/LIST}
+
+{{HEADER:Rect / Layout-Einheiten}}
+{LIST}
+- [b]unit = "px"[/b] - Pixelkoordinaten. Am häufigsten.
+- [b]unit = "%"[/b] oder [b]"percent"[/b] - 0..100 Prozent der Bildschirmgröße.
+- Einheit weggelassen oder [b]"normalized"[/b] - 0..1 relativ zum Bildschirm.
+- Ursprung oben links. Y wächst nach unten.
+{/LIST}
+
+{{HEADER:Sichtbarkeit}}
+[b]props.visible = "false"[/b] (oder "0") blendet ein Element aus, ohne es zu entfernen. Der Server-Snapshot wird weiter aktualisiert; beim erneuten Einblenden erscheint der aktuelle Zustand.
+
+{{HEADER:Persistenz (Speichern/Laden)}}
+[b]UI-Snapshot (automatisch):[/b] Auf Konsolen-Platinen, Leiterplatten, Tablet-Kartuschen und dem programmierbaren Visor speichert ScriptedScreens Element-Layout, Canvas-Pixel und Scrollpositionen mit der Welt. Beim Laden wiederhergestellt. Vanilla-IC-Gehäuse nutzen kein ScriptedScreens-UI.
+
+[b]Skriptzustand:[/b] StationeersLua [b]ic.persist[/b] für Variablen, Tabs, Zähler, Drag-Offsets und Spielzustand. Bleibt bei Speichern/Laden, Stromzyklen des Hosts und Chip-Herausziehen/Wiedereinsetzen bei unverändertem Quellcode erhalten. Schlüssel auf Modulebene lesen – KV wird vor init hydriert. Siehe {{LINK:StationeersLua_GettingStarted;StationeersLua}} Persistenz-Doku und [b]Examples/PersistExample.lua[/b].
+
+[b]Quellcode bearbeiten:[/b] Speichern neuen Codes im IC-Editor leert die Host-UI, damit das neue Skript frische Elemente zeichnet. Gleicher Quellcode: Strom aus/an oder Herausziehen/Wiedereinsetzen behält den UI-Snapshot.
+
+[b]Legacy:[/b] [b]serialize()[/b] / [b]deserialize(blob)[/b] funktionieren weiter; für neue Skripte [b]ic.persist[/b] bevorzugen.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             SEITE 4: Programmierbarer Visor-HUD (ss.hud)
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_VisorHUD</Key>
+            <Title>Programmierbarer Visor-HUD</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1003</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Programmierbarer Visor-HUD}}
+
+Der {{LINK:ThingProgrammableVisorGlasses;Programmierbare Visor (Lua-Chip)}} ist ein betriebenes Item im Brillen-Slot mit Lua-Chip-Slot (derselbe {{THING:ItemIntegratedCircuitLua}} wie bei anderen ScriptedScreens-Hosts). Herstellung in der [b]Tool Manufactory[/b] (Stufe 2). Der HUD wird als [b]Screen-Space-Overlay[/b] über das Spiel gezeichnet, solange der Visor getragen wird.
+
+{{HEADER:ss.hud vs ss.ui}}
+
+[b]ss.hud[/b] wie [b]ss.ui[/b] für Surfaces nutzen: [b]local hud = ss.hud.surface("main")[/b], [b]ss.hud.activate("main")[/b], dann [b]hud:element[/b], [b]hud:commit[/b], Canvas-Helfer, [b]surface:on_frame[/b], [b]interface_button[/b], [b]ss.is_interface_mode[/b] / [b]ss.exit_interface_mode[/b]. [b]ss.ui[/b] von einem Chip, der nur im Visor läuft, schlägt meist mit dem üblichen Wrong-Host-Fehler fehl; auf [b]ss.hud[/b] wechseln. Widget-Typen, Diagramme, Canvas und Eingabe-Semantik entsprechen {{LINK:ScriptedScreens_UI_API;Referenz zur UI-API}} und {{LINK:ScriptedScreens_Elements;Referenz zu Elementtypen}}.
+
+{{HEADER:Wann Lua läuft}}
+
+[b]tick()[/b], IC-Simulations-Callbacks und [b]surface:on_frame[/b] laufen nur, solange der Visor im [b]Brillen-Slot[/b] liegt, [b]eingeschaltet[/b] ist und eine nutzbare [b]Batterie[/b] hat. In der Hand oder auf einem Rack führt der Chip oft keine Spiellogik aus; den Quelltext kannst du trotzdem im IC10Editor oder übers Netz bearbeiten.
+
+{{HEADER:HUD anzeigen / ausblenden}}
+
+In der Visor-Inventarzeile: [b]HUD anzeigen[/b] / [b]HUD ausblenden[/b] (Interact Activate). Ausblenden lädt den Chip weiter, entfernt aber das Overlay bis zum erneuten Anzeigen.
+
+{{HEADER:Linsenfarbe aus Lua}}
+
+[b]ss.hud.lens_color()[/b] ohne Argumente liefert die aktuelle Linsenfarbe als String ([b]ColorType[/b]-Name, z. B. [b]Purple[/b]). [b]ss.hud.lens_color("purple")[/b] setzt per Namen (Groß-/Kleinschreibung egal); der Name muss in der Visor-Palette liegen (gleiche Menge wie Inventar-[b]Linsenfarbe[/b]). [b]ss.hud.lens_color(n)[/b] optional per numerischem Palettenindex (begrenzt). Gleiche Host-Regel wie [b]ss.hud.surface[/b]: Chip im [b]Programmierbaren Visor[/b].
+
+{{HEADER:Layout um den Vanilla-HUD}}
+
+[b]ss.client_overlay()[/b] liefert eine Tabelle mit dem Vanilla-HUD in [b]Visor-Canvas-Koordinaten[/b] (Ursprung oben links, Y nach unten) - derselbe Raum wie [b]hud:size()[/b] und Element-Rects. Mit [b]ss.hud.safe_area()[/b] oder [b]ss.hud.first_free_anchor()[/b] Panels ohne manuelle Umrechnung platzieren; mit [b]ss.hud.on_overlay_change(fn)[/b] nur neu aufbauen, wenn sich das Vanilla-Layout wirklich ändert. Feld [b]source[/b]: [b]"local"[/b], wenn dieser Client den Visor trägt, oder [b]"remote_client"[/b] im Multiplayer, wenn der Snapshot vom Träger weitergegeben wurde. Der Snapshot enthält auch [b]panels[/b] (mit [b]kind[/b], optionalem [b]title[/b], [b]x/y/w/h[/b]), [b]canvas_w[/b] / [b]canvas_h[/b], [b]version[/b] zur Diagnose. Liefert [b]ok = false[/b] mit [b]reason[/b], wenn kein brauchbarer Snapshot existiert (z. B. Dedicated Server ohne Träger-Client).
+
+{{HEADER:Beispielskripte}}
+
+Visor-fokussierte Samples in [b]Examples/[/b]: [b]VisorHudLayoutDemo.lua[/b], [b]VisorHudStopwatch.lua[/b], [b]VisorHudSciFiTicker.lua[/b], [b]VisorHudMissionDeck.lua[/b], [b]VisorHudMultiPanel.lua[/b], [b]UiContextProbe.lua[/b], [b]VisorHudPong.lua[/b] (Canvas + [b]on_frame[/b]). Zieh-HUD-Beispiele nutzen Callback-gesteuerte Neuaufbauten mit [b]hud:on_drag(...)[/b], [b]hud:drag_offset(...)[/b], [b]ss.hud.on_overlay_change(...)[/b]; Pong weiterhin [b]hud:poll_input()[/b] für Spieltasten.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             SEITE 5: Diagramme, Tabellen und Layout
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_Charts</Key>
+            <Title>Diagramme, Tabellen und Layout</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1004</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Diagramme, Tabellen und Layout}}
+
+ScriptedScreens enthält eingebaute Diagramm-, Tabellen- und Gauge-Elemente sowie Layout-Helfer für automatische Positionierung.
+
+{{HEADER:Sparkline}}
+Liniendiagramm für Live-Sensorwerte oder Verlaufsgraphen.
+
+{LIST}
+- Typ: [b]sparkline[/b]
+- Props: [b]data[/b] (Array von Gleitkommazahlen), [b]min[/b] (optional), [b]max[/b] (optional, wird sonst automatisch ermittelt)
+- Style: [b]bg[/b], [b]line_color[/b] (Standard grün), [b]fill_color[/b] (Fläche unter der Linie), [b]thickness[/b] (Standard 2)
+{/LIST}
+
+{{HEADER:Balkendiagramm}}
+Vertikales Balkendiagramm mit Beschriftungen, Farben pro Balken und Werte-Labels.
+
+{LIST}
+- Typ: [b]barchart[/b]
+- Props: [b]labels[/b] (String-Array), [b]values[/b] (Zahlen-Array), [b]colors[/b] (optional Hex-Farben pro Balken), [b]min[/b] (Standard 0), [b]max[/b] (auto)
+- Style: [b]bg[/b], [b]bar_color[/b] (Standard), [b]label_color[/b], [b]value_color[/b], [b]font_size[/b], [b]gap[/b] (Standard 4), [b]show_values[/b] ("true" zum Anzeigen)
+{/LIST}
+
+{{HEADER:Liniendiagramm}}
+Mehrserien-Liniendiagramm mit Achsen, Gitter und Legende.
+
+{LIST}
+- Typ: [b]linechart[/b]
+- Props: [b]series[/b] (Array von Zahlen-Arrays), [b]series_colors[/b] (Hex-Farben), [b]series_labels[/b] (Strings), [b]x_labels[/b] (Array), [b]min[/b], [b]max[/b]
+- Style: [b]bg[/b], [b]grid_color[/b], [b]axis_color[/b], [b]label_color[/b], [b]thickness[/b] (Standard 2), [b]font_size[/b], [b]show_grid[/b] ("true"), [b]show_legend[/b] ("true"), [b]fill[/b] ("true")
+{/LIST}
+
+{{HEADER:Gauge}}
+180°-Bogenanzeige mit farbigen Schwellenbereichen und Zeiger.
+
+{LIST}
+- Typ: [b]gauge[/b]
+- Props: [b]value[/b], [b]min[/b], [b]max[/b], [b]warn[/b] (Anteil 0..1, Standard 0.6), [b]danger[/b] (Anteil, Standard 0.85), [b]invert[/b] (Farbbänder umkehren), [b]label[/b], [b]unit[/b] (Suffix)
+- Style: [b]bg[/b], [b]arc_color[/b], [b]needle_color[/b], [b]normal_color[/b], [b]warn_color[/b], [b]danger_color[/b], [b]value_color[/b], [b]label_color[/b], [b]arc_thickness[/b] (Standard 10), [b]font_size[/b]
+{/LIST}
+
+{{HEADER:Tabelle}}
+Datentabelle mit Spaltenköpfen, abwechselnden Zeilenfarben, Zeilenauswahl und sortierbaren Spalten.
+
+{LIST}
+- Typ: [b]table[/b]
+- Props: [b]columns[/b] (Kopfzeilen-Strings), [b]rows[/b] (Array von Zeilen-Arrays), [b]col_widths[/b] (relative Breiten), [b]selected_row[/b] (1-basiert, 0 = keine), [b]sort_column[/b] (1-basiert), [b]sort_dir[/b] ("asc"/"desc")
+- Style: [b]header_bg[/b], [b]header_color[/b], [b]row_bg[/b], [b]alt_row_bg[/b], [b]row_color[/b], [b]selected_bg[/b], [b]selected_color[/b], [b]font_size[/b], [b]row_height[/b]
+- Ereignisse: [b]on_click(rowIndex, playerName)[/b], [b]on_change(columnIndex, playerName)[/b] (Kopfklick zum Sortieren)
+- Einzelne Zellen können gestylt werden: { text = "ALARM", style = { color = "#EF4444" } }
+{/LIST}
+
+{{HEADER:Live-Updates}}
+Mit Element-Handles und [b]set_props[/b] in [b]tick()[/b] Diagramme jeden Tick aktualisieren:
+
+[b]spark:set_props({ data = history })[/b]
+[b]gauge:set_props({ value = "101.3" })[/b]
+[b]ui:commit()[/b]
+
+Mit Zeit-Akkumulator auf 2-4 Hz drosseln, um übermäßige UI-Neuaufbauten zu vermeiden.
+
+{{HEADER:Grid-Layout}}
+[b]ss.ui.grid(opts, children)[/b] berechnet Rects für ein Raster mit fester Spaltenzahl.
+
+{LIST}
+- Optionen: [b]rect[/b] (Behälter), [b]cols[/b] (Standard 2), [b]gap[/b] (Standard 4), [b]padding[/b], [b]row_height[/b] (optional, Standard quadratische Zellen)
+- Liefert das children-Array mit gesetzten Rects; iterieren und jeweils [b]ui:element(def)[/b] aufrufen.
+{/LIST}
+
+{{HEADER:Flex-Layout}}
+[b]ss.ui.flex(opts, children)[/b] berechnet Flexbox-artige Rects für Zeile/Spalte.
+
+{LIST}
+- Optionen: [b]rect[/b], [b]direction[/b] ("row"/"column", Standard "row"), [b]gap[/b] (Standard 4), [b]padding[/b], [b]align[/b] ("stretch"/"start"/"center"/"end"), [b]justify[/b] ("start"/"center"/"end"/"between"/"evenly")
+- Kinder mit [b]flex = N[/b] teilen den Rest proportional. Ohne flex gelten rect.w (Zeile) bzw. rect.h (Spalte) als feste Größe.
+- Liefert das children-Array mit berechneten Rects.
+{/LIST}
+
+{{HEADER:Verschachteltes Layout (ui:layout)}}
+[b]ui:layout(def)[/b] verarbeitet rekursiv einen Baum verschachtelter Layout-Container und erzeugt alle Blatt-Elemente in einem Aufruf.
+
+{LIST}
+- Liefert eine Handle-Tabelle: jedes Element-[b]id[/b] zum späteren Update.
+- Container-Knoten haben [b]children[/b] und optional [b]layout[/b] ("flex"/"grid").
+- Blatt-Knoten haben [b]id[/b] und [b]type[/b], keine children.
+- Knoten mit [b]id[/b] und [b]children[/b] werden als Elemente ausgegeben (Standard "panel") mit darin platzierten Kindern.
+- Größen: [b]flex = N[/b] proportional, [b]rect = { w = N }[/b] oder [b]rect = { h = N }[/b] fest, sonst Standard 40px.
+{/LIST}
+
+Empfohlen für komplexe UIs ohne manuelle Pixel-Positionierung.
+
+{{HEADER:Padding}}
+Alle Layout-Helfer unterstützen [b]padding[/b]:
+{LIST}
+- Gleichmäßig: [b]padding = 8[/b]
+- Pro Seite: [b]padding = { top = 4, right = 8, bottom = 4, left = 8 }[/b]
+- Kurzform: [b]padding = { vertical = 6, horizontal = 10 }[/b]
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             SEITE 6: Leinwand, Bilder, Sound und Tablet
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>ScriptedScreens_Media</Key>
+            <Title>Leinwand, Bilder, Sound, Tablet</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1005</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Leinwand, Bilder, Sound und Tablet}}
+
+{{HEADER:Zeichnen auf der Leinwand}}
+Ein [b]canvas[/b]-Element liefert einen Pixelpuffer zum direkten Zeichnen - nützlich für Graphen, Spiele oder eigene Visualisierungen.
+
+Erzeugen: [b]ui:element({ id = "c", type = "canvas", rect = { ... } })[/b]
+
+Zeichenfunktionen (Farben als Hex-Strings "#RRGGBB" oder "#RRGGBBAA"):
+{LIST}
+- [b]ui:canvas_clear(id, color)[/b] - Auf Vollfarbe löschen.
+- [b]ui:canvas_pixel(id, x, y, color)[/b] - Einzelnen Pixel setzen.
+- [b]ui:canvas_hline(id, y, x1, x2, color)[/b] - Waagerechte Linie.
+- [b]ui:canvas_vline(id, x, y1, y2, color)[/b] - Senkrechte Linie.
+- [b]ui:canvas_line(id, x0, y0, x1, y1, color [, thickness])[/b] - Linie zwischen zwei Punkten.
+- [b]ui:canvas_rect(id, x, y, w, h, color)[/b] - Gefülltes Rechteck.
+- [b]ui:canvas_rect_outline(id, x, y, w, h, color [, thickness])[/b] - Rechteck-Umriss.
+- [b]ui:canvas_circle(id, cx, cy, r, color [, thickness])[/b] - Kreis-Umriss.
+- [b]ui:canvas_fill_circle(id, cx, cy, r, color)[/b] - Gefüllter Kreis.
+- [b]ui:canvas_fill_triangle(id, x0, y0, x1, y1, x2, y2, color)[/b] - Gefülltes Dreieck.
+- [b]ui:canvas_polyline(id, {x,y,...}, color [, thickness])[/b] - Verbundene Linienzüge.
+- [b]ui:canvas_arc(id, cx, cy, r, startDeg, endDeg, color [, thickness])[/b] - Bogen (0=oben, im Uhrzeigersinn).
+- [b]ui:canvas_apply(id)[/b] - Pixelpuffer auf den Bildschirm übernehmen. Nach dem Zeichnen immer aufrufen.
+- [b]ui:canvas_begin_update(id)[/b] / [b]ui:canvas_end_update(id)[/b] - Viele Draw-Aufrufe zu einem Multiplayer-Batch bündeln, wenn Limits es erlauben (Animationen, Vollbild-Updates).
+- [b]ui:canvas_with_update(id, function)[/b] - Wie begin/end um eine [b]synchrone[/b] Funktion (kein yield).
+{/LIST}
+
+{{HEADER:Multiplayer-Leinwand}}
+Canvas-Ausgabe wird automatisch an nahe Clients repliziert (Standard: [b]command replication[/b] in BepInEx [b]ScriptedScreens.cfg[/b], Abschnitt [b]Multiplayer[/b], [b]CanvasCommandReplication[/b]). Der Server protokolliert Zeichenoperationen; Clients spielen sie ab - [b]canvas_apply[/b] bleibt nötig wie im Einzelspieler.
+
+[b]Bündeln für flüssige Frames:[/b] Ohne [b]canvas_begin_update[/b] / [b]canvas_end_update[/b] kann jede Primitive ein eigener Netz-Batch werden. Ganzen Animationsschritt einpacken, damit der Server bei Op-/Byte-Limits [b]einen[/b] Batch pro logischem Frame senden kann. Sehr große Bilder können als Vollpixel-Snapshot oder aufgeteilt werden (Mod-Einstellungen [b]CanvasDenseFrameOpThreshold[/b], [b]CanvasDenseFrameSnapshotMaxPixels[/b], [b]CanvasCommandMaxOpsPerBatch[/b]).
+
+[b]Sendetakt:[/b] [b]CanvasCommandMinSyncAutoTune[/b] / [b]CanvasCommandMinSyncInterval[/b] drosseln den Server, wenn [b]mehrere[/b] Batches anstehen. Gibt es nur [b]eine[/b] wartende Gruppe mit [b]mehr als einer[/b] Draw-Op (typischer gebündelter Frame), entfällt die zusätzliche Verzögerung für diesen Flush - die Animation wird nicht wie bei einem Stau ausgebremst.
+
+[b]Darstellung beim Client:[/b] Standardmäßig kann der Spielclient mehrere empfangene Batches im selben Frame zu [b]einem[/b] GPU-Textur-Update zusammenfassen (gute Performance; Zwischenschritte evtl. unsichtbar). Für maximale Bewegungsflüssigkeit bei schnellen Server-Batches auf dem [b]Client[/b]-PC [b]CanvasRemoteEveryBatchGpuUpload = true[/b] im gleichen Multiplayer-Abschnitt setzen (mehr GPU-Last).
+
+[b]Dedicated Server:[/b] Lua läuft auf dem Server. Fehlt [b]canvas_begin_update[/b] zur Laufzeit, aktuelle [b]ScriptedScreens[/b]-Build im [b]Server-[/b]Mods-Ordner installieren, nicht nur auf dem eigenen Spielclient.
+
+{{HEADER:Bildelement}}
+Entfernte Bilder (PNG, JPG, animiertes GIF) mit [b]type = "image"[/b] anzeigen.
+
+{LIST}
+- Props: [b]url[/b] (HTTP/HTTPS-URL zum Bild)
+- Jeder Client lädt separat. Animierte GIFs mit korrektem Timing und Transparenz.
+- Bilder in einem LRU-Cache pro Client (Standard 64 Einträge).
+- Server-Konfig: [b]AllowRemoteImages[/b] (Standard true), [b]MaxImageDimension[/b] (Standard 1024), [b]ImageCacheSize[/b] (Standard 64).
+- Dedicated Server laden/rendern Bilder nicht lokal.
+- Normale UI-Sync sendet nur die URL-Prop - kein eigener Bild-Transport nötig.
+{/LIST}
+
+Beispiel:
+[b]ui:element({ id = "logo", type = "image",[/b]
+[b]    rect = { unit = "px", x = 10, y = 10, w = 200, h = 120 },[/b]
+[b]    props = { url = "https://example.com/image.png" } })[/b]
+
+{{HEADER:Tonwiedergabe}}
+Töne aus Skripten abspielen. Sie kommen von Bildschirm-/Tabletposition und reagieren auf Atmosphäre (im Vakuum gedämpft).
+
+[b]Abspielen:[/b]
+{LIST}
+- [b]ss.play_sound(src [, opts])[/b] - Ton abspielen. Liefert die Sound-id als String.
+- [b]src[/b] kann eingebauter Soundname aus [b]ss.sounds.*[/b] oder HTTP-URL (wav/mp3/ogg) sein.
+- Optionen: [b]volume[/b] (0..1, Standard 1), [b]loop[/b] (boolean, Standard false), [b]id[/b] (explizite id zum späteren Stoppen).
+{/LIST}
+
+[b]Stoppen:[/b]
+{LIST}
+- [b]ss.stop_sound(id)[/b] - Einen Ton per id stoppen.
+- [b]ss.stop_all_sounds()[/b] - Alle Töne auf diesem Gerät stoppen.
+{/LIST}
+
+[b]Eingebaute Soundnamen (ss.sounds):[/b]
+{LIST}
+- UI: ActivateButton, SwitchOn, SwitchOff, DialTurn, CompletedChime, DirectionNextButton, DirectionPreviousButton, Label, LabelConfirm, LabelCancel
+- Logik/IC: LogicOnBeep, LogicOffBeep, LogicError, LogicOn, LogicOff, LogicRead, LogicWrite, LogicMath, Error
+- Mechanik: LeverDown, LeverUp, PipeDeviceOn, PipeDeviceOff, ShutterOpen, ShutterClose, VentInwards, VentOutwards, WrenchOneShot, ScrewDriverOneShot
+- Strom: ApcOpen, ApcClose, ApcOn, ApcOff, ApcCharged, ApcDischarged, ElectricalFailure
+{/LIST}
+
+[b]Ansagen (ss.sounds.alerts):[/b]
+Danger, Warning, Alert, IntruderAlert, SystemFailure, Welcome, FireFireFire, StormIncoming, Depressurising, Pressurising, AirlockCycling, PowerLow, PressureHigh, PressureLow, TemperatureHigh, TemperatureLow und weitere.
+
+Remote-Audio erfordert [b]AllowMediaPlayback = true[/b] in der Server-Konfiguration.
+
+{{HEADER:Tablet-Zielauswahl (nur Kartuschen)}}
+Erkennen, worauf der Spieler schaut: [b]ss.tablet.target(callback, interval, includeRoomAtmos)[/b].
+
+{LIST}
+- [b]callback(data)[/b] erhält eine Snapshot-Tabelle mit Zielinfos.
+- [b]interval[/b] Aktualisierungsintervall in Sekunden (min. 0.05).
+- [b]includeRoomAtmos[/b] (boolean) aktiviert Umgebungs-/Raumatmosphäre.
+- nil zum Abmelden: [b]ss.tablet.target(nil)[/b]
+{/LIST}
+
+Wichtige Snapshot-Felder:
+{LIST}
+- [b]has_target[/b] (boolean), [b]display_name[/b], [b]prefab_name[/b], [b]prefab_hash[/b], [b]distance[/b]
+- [b]target_kind[/b] ("human", "entity", "device", "item", "structure", "thing")
+- [b]atmosphere[/b]-Tabelle: pressure, temperature, total_moles, gases (nach Namen), volume
+- [b]logic[/b]-Tabelle: Setting, Power, Pressure usw. (Schlüssel-Wert-Paare)
+- [b]power[/b]-Tabelle: charge, max_charge, charge_ratio
+- [b]power_usage[/b]-Tabelle: used_power, generated_power, net_power
+- [b]slots[/b]-Array: index, type, is_occupied, occupant_name, quantity
+- [b]data_network[/b], [b]power_network[/b]-Tabellen mit Gerätezählung und Lastinfos
+- [b]world[/b]-Tabelle: Umgebungsatmosphäre wenn includeRoomAtmos aktiv ist
+{/LIST}
+
+{{HEADER:Tablet drahtlos (nur drahtlose Kartuschen)}}
+Drahtlose Kartuschen können sich mit Omni-Stromsendern im Datennetz verbinden. Verbunden haben sie [b]volle Datenparität[/b] mit verdrahteten Platinen. Bei [b]aktiver[/b] Verbindung (in Reichweite) entlädt sich der Tablet-Akku etwas schneller - ungefähr wie die {{THING:WirelessDataNetworkAccessBoard}} am Anzug. Die Kartuschenbeschreibung weist darauf hin, solange es gilt.
+
+{LIST}
+- [b]ss.tablet.wireless.list()[/b] - Array der Sender in Reichweite: { name, id, network_id, distance }.
+- [b]ss.tablet.wireless.connect(id [, mesh])[/b] - Mit Sender verbinden. mesh=true für nahtloses Umschalten.
+- [b]ss.tablet.wireless.status()[/b] - Liefert { connected, in_range }.
+- [b]ss.tablet.wireless.disconnect()[/b] - Vom Netz trennen.
+{/LIST}
+
+[b]Datenparität:[/b] Nach Verbindung funktionieren gegen das entfernte Netz:
+{LIST}
+- [b]batch_read[/b] / [b]batch_write[/b] - Stapeloperationen auf entfernte Netzgeräte.
+- [b]device_list()[/b] - Alle Geräte im entfernten Netz.
+- [b]read_id[/b] / [b]write_id[/b] / [b]read_slot_id[/b] / [b]write_slot_id[/b] - Lesen/Schreiben per ReferenceId.
+- [b]mem_get_id[/b] / [b]mem_put_id[/b] / [b]mem_clear_id[/b] - Gerätespeicher per id.
+- [b]require("modname")[/b] - Bibliotheks-Module vom entfernten Netz laden (StationeersLua).
+- [b]ic.net.*[/b] - Gesamte Inter-Chip-Kommunikation (Messaging, pub/sub, RPC) über die Funkverbindung.
+{/LIST}
+
+[b]Wichtige Einschränkung:[/b] Drahtlose Kartuschen bieten [b]keine[/b] konfigurierbaren [b]d0-d5[/b]-Pin-Belegungen wie eine verdrahtete Computer- oder Konsolenplatine. Stattdessen entfernte Netzoperationen und id-basierte Adressierung nutzen.
+
+{{HEADER:Tipps und bewährtes Vorgehen}}
+{LIST}
+- Element-ids stabil und eindeutig halten.
+- Änderungen bündeln und [b]ui:commit()[/b] einmal pro Update aufrufen.
+- Für kleine Updates [b]handle:set_props/set_style[/b] gegenüber kompletten Neuaufbauten bevorzugen.
+- [b]ui:clear()[/b] nicht jeden Frame, außer bewusster Neuaufbau.
+- Live-Updates auf 2-4 Hz drosseln gegen übermäßige UI-Rebuilds.
+- [b]parent:element()[/b] für Container mit Kindern (hierarchische IDs).
+- [b]print(...)[/b] zum Debuggen (Ausgabe im Logs-Tab der Lua-Debugger-Hauptplatine).
+{/LIST}
+
+{{HEADER:Fehlerbehebung}}
+{LIST}
+- UI unsichtbar: [b]ss.ui.activate("main")[/b] aufgerufen? Bildschirmindex prüfen. Rect-Koordinaten mit [b]ui:size()[/b] verifizieren.
+- Tasten feuern nicht: Element auf aktiver Surface und nicht von anderem überdeckt?
+- Tastatur: [b]Interface-Modus[/b] per Bildschirm- oder interface_button-Klick. Alt zum Beenden.
+- Canvas aktualisiert nicht: Nach dem Zeichnen immer [b]ui:canvas_apply(id)[/b].
+- MP: ruckelnde Canvas-Animation oder [b]canvas_begin_update[/b] nil: Abschnitt [b]Multiplayer-Leinwand[/b] oben (gebündelte Updates + Client [b]CanvasRemoteEveryBatchGpuUpload[/b]; Server-Mod-Version).
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+    </HelpPage>
+</Language>
