@@ -1,0 +1,152 @@
+ManifestFileVersion: 0
+CRC: 2421174947
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 62135dcb400fc35654c894809513ba7f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 38988d3ad90a8d27de5585d717950fcd
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: e9b566d03b1dcda498b4a6fcb68ccfc3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7b41b257b67806249b36292ee5aa6406, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: cb4a03f215c7f8c4bafa33d669dadcbb, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.ColorSwatch
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.IndestructableDamageState
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.Item/DecayMixture
+- AssemblyName: Assembly-CSharp
+  ClassName: Assets.Scripts.Objects.ToolUse
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Alcohol
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Astroloy
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Biomass
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Carbon
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Cobalt
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Cocoa
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorBlue
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorGreen
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorOrange
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorRed
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ColorYellow
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Constantan
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Copper
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Corn
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Egg
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Electrum
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Fenoxitone
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Flour
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Gold
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Hastelloy
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Hydrocarbon
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Inconel
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Invar
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Iron
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Lead
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Milk
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Mushroom
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Nickel
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Oil
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Plastic
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Potato
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Pumpkin
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.ReagentMixture
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Rice
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.SalicylicAcid
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Silicon
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Silver
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Solder
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Soy
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Steel
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Stellite
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Sugar
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Tomato
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Uranium
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Waspaloy
+- AssemblyName: Assembly-CSharp
+  ClassName: Reagents.Wheat
+Assets:
+- Assets/Prefabs/MotherboardLuaDebuggerBlueprint.prefab
+- Assets/Prefabs/WirelessDataNetworkAccessBoardBlueprint.prefab
+- Assets/Prefabs/ItemIntegratedCircuitLua.prefab
+- Assets/Prefabs/WirelessDataNetworkAccessBoard.prefab
+- Assets/Prefabs/ItemIntegratedCircuitLuaBlueprint.prefab
+- Assets/Prefabs/MotherboardLuaDebugger.prefab
+Dependencies: []

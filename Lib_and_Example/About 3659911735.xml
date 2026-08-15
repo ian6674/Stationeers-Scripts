@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>StationeersLua [StationeersLaunchPad]</Name>
+	<Author>zedle</Author>
+	<Version>0.9.5.0</Version>
+	<Description>
+[h1]StationeersLua[/h1]
+[i]Lua scripting support for Stationeers programmable chips[/i]
+
+Write automation in [b]Lua 5.2[/b] instead of IC10 — tables, functions, coroutines. Server-authoritative multiplayer.
+
+[url=https://discord.gg/HxvySSu5G3][img]https://img.shields.io/badge/Discord-Orbital%20Foundry-5865F2?logo=discord&amp;logoColor=white[/img][/url]  [url=https://ko-fi.com/G2G61S5ZB5][img]https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=ko-fi&amp;logoColor=white[/img][/url]
+
+[hr][/hr]
+
+[h2]v0.9 highlights[/h2]
+[list]
+[*] Built-in Lua language server path for the IC editor: completions, hover, diagnostics, symbols, and formatting tuned for StationeersLua (optional external Lua language server in mod settings for full generic Lua coverage).
+[*] Richer ic.host_info() for wearables and the ScriptedScreens programmable visor; clearer housing and logic fault messages with better source anchoring.
+[*] IC10-style housing LED feedback for memory and stack operations.
+[*] Safer runtime under load: cross-thread tick vs frame timing fixes, picky logic reads and batch writes less likely to halt a chip, Lua formatter guarded so IC10 chips are not corrupted if formatting ever targets one, and richer inner-exception detail in logs when C# throws behind Lua.
+[/list]
+
+[h2]Editor, reference, and optional MCP[/h2]
+Searchable [b]in-game Lua reference[/b] when Lua formatting is active, [b]Lua auto-indent[/b] in IC10Editor, sleep/yield inside tick() plus user coroutines, find/find_all with optional glob/regex modes, and Lua in [b]pipe device hosts[/b] and suit housings. Optional in-game [b]MCP[/b] and REST (off by default) pair with the [b]StationeersLua VS Code extension[/b] when you enable [b]Enabled[/b] / [b]EnableExtensionApi[/b]; [b]EnableExperimentalDebugger[/b] unlocks the VS Code debug adapter. Multiplayer can use an optional [b]debug proxy[/b] on private servers.
+
+[h2]Wireless suit and tablets[/h2]
+[b]Wireless Development Board[/b] EVA suit module: pick powered omni networks, mesh handoff, reconnect grace, small extra suit drain while linked ([b]Allow network chip access[/b] must be on). [b]Lua chips in suit IC slots[/b] on that suit share the board wireless data network (ic.net, batch, require). [b]Lua chips in the Sanitation Survival Toolbelt[/b] on the same player share that network too. ic.wireless from suit chips, belt chips, or [b]ScriptedScreens wireless cartridges[/b] lists, connects, or disconnects the omni link in Lua.
+
+[h2]Requirements[/h2]
+[list]
+[*] [url=https://github.com/BepInEx/BepInEx]BepInEx 5.x[/url]
+[*] [url=https://github.com/StationeersLaunchPad/StationeersLaunchPad]StationeersLaunchPad[/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3592775931]IC10Editor[/url] (Steam) — recommended
+[/list]
+
+[hr][/hr]
+
+[h2]Lua chip &amp; sandbox[/h2]
+[b]Integrated Circuit (Lua)[/b] in any IC housing. Default instruction limits: [b]500,000[/b] init, [b]50,000[/b]/tick (server/host can change [b]Lua VM[/b] mod config). No arbitrary filesystem or process access. Standard libraries: math, string, table, coroutine, utf8, pcall/xpcall, JSON, optional HTTP. UTF-8 Unicode in source through editor, save, and network.
+
+[h2]Devices &amp; memory[/h2]
+[list]
+[*] Read/write logic, slots, reagents, device memory by pin or ReferenceId; batch read/write across all devices of a type (Average, Sum, Min, Max)
+[*] Label devices, device_list, prefab/name hashes, 512-word chip memory, IC10-compatible stack, 53-bit bitwise ops
+[/list]
+
+[h2]Inter-chip networking[/h2]
+On the same data cable network: direct send/receive, broadcast, pub/sub with wildcards + retained messages + TTL, RPC with timeouts, MessagePack pack/unpack.
+
+[h2]Library chips &amp; persistence[/h2]
+[b]Library chips[/b] (--@module name) expose require("name") to other chips on the network (compiled into the caller). Auto-save source + registers/stack/memory; optional serialize/deserialize for custom state blobs.
+
+[h2]Events[/h2]
+ic.events.on / off for custom events (e.g. ScriptedScreens UI) dispatched at the start of each tick.
+
+[h2]In-game debugger[/h2]
+[b]Motherboard (Lua Debugger)[/b] on the data network inspects live Lua chips: errors, tracebacks, memory, logs, and quick editor access.
+
+[h2]IC10 editor integration[/h2]
+Lua syntax highlighting; open the [b]?[/b] panel to disable script/line caps for long scripts.
+
+[hr][/hr]
+
+[h2]🚀 Quick start[/h2]
+[olist]
+[*] Install BepInEx, LaunchPad, IC10Editor; subscribe here
+[*] Craft [b]Integrated Circuit (Lua)[/b], insert in IC housing, open editor, paste:
+[/olist]
+[b]Quick sample:[/b] a short while-loop toggles pin [b]d0[/b] every second using logic enums and sleep(1). A paste-ready listing ships in [b]GUIDE.MD[/b].
+
+[hr][/hr]
+
+[h2]IC10 → Lua[/h2]
+[table][tr][th]IC10[/th][th]Lua[/th][/tr]
+[tr][td]l r0 d0 Temperature[/td][td]read(0, LT.Temperature)[/td][/tr]
+[tr][td]s d0 On 1[/td][td]write(0, LT.On, 1)[/td][/tr]
+[tr][td]lb r0 HASH("GasSensor") Temperature 2[/td][td]batch_read(hash("GasSensor"), LT.Temperature, LBM.Average)[/td][/tr]
+[tr][td]sleep 5[/td][td]sleep(5)[/td][/tr]
+[tr][td]push 42 / pop r0[/td][td]stack_push(42) / stack_pop()[/td][/tr]
+[/table]
+Locals, tables, and functions replace register gymnastics.
+
+[hr][/hr]
+
+[h2]ScriptedScreens[/h2]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3666779631][b]ScriptedScreens[/b][/url] — Lua-driven touch UIs on consoles/tablets; requires StationeersLua.
+
+[hr][/hr]
+
+[h2]Documentation[/h2]
+[list]
+[*] [url=https://orbitalfoundrymodteam.github.io/StationeersLuaDocs/]📖 Online documentation[/url] — full API + guides
+[*] [b]GUIDE.MD[/b] (beginner walkthrough) and [b]MAPPING.MD[/b] (IC10 line-by-line) ship with the mod
+[/list]
+
+[hr][/hr]
+
+[h2]VS Code extension (separate install)[/h2]
+Install the [b]StationeersLua[/b] VS Code extension (pair with [b]EnableExtensionApi[/b]): Chip Explorer groups chips by data network, explicit [b]Export[/b] compiles to the chip, metadata-only auto refresh, conflict-aware pulls using per-chip [b]source_version[/b], and debug actions when [b]EnableExperimentalDebugger[/b] is on in the game.
+
+[h2]Reference panel + ScriptedScreens[/h2]
+With [b]ScriptedScreens[/b] installed, its embedded API reference merges into the same in-game Lua help panel opened from the IC editor.
+
+[h2]Dedicated servers &amp; HTTP[/h2]
+Dedicated hosts do not publish the MCP HTTP listener; keep AI/REST tools on player clients. Wireless + laptop flows can still merge remote network chips into the motherboard dropdown when the suit board is connected.
+
+[h2]Upgrading[/h2]
+First load after a big update on an older world may skip restoring some serialized event or serialize data until you [b]save once and reload[/b]. Full MCP/REST tables: [b]GUIDE.MD[/b]
+
+[hr][/hr]
+
+[h2]Troubleshooting[/h2]
+[list]
+[*] [b]Script idle?[/b] Use a Lua IC (not IC10), power the housing, switch on
+[*] [b]Syntax?[/b] ~= for not-equal; and/or/not
+[*] [b]Missing device?[/b] d0–d5 → indices 0–5 (Adv. racks extend range); device_list() / print(device_id(0))
+[*] [b]Stuttering?[/b] Stay inside per-tick instruction budget; sleep/yield in tight loops
+[/list]
+
+[hr][/hr]
+
+[h2]Support[/h2]
+[list]
+[*] [url=https://discord.gg/HxvySSu5G3]Discord — Orbital Foundry Mod Team[/url]
+[*] [url=https://ko-fi.com/G2G61S5ZB5]Ko-fi[/url]
+[/list]
+    </Description>
+	<WorkshopHandle>3659911735</WorkshopHandle>
+	<Tags>
+		<Tag>Mod</Tag>
+		<Tag>BepInEx</Tag>
+		<Tag>StationeersLaunchPad</Tag>
+	</Tags>
+	<Dependencies>
+		<Mod>
+			<Id>3592775931</Id>
+		</Mod>
+	</Dependencies>
+	<LoadBefore></LoadBefore>
+</ModMetadata><!-- LastProcessedCommit: HEAD --><!-- LastProcessedVersion: 1.0.0.0 -->

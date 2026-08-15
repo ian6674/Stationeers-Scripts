@@ -1,0 +1,1231 @@
+<?xml version="1.0"?>
+<Language>
+    <Name>StationeersLua</Name>
+    <Code>EN</Code>
+    <Font></Font>
+    <Things>
+        <RecordThing>
+            <Key>ItemIntegratedCircuitLua</Key>
+            <Value>Integrated Circuit (Lua)</Value>
+            <Description>Lua programmable integrated circuit.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>MotherboardLuaDebugger</Key>
+            <Value>Motherboard (Lua Debugger)</Value>
+            <Description>Motherboard for inspecting Lua script errors and runtime state on a data network.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>WirelessDataNetworkAccessBoard</Key>
+            <Value>Wireless Development Board</Value>
+            <Description>Suit module that exposes remote Lua chip development access over powered omni data transmitters. While actively linked, it passively drains the suit battery.</Description>
+        </RecordThing>
+    </Things>
+    <Interface>
+        <Record>
+            <Key>StationeersLuaGuideButton</Key>
+            <Value>StationeersLua</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSlotName</Key>
+            <Value>Wireless Dev Board</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDebuggerSlotName</Key>
+            <Value>Lua Debugger Board</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionNetwork</Key>
+            <Value>Wireless Network</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionMesh</Key>
+            <Value>Wireless Mesh</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionDisconnect</Key>
+            <Value>Wireless Disconnect</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInsertFirst</Key>
+            <Value>Insert a wireless development board into the suit first.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDisabled</Key>
+            <Value>Wireless development access is disabled by config.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardEnableConfig</Key>
+            <Value>Enable AllowNetworkChipAccess to use remote network development.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInstallSuit</Key>
+            <Value>Install this board in an equipped EVA suit to use wireless development access.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoSelection</Key>
+            <Value>No wireless network selected.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardConnected</Key>
+            <Value>Connected to {0}.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardRange</Key>
+            <Value>Range: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNetworkId</Key>
+            <Value>Network ID: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReconnecting</Key>
+            <Value>Trying to reconnect to the selected omni transmitter...</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSelectedNetwork</Key>
+            <Value>Selected network: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardUnavailable</Key>
+            <Value>Selected wireless network is currently unavailable.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshStatus</Key>
+            <Value>Mesh handoff: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshEnabled</Key>
+            <Value>Enabled</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshLockedToTransmitter</Key>
+            <Value>Locked to transmitter</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardPowerDrainActive</Key>
+            <Value>Wireless data link: draining suit battery.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessCartridgePowerDrainActive</Key>
+            <Value>Wireless data link: draining tablet battery.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoTransmitters</Key>
+            <Value>No powered omni transmitters in range.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReachableNetworks</Key>
+            <Value>Reachable networks:</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReachableEntry</Key>
+            <Value>{0}{1} [{2}] -&gt; Net {3}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSuitRequired</Key>
+            <Value>Wireless board must be installed in an equipped suit.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardOutOfRange</Key>
+            <Value>Selected powered omni transmitter is not in range.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInstallToConnect</Key>
+            <Value>Install the board in an equipped suit to connect.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardTarget</Key>
+            <Value>Target: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardUnableToConnect</Key>
+            <Value>Unable to connect.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshFollow</Key>
+            <Value>Mesh handoff will follow the best in-range transmitter on the selected network.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshLock</Key>
+            <Value>Connection will stay locked to the selected transmitter only.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoNetworkSelected</Key>
+            <Value>No wireless network is currently selected.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDisconnectNetwork</Key>
+            <Value>Disconnect network {0}.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSelectNetwork</Key>
+            <Value>Select Wireless Network</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNetworkFallback</Key>
+            <Value>Network {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextMeshEnabled</Key>
+            <Value>Wireless Mesh: Enabled</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextMeshLocked</Key>
+            <Value>Wireless Mesh: Locked</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextDisconnect</Key>
+            <Value>Disconnect Wireless Network</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextDisconnectNet</Key>
+            <Value>Disconnect Net {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSimpleConnected</Key>
+            <Value>Connected</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSimpleDisconnected</Key>
+            <Value>Disconnected</Value>
+        </Record>
+        <!-- Wireless Network Panel UI -->
+        <Record>
+            <Key>StationeersLuaWirelessPanelConnect</Key>
+            <Value>Connect</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelConnected</Key>
+            <Value>Connected</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelRefresh</Key>
+            <Value>Refresh</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelSelectPrompt</Key>
+            <Value>Select a network below ({0} available).</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelStatusConnected</Key>
+            <Value>Connected to {0} — Net {1}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelNotWorn</Key>
+            <Value>Install this board in a worn EVA suit to activate wireless network access.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorInactive</Key>
+            <Value>Turn the visor on with a charged battery to connect to a wireless network.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorNotWorn</Key>
+            <Value>Wear the programmable visor (glasses slot) or hold it to configure wireless network access.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorNoPosition</Key>
+            <Value>Wear the visor or pick it up to establish a position for wireless setup.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorPowerDrainActive</Key>
+            <Value>Wireless data link: draining visor battery.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudShow</Key>
+            <Value>Show HUD</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHide</Key>
+            <Value>Hide HUD</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHiddenByUser</Key>
+            <Value>Programmable HUD: Hidden (use Show HUD).</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightOff</Key>
+            <Value>Visor is off or has no battery.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNoChip</Key>
+            <Value>No programmable chip inserted.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNotLua</Key>
+            <Value>Insert a Lua programmable chip.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightRunning</Key>
+            <Value>Chip running with no errors.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightReady</Key>
+            <Value>Visor on: chip will run when equipped in the glasses slot.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorGlassTintNext</Key>
+            <Value>Lens Color: {0}</Value>
+        </Record>
+    </Interface>
+    <HomePageButtonsOverride>
+        <SPDAHomePageButtonOverride>
+            <CategoryName>StationeersLuaGuideButton</CategoryName>
+            <ThingNameForImage>ItemIntegratedCircuitLua</ThingNameForImage>
+            <LinkedPageKey>StationeersLua_Guide</LinkedPageKey>
+        </SPDAHomePageButtonOverride>
+    </HomePageButtonsOverride>
+    <HelpPage>
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 1: Main Guide (landing page)
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Guide</Key>
+            <Title>StationeersLua Guide</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1000</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua}}-
+
+StationeersLua adds [b]Lua scripting[/b] to Stationeers programmable chips, replacing IC10 assembly with a full-featured programming language. Write automation scripts, sensor networks, and complex logic in Lua instead of low-level register-based assembly.
+
+{{HEADER:Items added by this mod}}
+{LIST}
+- {{LINK:ThingItemIntegratedCircuitLua;Integrated Circuit (Lua)}} - The Lua-capable chip. Insert into any IC Housing.
+- {{LINK:ThingMotherboardLuaDebugger;Motherboard (Lua Debugger)}} - Inspect Lua chip errors and runtime state in-game.
+- {{LINK:ThingWirelessDataNetworkAccessBoard;Wireless Development Board}} - EVA suit module for remote Lua development over powered omni transmitters.
+{/LIST}
+
+{{HEADER:Requirements}}
+{LIST}
+- [b]BepInEx 5.x[/b] modding framework
+- [b]StationeersLaunchPad[/b] mod loader
+- [b]IC10Editor[/b] (recommended, for editing scripts in-game)
+{/LIST}
+
+{{HEADER:Editor intelligence (LSP)}}
+{LIST}
+- Optional [b]language server[/b] for the in-game IC10Editor on Lua scripts: completions, hover, diagnostics, and formatting tuned for StationeersLua. Enable [b]EnableLspServer[/b] under [b][MCP Server][/b] in the mod config; default TCP port [b]3031[/b] (separate from HTTP for MCP/REST).
+- Optional [b]ExternalLuaLanguageServerPath[/b] in the same section runs generic [b]lua-language-server[/b] next to the built-in service if you install it.
+- The [b]StationeersLua[/b] VS Code extension can use the same TCP LSP for Stationeers-aware IntelliSense — not the same socket as MCP/REST on [b]3030[/b].
+{/LIST}
+
+{{HEADER:Quick start}}
+{LIST}
+- Craft or spawn an [b]Integrated Circuit (Lua)[/b].
+- Insert it into any [b]IC Housing[/b] (or Advanced IC Housing).
+- Open the housing's code editor (IC10Editor).
+- Paste a script and save.
+{/LIST}
+
+Example - blink a light on d0 every second:
+
+[b]local LT = ic.enums.LogicType[/b]
+[b]local on = false[/b]
+[b]while true do[/b]
+[b]    on = not on[/b]
+[b]    write(0, LT.On, on and 1 or 0)[/b]
+[b]    sleep(1)[/b]
+[b]end[/b]
+
+{{HEADER:How Lua chips work}}
+{LIST}
+- [b]Server-authoritative:[/b] All Lua code runs on the server/host. Clients see results via game state sync.
+- [b]Power-gated:[/b] If the IC Housing is off or unpowered, the script will not run.
+- [b]Sandboxed:[/b] No filesystem I/O, no threads. Only sleep/yield for pausing.
+{/LIST}
+
+Lifecycle:
+{LIST}
+- [b]Code saved:[/b] Editor saves source to chip.
+- [b]Compile/Init:[/b] Lua VM created, [b]ic[/b] table injected, module-level code runs (default up to 500,000 bytecode instructions; server/host can change [b]InitInstructionLimit[/b] under mod config [b]Lua VM[/b]).
+- [b]Tick loop:[/b] Every game tick (~0.5s): network messages processed, events dispatched, main coroutine resumed, tick(dt) called if defined. Default budget: 50,000 instructions per tick ([b]TickInstructionLimit[/b] in [b]Lua VM[/b] mod config on server/host).
+- [b]Shutdown:[/b] Housing powered off, chip removed, or game exit.
+{/LIST}
+
+{{HEADER:Script structure patterns}}
+
+[b]Pattern A: tick() function[/b]
+Define a global [b]tick(dt)[/b] function. It is called every game tick automatically. [b]dt[/b] is the delta time in seconds since the last tick.
+
+[b]Pattern B: Infinite loop with yield/sleep[/b]
+Use a [b]while true do ... yield() end[/b] loop. [b]yield()[/b] pauses until the next tick. [b]sleep(seconds)[/b] pauses for a real-time duration.
+
+[b]Pattern C: Hybrid[/b]
+Combine module-level init code, a yielding main coroutine, and a tick() function. Both the resumed coroutine and tick(dt) execute in the same tick.
+
+{{HEADER:Enums and constants}}
+Game enumerations are available under [b]ic.enums[/b]:
+{LIST}
+- [b]ic.enums.LogicType[/b] - On, Off, Temperature, Pressure, Setting, etc.
+- [b]ic.enums.LogicSlotType[/b] - Occupied, Quantity, Charge, etc.
+- [b]ic.enums.LogicBatchMethod[/b] - Average, Sum, Minimum, Maximum
+- [b]ic.enums.LogicReagentMode[/b] - TotalContents, etc.
+- [b]ic.enums.SoundAlert[/b] - Speaker alert sound identifiers.
+- [b]ic.enums.SorterInstruction[/b] - Logic Sorter stack opcodes (use with mem_put/mem_get on the sorter).
+- [b]ic.enums.ConditionOperation[/b] - Equals, Greater, Less, NotEquals (packed compare words for sorter memory).
+{/LIST}
+
+Constants are under [b]ic.const[/b]:
+{LIST}
+- [b]ic.const.BASE_UNIT_INDEX[/b] - The housing device index (typically 6, accessed as db in IC10).
+- [b]ic.const.BASE_NETWORK_INDEX[/b] - Base network index.
+{/LIST}
+
+{{HEADER:Persistence (save/load)}}
+When the game is saved, Lua local/global variables are [b]NOT[/b] included in the save file. After loading a save, your script re-initializes from scratch (module-level code runs again).
+
+[b]Recommended: ic.persist[/b] - per-chip string key/value store:
+{LIST}
+- [b]ic.persist.set(key, value)[/b] / [b]get[/b] / [b]has[/b] / [b]delete[/b] / [b]clear()[/b]
+- Survives world save/load, IC housing power off/on (chip stays in housing), and chip pull/reinsert when source code is unchanged
+- Keys starting with [b]__[/b] are reserved; use [b]util.json.encode[/b] / [b]decode[/b] for tables
+- Hydrated [b]before[/b] module-level init on load so you can read saved state at the top of your script
+{/LIST}
+
+[b]Legacy (still supported):[/b] [b]serialize()[/b] on save, [b]deserialize(blob)[/b] after init - stored in the same KV under the hood. Prefer [b]ic.persist[/b] for new scripts.
+
+Chip memory ([b]mem_read/mem_write[/b], 512 addresses) is saved automatically by the game - no extra work needed.
+
+{{HEADER:Events}}
+Register handlers for custom events from other mods or systems:
+{LIST}
+- [b]ic.events.on(name, handler)[/b] - Register. Handler can be a function or a string naming a global function.
+- [b]ic.events.off(name)[/b] - Unregister.
+{/LIST}
+
+Events are processed at the start of each tick, before the main coroutine resumes and before tick(dt) is called. Events are primarily used by companion mods (like ScriptedScreens) to deliver UI input events.
+
+{{HEADER:Library chips and require()}}
+Write reusable Lua modules on "library chips" that other chips can load via [b]require("modname")[/b].
+
+{LIST}
+- Add [b]--@module modname[/b] at the top of a chip's source to declare it as a library chip.
+- Library chips are passive source stores — they have no Lua VM and do not execute on their own.
+- Other chips on the [b]same data cable network[/b] can call [b]require("modname")[/b] to load the module.
+- The library source is compiled and executed inside the requesting chip's VM.
+- Modules are cached per-VM. Use [b]require("modname", true)[/b] to force a reload.
+- A single chip can declare multiple modules with multiple [b]--@module[/b] annotations.
+- Library chips must be in an IC Housing — they cannot be used inside ScriptedScreens boards or tablet cartridges.
+{/LIST}
+
+Example library chip:
+[b]--@module atmos[/b]
+[b]local atmos = {}[/b]
+[b]function atmos.to_celsius(k) return k - 273.15 end[/b]
+[b]return atmos[/b]
+
+Example consumer chip:
+[b]local atmos = require("atmos")[/b]
+[b]local tempC = atmos.to_celsius(read(0, ic.enums.LogicType.Temperature))[/b]
+
+{{HEADER:Full API reference}}
+{LIST}
+- {{LINK:StationeersLua_Library;Core API Reference}} - Logic IO, batch, slots, memory, stack, bits, strings
+- {{LINK:StationeersLua_Networking;Networking Reference}} - Direct messaging, pub/sub, RPC
+- {{LINK:StationeersLua_Utilities;Utilities Reference}} - Temperature, time, JSON, HTTP, persistence
+- {{LINK:StationeersLua_WirelessBoard;Wireless Development Board}} - Suit-based remote network development access
+- {{LINK:StationeersLua_Mapping;IC10 to Lua Mapping}} - Full instruction-by-instruction translation guide
+- {{LINK:StationeersLua_Debugger;Lua Debugger Motherboard}} - In-game debugging tool
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 2: Core API Reference
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Library</Key>
+            <Title>StationeersLua Core API</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1001</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua Core API Reference}}
+
+All functions below are available as globals (e.g. [b]read[/b], [b]write[/b]) and also under the [b]ic[/b] table (e.g. [b]ic.read[/b], [b]ic.write[/b]).
+
+{{HEADER:Control flow}}
+{LIST}
+- [b]sleep(seconds)[/b] - Pause the script for a real-time duration. Counts down across ticks.
+- [b]yield()[/b] - Pause until the next game tick.
+- [b]throw(message)[/b] - Immediately throw a Lua runtime error.
+- [b]hcf()[/b] - Halt and Catch Fire. Permanently destroys the chip. No undo.
+- [b]print(...)[/b] - Write to the Lua Debugger Logs tab. Multiple arguments are tab-separated.
+{/LIST}
+
+{{HEADER:Reading devices}}
+Devices are connected via [b]device pins[/b] (d0 through d5). The housing itself is [b]ic.const.BASE_UNIT_INDEX[/b] (db).
+
+{LIST}
+- [b]read(deviceIndex, logicType [, networkIndex])[/b] - Read a logic value. Returns nil if device is missing.
+- [b]read_id(deviceId, logicType [, networkIndex])[/b] - Read by ReferenceId (stable addressing).
+{/LIST}
+
+{{HEADER:Writing devices}}
+{LIST}
+- [b]write(deviceIndex, logicType, value [, networkIndex])[/b] - Write a logic value. May throw if device is missing.
+- [b]write_id(deviceId, logicType, value [, networkIndex])[/b] - Write by ReferenceId.
+{/LIST}
+
+{{HEADER:Slot operations}}
+Devices have slots (inventory, gas canister ports, etc.). Read/write using [b]LogicSlotType[/b]:
+
+{LIST}
+- [b]read_slot(deviceIndex, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]write_slot(deviceIndex, slotIndex, logicSlotType, value [, networkIndex])[/b]
+- [b]read_slot_id(deviceId, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]write_slot_id(deviceId, slotIndex, logicSlotType, value [, networkIndex])[/b]
+{/LIST}
+
+{{HEADER:Batch operations}}
+Read/write across [b]all devices of a given type[/b] on the data network:
+
+{LIST}
+- [b]batch_read(prefabHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]batch_read_name(prefabHash, nameHash, logicType, batchMethod [, networkIndex])[/b] - With name filter.
+- [b]batch_read_slot(prefabHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]batch_read_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]batch_write(prefabHash, logicType, value [, networkIndex])[/b]
+- [b]batch_write_name(prefabHash, nameHash, logicType, value [, networkIndex])[/b]
+- [b]batch_write_slot(prefabHash, slotIndex, logicSlotType, value [, networkIndex])[/b]
+- [b]batch_write_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, value [, networkIndex])[/b]
+{/LIST}
+
+Batch methods: [b]Average[/b], [b]Sum[/b], [b]Minimum[/b], [b]Maximum[/b] (from ic.enums.LogicBatchMethod).
+
+[i]Note: The optional networkIndex on batch functions is a StationeersLua extension. Vanilla IC10 batch does not support network selection.[/i]
+
+{{HEADER:Reagent operations}}
+{LIST}
+- [b]read_reagent(deviceIndex, reagentMode, reagentHash [, networkIndex])[/b]
+- [b]rmap(deviceIndex [, networkIndex])[/b] - Returns a table mapping reagentHash to prefabHash.
+{/LIST}
+
+{{HEADER:Device info}}
+{LIST}
+- [b]device_id(deviceIndex)[/b] - Get the ReferenceId of a device on a pin.
+- [b]device_name(deviceIndex [, networkIndex])[/b] - Get the live display name.
+- [b]device_label(deviceIndex, name)[/b] / [b]label(deviceIndex, name)[/b] - Set a device's display name.
+- [b]prefab_name(hash)[/b] - Get the prefab name from a known hash (returns nil if unknown).
+- [b]namehash_name(deviceHash, nameHash [, networkIndex])[/b] - Resolve a nameHash to a display name.
+- [b]device_list([networkIndex])[/b] - Returns a Lua array of tables { ref_id, prefab_hash, name_hash, display_name } for every device on the data cable network.
+- [b]host_info()[/b] - Returns a table describing the chip's physical host: [b]name[/b], [b]ref_id[/b], [b]prefab_hash[/b], [b]type[/b] ([b]suit[/b], [b]toolbelt[/b] for the Survival Toolbelt IC slot, [b]scripted_visor[/b] for the ScriptedScreens programmable visor, [b]circuit_housing[/b], [b]tablet[/b], [b]motherboard[/b], [b]device[/b], or [b]unknown[/b]). When the host is worn by a player (suit, toolbelt, or scripted visor), [b]wearer[/b] is the equipped player's display name, plus [b]wearer_ref_id[/b] and [b]wearer_prefab_hash[/b] for that [b]Human[/b], when resolvable; those keys are absent if not worn.
+- [b]find(name [, mode [, networkIndex]])[/b] - First device by display name (Labeler). Optional [b]mode[/b] string (case-insensitive): [b]auto[/b] (default) — [b]glob[/b] if the pattern has [b]\[/b] or an unescaped [b]*[/b], else full exact match (case-sensitive); [b]exact[/b] — full-string exact; [b]glob[/b] — [b]*[/b] = substring (case-insensitive outside escapes), [b]\*[/b] literal *, [b]\\[/b] literal \; [b]regex[/b] — .NET regex on the whole pattern. A single optional [b]number[/b] is treated as [b]networkIndex[/b] with default mode, e.g. [b]find("Pump", 2)[/b]. With both, pass [b]nil[/b] for [b]mode[/b] if you only need a network index in the third slot, e.g. [b]find("Sensor", nil, 2)[/b]. [b]find("(?i)power", "regex")[/b] needs no placeholder. Max 512 chars; bad regex → nil.
+- [b]find_all(name [, mode [, networkIndex]])[/b] - Same modes as [b]find[/b]; table of matching reference IDs (1-indexed).
+{/LIST}
+
+[b]find[/b] and [b]find_all[/b] let you address devices by their Labeler name instead of slot indices or reference IDs. This is especially powerful for scripts that need to interact with specific named devices without requiring physical data-cable pin connections:
+
+{LIST}
+- [b]local pump = find("Main Pump")[/b] then [b]write_id(pump, LT.On, 1)[/b]
+- [b]local cams = find_all("Security Cam")[/b] to get all cameras named "Security Cam"
+- [b]local ps = find_all("*Power*")[/b] to get every device whose label contains [b]Power[/b] (glob is case-insensitive)
+- [b]local one = find("Line\\*2")[/b] matches a label literally [b]Line*2[/b] (in Lua use [b]\\[/b] before [b]*[/b])
+- [b]local id = find("2 * 5kPa", "exact")[/b] when the whole custom name includes an asterisk and must not use glob wildcards
+- [b]local xs = find_all("(?i)\\bpower\\b", "regex")[/b] for a word-boundary match (escape backslashes in Lua strings)
+{/LIST}
+
+[i]Note: In Lua strings, glob/regex backslashes must be doubled ([b]\\[/b]). Regex uses .NET syntax when [b]mode[/b] is [b]regex[/b]. DisplayName is Labeler custom name or default prefab name. Same data cable network only.[/i]
+
+{{HEADER:Chip memory (512 addresses)}}
+Each chip has 512 memory addresses (0-511) that persist across ticks and across save/load:
+
+{LIST}
+- [b]mem_read(address)[/b] - Read from chip memory.
+- [b]mem_write(address, value)[/b] - Write to chip memory.
+- [b]mem_clear()[/b] - Clear all chip memory.
+{/LIST}
+
+External device memory:
+{LIST}
+- [b]mem_get(deviceIndex, address [, networkIndex])[/b]
+- [b]mem_put(deviceIndex, address, value [, networkIndex])[/b]
+- [b]mem_clear_device(deviceIndex [, networkIndex])[/b]
+- [b]mem_get_id(deviceId, address [, networkIndex])[/b]
+- [b]mem_put_id(deviceId, address, value [, networkIndex])[/b]
+- [b]mem_clear_id(deviceId [, networkIndex])[/b]
+{/LIST}
+
+[i]Logic Sorter programs are written as 64-bit words in that device memory. Use [b]ic.enums.SorterInstruction[/b] and [b]ic.enums.ConditionOperation[/b] for opcode and compare constants; full bit packing matches IC10 on the sorter pin (see community wiki Logic Sorter).[/i]
+
+{{HEADER:Stack operations}}
+IC10 stack compatibility (shared with chip memory):
+
+{LIST}
+- [b]stack_push(value)[/b], [b]stack_pop()[/b], [b]stack_peek()[/b], [b]stack_poke(address, value)[/b]
+- [b]stack_get_sp()[/b] / [b]stack_set_sp(value)[/b] - Stack pointer.
+- [b]stack_get_ra()[/b] / [b]stack_set_ra(value)[/b] - Return address.
+{/LIST}
+
+[i]In Lua, you will almost always use local variables and tables instead of the IC10 stack. These exist for IC10 compatibility and for communicating with vanilla IC10 chips via shared memory.[/i]
+
+{{HEADER:Bitwise operations (53-bit safe)}}
+{LIST}
+- [b]bit_and(a, b)[/b], [b]bit_or(a, b)[/b], [b]bit_xor(a, b)[/b], [b]bit_nor(a, b)[/b], [b]bit_not(a)[/b]
+- [b]bit_sll(a, n)[/b] - Shift left logical.
+- [b]bit_srl(a, n)[/b] - Shift right logical (unsigned).
+- [b]bit_sra(a, n)[/b] - Shift right arithmetic (signed).
+- [b]bit_ext(value, pos, len)[/b] - Extract a bit field: len bits starting at position pos.
+- [b]bit_ins(dst, src, pos, len)[/b] - Insert src into dst at position pos, width len.
+{/LIST}
+
+{{HEADER:String and hash utilities}}
+{LIST}
+- [b]hash(text)[/b] - Hash a string (same as IC10 HASH). Uses Animator.StringToHash.
+- [b]pack_ascii6(text)[/b] / [b]unpack_ascii6(number)[/b] - Pack/unpack short strings (ASCII-6 encoding, ~10 chars).
+- [b]strip_color_tags(text)[/b] - Remove Unity rich-text color tags.
+- [b]to_int53(value)[/b] - Convert a float to a 53-bit integer (truncating fractional part).
+{/LIST}
+
+{{HEADER:Error handling and housing}}
+{LIST}
+- [b]raise_error(state)[/b] / [b]clear_error()[/b] - Set/clear chip error state.
+- [b]hcf()[/b] - Halt and Catch Fire. Permanently destroys the chip.
+{/LIST}
+
+Use [b]pcall()[/b] to wrap operations that may fail:
+
+[b]local ok, err = pcall(function()[/b]
+[b]    write(0, LT.On, 1)[/b]
+[b]end)[/b]
+[b]if not ok then print("Write failed: " .. tostring(err)) end[/b]
+
+{{HEADER:Sandbox and instruction limits}}
+{LIST}
+- [b]Initialization:[/b] default 500,000 instructions (module-level code); configurable on server/host via [b]Lua VM[/b] [b]InitInstructionLimit[/b].
+- [b]Per tick:[/b] default 50,000 instructions (coroutine + tick + events); configurable via [b]TickInstructionLimit[/b] (same category, server/host only).
+- Exceeding limits triggers a runtime error on the chip.
+{/LIST}
+
+Available standard libraries: [b]math[/b], [b]string[/b], [b]table[/b], [b]coroutine[/b], [b]utf8[/b], [b]os.clock[/b], [b]os.time[/b], [b]os.date[/b], [b]pcall[/b], [b]xpcall[/b], [b]tonumber[/b], [b]tostring[/b], [b]type[/b], [b]pairs[/b], [b]ipairs[/b], [b]select[/b], [b]unpack[/b], [b]load[/b].
+
+Blocked: [b]io[/b], [b]debug[/b], [b]package[/b], [b]dofile[/b], [b]loadfile[/b], [b]os.execute[/b], [b]os.exit[/b], and other filesystem/process operations.
+
+[b]require("modname")[/b] is available for loading modules from library chips on the same data cable network. See the main guide page for details.
+
+{{HEADER:More references}}
+{LIST}
+- {{LINK:StationeersLua_Networking;Networking Reference}} - Direct messaging, pub/sub, RPC
+- {{LINK:StationeersLua_Utilities;Utilities Reference}} - Temperature, time, JSON, HTTP
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 3: Networking Reference
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Networking</Key>
+            <Title>StationeersLua Networking</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1002</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua Networking Reference}}
+
+Lua chips on the [b]same data network[/b] can communicate with each other. All networking is server-authoritative and scoped to the physical data cable network (including bridged networks).
+
+The networking API can be toggled by the server admin via the [b]AllowNet[/b] config option (default: true). Pack/unpack functions are always available.
+
+{{HEADER:Identity and peers}}
+{LIST}
+- [b]ic.net.id()[/b] - Returns your own endpoint ID (the housing's ReferenceId).
+- [b]ic.net.peers()[/b] - Returns an array of tables { name, id } for all Lua chip peers on the network.
+{/LIST}
+
+{{HEADER:Direct messaging}}
+
+[b]Sending:[/b]
+{LIST}
+- [b]ic.net.send(target, channel, payload)[/b] - Send to a specific target by name (labeller name on the housing) or by ReferenceId.
+- [b]ic.net.broadcast(channel, payload)[/b] - Broadcast to ALL Lua chips on the network. Returns the number of peers delivered to.
+{/LIST}
+
+[b]Receiving (handler-based, recommended):[/b]
+{LIST}
+- [b]ic.net.listen(channel, handler)[/b] - Register a listener. Handler receives (fromId, fromName, payload).
+- Handler can be a function or a string naming a global function.
+- Pass nil as handler to unregister: [b]ic.net.listen(channel, nil)[/b]
+{/LIST}
+
+[b]Receiving (poll-based):[/b]
+{LIST}
+- [b]ic.net.recv()[/b] - Returns fromId, fromName, channel, payload (or nil if no messages).
+{/LIST}
+
+[b]Channel rules:[/b]
+{LIST}
+- Channels are strings (e.g. "alerts", "sensor_data"). Integer channels are treated as their string representation.
+- Max payload size: 128 KB (MessagePack encoded).
+- Supported types: nil, boolean, number, string, table. Functions, userdata, and cyclic tables are not supported.
+{/LIST}
+
+{{HEADER:Pub/Sub (topic-based)}}
+Topic-based publish/subscribe. Publishers do not need to know subscribers. Subscribers can use wildcard patterns.
+
+[b]Publishing:[/b]
+{LIST}
+- [b]ic.net.publish(topic, payload [, options])[/b]
+- Options table (all optional):
+  {LIST}
+  - [b]retain[/b] (boolean) - New subscribers get the last retained value immediately.
+  - [b]ttl[/b] (number) - Retained message expires after this many seconds.
+  - [b]include_self[/b] (boolean) - Whether to deliver to self (default: false).
+  {/LIST}
+- Publish nil with retain=true to clear a retained message.
+{/LIST}
+
+[b]Subscribing:[/b]
+{LIST}
+- [b]ic.net.subscribe(pattern, handler)[/b] - Handler receives (topic, payload, fromId, fromName, retained).
+- Wildcards: [b]*[/b] matches any character sequence, [b]?[/b] matches a single character.
+- Handler can be a function or a string naming a global function.
+- [b]ic.net.unsubscribe(pattern)[/b] - Remove a subscription.
+{/LIST}
+
+[b]Topic rules:[/b]
+{LIST}
+- Max topic length: 128 characters.
+- Queue limit: 128 messages per subscriber queue (backpressure).
+{/LIST}
+
+{{HEADER:RPC (request/response)}}
+Call functions on another chip with correlation IDs and timeouts.
+
+[b]Server side (register methods):[/b]
+{LIST}
+- [b]ic.net.register(methodName, handler)[/b] - Handler receives (payload, fromId, fromName). Return value becomes the response.
+- If the handler throws, the error is sent back to the caller.
+- [b]ic.net.unregister(methodName)[/b]
+{/LIST}
+
+[b]Client side (call methods):[/b]
+{LIST}
+- [b]ic.net.request(target, method, payload, callback [, timeout])[/b]
+- Target is a name string or ReferenceId.
+- Callback receives (ok, payload, err, fromId, fromName).
+- Default timeout: 10 seconds. Maximum: 120 seconds.
+- If ok is false, err contains the error message.
+{/LIST}
+
+[b]RPC rules:[/b]
+{LIST}
+- Method name max: 64 characters.
+- Timed-out requests are silently expired (no callback).
+- Both server and client must be in a yield/sleep loop to process RPC.
+{/LIST}
+
+{{HEADER:Pack / Unpack}}
+Serialize Lua values to/from base64-encoded MessagePack. Useful for storing structured data in chip memory or for non-network transfer.
+
+{LIST}
+- [b]ic.net.pack(value)[/b] - Pack a Lua value to a base64 string.
+- [b]ic.net.unpack(str)[/b] - Unpack a base64 string back to a Lua value.
+{/LIST}
+
+Supported types: nil, boolean, number, string, table (arrays and maps). Pack/unpack are always available even if AllowNet is disabled.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 4: Utilities Reference
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Utilities</Key>
+            <Title>StationeersLua Utilities</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1003</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua Utilities Reference}}
+
+{{HEADER:Temperature conversion}}
+Convert between Kelvin, Celsius, and Fahrenheit using [b]util.temp(value, from, to)[/b].
+
+{LIST}
+- [b]util.temp(value, from, to)[/b] - Convert temperature between units.
+- Units: [b]"K"[/b] (Kelvin), [b]"C"[/b] (Celsius), [b]"F"[/b] (Fahrenheit). Case-insensitive.
+- [b]from[/b] defaults to "K", [b]to[/b] defaults to "C".
+- Shorthand: [b]util.temp(295)[/b] converts 295K to Celsius.
+{/LIST}
+
+Example:
+[b]local tempK = read(0, ic.enums.LogicType.Temperature)[/b]
+[b]local tempC = util.temp(tempK, "K", "C")[/b]
+
+{{HEADER:Time utilities}}
+Server-authoritative game time helpers:
+
+{LIST}
+- [b]util.game_time()[/b] - Seconds since world start.
+- [b]util.days_past()[/b] - Integer day count.
+{/LIST}
+
+Orbital time-of-day clock:
+{LIST}
+- [b]util.time_of_day()[/b] - Fraction of day (0..1).
+- [b]util.clock_time([pattern])[/b] - Formatted clock string.
+{/LIST}
+
+Clock pattern tokens:
+{LIST}
+- [b]HH[/b] = 24-hour hour, [b]hh[/b] = 12-hour hour
+- [b]MM[/b] or [b]mm[/b] = minutes, [b]ss[/b] = seconds
+- [b]A[/b] or [b]a[/b] = AM/PM
+{/LIST}
+
+Examples:
+[b]util.clock_time()[/b] returns "14:30" (default "HH:MM")
+[b]util.clock_time("hh:MM A")[/b] returns "02:30 PM"
+[b]util.clock_time("HH:MM:ss")[/b] returns "14:30:45"
+
+{{HEADER:JSON utilities}}
+General-purpose JSON encode/decode under the [b]util[/b] namespace:
+
+{LIST}
+- [b]util.json.encode(value)[/b] - Encode a Lua value to a JSON string.
+- [b]util.json.decode(str)[/b] - Decode a JSON string to a Lua value.
+{/LIST}
+
+Supports: nil, boolean, number, string, table (arrays and maps). Useful for persistence (serialize/deserialize) and for structured data.
+
+{{HEADER:HTTP API (ic.http)}}
+Make HTTP requests to external web services. This API is [b]gated by the server config[/b] option [b]AllowHttp[/b] (default: false). The server admin must explicitly enable it. Optional [b]AllowHttpLocalhost[/b] (default: false) allows localhost and loopback URLs when [b]AllowHttp[/b] is on; link-local addresses stay blocked.
+
+[b]Request functions:[/b]
+{LIST}
+- [b]ic.http.get(url [, headers] [, timeout])[/b] - GET request. Returns a requestId.
+- [b]ic.http.post(url, body [, contentType] [, headers] [, timeout])[/b] - POST request. Returns a requestId.
+- [b]ic.http.put(url, body [, contentType] [, headers] [, timeout])[/b] - PUT request.
+- [b]ic.http.delete(url [, headers] [, timeout])[/b] - DELETE request.
+- [b]ic.http.patch(url, body [, contentType] [, headers] [, timeout])[/b] - PATCH request.
+{/LIST}
+
+[b]Polling for responses:[/b]
+{LIST}
+- [b]ic.http.poll()[/b] - Returns id, success, status, body, error (or nil if no results ready).
+- Call in your tick/yield loop to receive responses.
+{/LIST}
+
+[b]URL utility functions:[/b]
+{LIST}
+- [b]ic.http.url_encode(str)[/b] - Percent-encode a string.
+- [b]ic.http.url_decode(str)[/b] - Decode a percent-encoded string.
+- [b]ic.http.build_query(table)[/b] - Build a query string from a key-value table.
+- [b]ic.http.build_url(base, params)[/b] - Build a full URL with query parameters.
+{/LIST}
+
+[b]HTTP limits (configurable by server admin):[/b]
+{LIST}
+- Max concurrent requests: 8
+- Max request body: 64 KB
+- Max response body: 256 KB
+- Default timeout: 10 seconds (max 30)
+- Max URL length: 2048 characters
+- Max custom headers: 8
+{/LIST}
+
+Example pattern:
+[b]local id = ic.http.get("https://api.example.com/data")[/b]
+[b]while true do[/b]
+[b]    local rid, ok, status, body, err = ic.http.poll()[/b]
+[b]    if rid == id then[/b]
+[b]        if ok then print("Response: " .. body)[/b]
+[b]        else print("Error: " .. tostring(err)) end[/b]
+[b]        break[/b]
+[b]    end[/b]
+[b]    yield()[/b]
+[b]end[/b]
+
+{{HEADER:Save/Load persistence}}
+When the game is saved, Lua local/global variables are [b]NOT[/b] included in the save file. After loading a save, your script re-initializes from scratch (module-level code runs again).
+
+[b]Saved automatically by the game (no extra work):[/b]
+{LIST}
+- Chip source code
+- IC10-style state: registers, stack, memory (the 512-address chip memory)
+- [b]mem_read/mem_write[/b] values are written to the save file and restored on load.
+{/LIST}
+
+[b]Custom script state - ic.persist (recommended):[/b]
+String key/value per chip. Survives world save/load, IC housing power off/on, and chip pull/reinsert when source code is unchanged. State follows the chip if you move it to another housing or host.
+{LIST}
+- [b]ic.persist.set(key, value)[/b] - store a string ([b]true[/b] on success)
+- [b]ic.persist.get(key)[/b] - read or [b]nil[/b]
+- [b]ic.persist.has(key)[/b] / [b]delete(key)[/b] / [b]clear()[/b] - wipe all keys
+- Keys starting with [b]__[/b] are reserved; use [b]util.json.encode[/b] / [b]decode[/b] for tables
+- Loaded [b]before[/b] module init on compile so top-of-file reads work
+- BepInEx section [b]Lua Persist[/b]: [b]MaxKeyLength[/b], [b]MaxValueLength[/b], [b]MaxTotalBytes[/b] (defaults 128 / 8192 / 32768)
+{/LIST}
+
+Example ([b]Examples/PersistExample.lua[/b]):
+[b]local KEY = "settings"[/b]
+[b]local saved = ic.persist.has(KEY) and util.json.decode(ic.persist.get(KEY)) or nil[/b]
+[b]local mode = (saved and saved.mode) or "auto"[/b]
+[b]function tick(dt)[/b]
+[b]    ic.persist.set(KEY, util.json.encode({ mode = mode }))[/b]
+[b]end[/b]
+
+[b]Legacy serialize() / deserialize(blob):[/b] still work (blob stored in KV). [b]deserialize[/b] runs [b]after[/b] init; no [b]yield[/b] / [b]sleep[/b] in either hook.
+
+{{HEADER:Migrating from IC10}}
+Key differences from IC10 assembly:
+{LIST}
+- [b]No registers[/b] - Use Lua variables. No 16-register limit.
+- [b]No line numbers[/b] - Use functions, loops, and if/else.
+- [b]Nil instead of errors[/b] - read() returns nil for missing devices instead of crashing.
+- [b]Strings are native[/b] - No ASCII-6 packing needed for most things.
+- [b]Tables[/b] - Use Lua tables for data structures.
+- [b]Functions[/b] - Define reusable functions instead of jal/j ra jump patterns.
+- [b]Error handling[/b] - Use pcall() for protected calls.
+{/LIST}
+
+Quick translation examples:
+{LIST}
+- IC10: [b]l r0 d0 Temperature[/b] -> Lua: [b]local temp = read(0, LT.Temperature)[/b]
+- IC10: [b]s d0 On 1[/b] -> Lua: [b]write(0, LT.On, 1)[/b]
+- IC10: [b]lb r0 HASH("GasSensor") Temperature 2[/b] -> Lua: [b]batch_read(hash("GasSensor"), LT.Temperature, LBM.Average)[/b]
+- IC10: [b]push 42[/b] -> Lua: [b]stack_push(42)[/b]
+- IC10: [b]sleep 5[/b] -> Lua: [b]sleep(5)[/b]
+{/LIST}
+
+For the complete instruction-by-instruction mapping, open:
+{{LINK:StationeersLua_Mapping;IC10 to Lua Mapping}}
+
+{{HEADER:Companion mod: ScriptedScreens}}
+For custom touchscreen UIs on computer consoles and tablets, install [b]ScriptedScreens[/b]. It adds declarative UI elements (buttons, sliders, labels, charts, tables, gauges), touch and keyboard input, canvas drawing, image display, sound playback, layout helpers, and 60fps frame callbacks.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 5: Debugger
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Debugger</Key>
+            <Title>Lua Debugger Motherboard</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1004</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Lua Debugger Motherboard}}
+
+The {{THING:MotherboardLuaDebugger}} lets you inspect Lua chip errors and runtime state in-game.
+
+{{HEADER:Setup}}
+{LIST}
+- Insert the motherboard into a Computer or Console.
+- Ensure the computer is on the [b]same data network[/b] as the Lua chip you want to inspect.
+- Power on the computer.
+- For wireless development access, install a second {{THING:MotherboardLuaDebugger}} into the debugger slot inside the {{THING:WirelessDataNetworkAccessBoard}}.
+{/LIST}
+
+{{HEADER:How to use}}
+{LIST}
+- Select a target endpoint from the dropdown. All Lua chip endpoints on the network are listed.
+- Click [b]Refresh[/b] to request a server-authoritative snapshot of the chip state.
+- Use [b]Copy[/b] to copy the full snapshot text to your clipboard for external review.
+{/LIST}
+
+{{HEADER:What you will see}}
+{LIST}
+- [b]Error state:[/b] Chip compile/runtime error type and line number.
+- [b]Error message:[/b] Full last Lua error message and traceback captured by the Lua runtime.
+- [b]Runtime state:[/b] Sleep remaining time, pending event queue count, pending network message queue count.
+- [b]Stack pointer[/b] (sp) and [b]return address[/b] (ra).
+- [b]Chip memory window:[/b] Paginated view of the 512 memory addresses. Navigate with Prev/Next buttons.
+- [b]Log output:[/b] The Logs tab shows print() output from the target chip (bounded buffer, cleared on power cycle or runtime reset).
+{/LIST}
+
+{{HEADER:VS Code debugger [Experimental]}}
+The StationeersLua VS Code extension can attach to a Lua chip and use this same debug state for external debugging. This feature requires [b]EnableExperimentalDebugger = true[/b] in the [b][MCP Server][/b] config section.
+
+{LIST}
+- Source breakpoints, pause, continue, step over, step in, and step out.
+- Stack frames, scopes, and variables from the currently paused runtime.
+- print() output plus runtime errors/tracebacks forwarded into the attached debug session.
+- ScriptedScreens-hosted Lua chips appear through their host board or cartridge endpoint.
+{/LIST}
+
+{{HEADER:Tips}}
+{LIST}
+- Use [b]print(...)[/b] in your Lua scripts to write debug output. View it in the Logs tab.
+- The debugger targets endpoints on the computer's current data network.
+- Wireless MCP / VS Code diagnostics also require a {{THING:MotherboardLuaDebugger}} installed inside the wireless development board.
+- For ScriptedScreens-hosted Lua chips, targets are shown as the host endpoint device (the board/cartridge).
+- This motherboard does [b]not[/b] debug vanilla IC10 chips — only Lua chips.
+- Multiple computers with debugger motherboards can target the same chip simultaneously.
+- In multiplayer, VS Code connects to a local bridge in the player’s own game client, not directly to the dedicated server over HTTP.
+{/LIST}
+
+{{HEADER:Debugging checklist}}
+When a script is not working:
+{LIST}
+- Check the error state in the debugger. If there is a compile error, the script has a syntax problem.
+- If there is a runtime error, read the traceback to find which line failed and why.
+- Use print() liberally to trace variable values and code flow.
+- Check that devices are connected to the correct pins (d0-d5) by printing device_id() and device_name().
+- Remember that read() returns nil for missing devices — check for nil before using the value.
+- Wrap writes in pcall() to catch errors gracefully.
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 6: Wireless Development Board
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_WirelessBoard</Key>
+            <Title>Wireless Development Board</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1005</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Wireless Development Board}}
+
+The {{THING:WirelessDataNetworkAccessBoard}} is a wearable EVA suit module that gives the MCP server and VS Code extension remote access to Lua chips on a powered omni transmitter network.
+
+{{HEADER:Setup}}
+{LIST}
+- Print the board from an Electronics Printer.
+- Insert it into the dedicated wireless board slot on a supported EVA suit.
+- Wear the suit.
+- Open the wireless board slot to access the board UI and its wireless controls.
+- Optional: install a {{THING:MotherboardLuaDebugger}} into the board's internal debugger slot to unlock wireless diagnostics in MCP / VS Code.
+{/LIST}
+
+{{HEADER:Board controls}}
+{LIST}
+- [b]Wireless Network[/b] - Cycle through powered omni transmitters currently in range.
+- [b]Wireless Mesh[/b] - Toggle whether the board may hand off to the best in-range transmitter on the selected network.
+- [b]Wireless Disconnect[/b] - Clear the current wireless target.
+{/LIST}
+
+{{HEADER:Behavior}}
+{LIST}
+- The selected network persists across save/load.
+- On relog, the board reconnects automatically if the selected network is still in range.
+- Brief transmitter outages are tolerated with a short reconnect grace period.
+- Removing the suit or the board immediately removes wireless development access.
+- While you remain connected and in range, the board draws a small amount of extra power from the suit battery; the item description mentions this while it applies.
+{/LIST}
+
+{{HEADER:MCP and VS Code access}}
+{LIST}
+- Requires the server config [b]AllowNetworkChipAccess[/b] to be enabled.
+- When connected, remote Lua chips on the selected wireless data network are available to MCP and the VS Code extension.
+- Compile/runtime diagnostics over wireless also require a {{THING:MotherboardLuaDebugger}} installed into the wireless board itself.
+- If you also have an in-game editor open on a different wired network, both networks are accessible at the same time.
+- If the config is disabled, the board shows an informational disabled state and grants no remote access.
+- If multiplayer debug proxying is enabled, a multiplayer client can keep using its own local StationeersLua bridge while the game routes debug traffic to the authoritative server over mod network messages.
+- Dedicated servers do [b]not[/b] expose the HTTP/MCP listener directly.
+{/LIST}
+
+{{HEADER:Tips}}
+{LIST}
+- Only [b]powered[/b] omni transmitters in range can be selected.
+- Mesh-enabled mode is useful when several omni transmitters bridge the same network.
+- The board's extended text shows current connection state, range, and reachable networks.
+{/LIST}
+
+{{HEADER:Suit-hosted Lua chips}}
+Lua chips installed in [b]normal suit IC slots[/b] on the same suit as a connected Wireless Development Board use that board's [b]wireless data network[/b] for [b]read[/b]/[b]write[/b], [b]ic.net[/b], batch calls, [b]require()[/b], etc. — the same omni link as the board.
+
+{{HEADER:Scripting: ic.wireless}}
+From suit chips and [b]wireless tablet cartridges[/b] (ScriptedScreens), you can drive the omni link in Lua:
+{LIST}
+- [b]ic.wireless.list()[/b] — table of in-range transmitters ([b]id[/b], [b]network_id[/b], [b]name[/b], [b]distance[/b], [b]max_distance[/b]).
+- [b]ic.wireless.connect(id [, mesh])[/b] — connect; returns [b]true[/b] or [b]false, error_string[/b].
+- [b]ic.wireless.disconnect()[/b] — clear the link.
+- [b]ic.wireless.status()[/b] — safe snapshot ([b]available[/b], [b]connected[/b], [b]in_range[/b], [b]mesh[/b], ids/names, distances); returns [b]available=false[/b] when no wireless host.
+- [b]ic.wireless.set_mesh(enabled)[/b] — toggle mesh handoff without reconnecting.
+{/LIST}
+[i]Aliases:[/i] [b]ic.wireless_list[/b], [b]ic.wireless_connect[/b], [b]ic.wireless_disconnect[/b], [b]ic.wireless_status[/b], [b]ic.wireless_set_mesh[/b].
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 7: IC10 to Lua Mapping
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Mapping</Key>
+            <Title>IC10 to Lua Mapping</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1006</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:IC10 to Lua Mapping}}-
+
+This is a complete instruction-by-instruction mapping from IC10 assembly to StationeersLua. If you are migrating existing IC10 code to Lua, use this as your translation reference.
+
+{{HEADER:Terminology}}
+{LIST}
+- [b]r0..r15[/b] (IC10 registers) -> In Lua: use local variables, tables, or mem_read/mem_write for chip memory.
+- [b]d0..d5[/b] (IC10 device registers) -> In Lua: use device indices (integers) with read/write. d0 = 0, d1 = 1, etc.
+- [b]db[/b] (the chip's housing) -> In Lua: [b]ic.const.BASE_UNIT_INDEX[/b] (typically 6).
+- [b]sp / ra[/b] (stack pointer / return address) -> In Lua: [b]stack_get_sp()[/b], [b]stack_set_sp()[/b], [b]stack_get_ra()[/b], [b]stack_set_ra()[/b]. Usually not needed — Lua has native functions and calls.
+- [b]HASH("...")[/b] -> In Lua: [b]hash("...")[/b]. Same CRC-32 hash.
+- [b]LogicType / LogicSlotType[/b] -> In Lua: [b]ic.enums.LogicType.*[/b], [b]ic.enums.LogicSlotType.*[/b].
+- [b]BatchMode (Average/Sum/Min/Max)[/b] -> In Lua: [b]ic.enums.LogicBatchMethod.*[/b].
+- [b]Sorter opcodes / compare mode in sorter memory[/b] -> In Lua: [b]ic.enums.SorterInstruction.*[/b], [b]ic.enums.ConditionOperation.*[/b] with [b]mem_put[/b]/[b]mem_get[/b].
+- [b]d0:0 Channel0[/b] (network addressing) -> In Lua: pass an optional [b]networkIndex[/b] argument to read/write.
+{/LIST}
+
+{{HEADER:Utility instructions}}
+{LIST}
+- [b]alias[/b] (name a register/device) -> [b]local name = ...[/b] — use variables.
+- [b]define[/b] (define constant) -> [b]local PI = 3.14159[/b] — use locals or module-level constants.
+- [b]hcf[/b] (halt and catch fire) -> [b]hcf()[/b] — stops execution permanently.
+- [b]sleep[/b] (pause for seconds) -> [b]sleep(seconds)[/b] — coroutine suspension.
+- [b]yield[/b] (pause for 1 tick) -> [b]yield()[/b] — coroutine suspension.
+{/LIST}
+
+{{HEADER:Math instructions}}
+{LIST}
+- [b]abs[/b] -> [b]math.abs(x)[/b]
+- [b]add[/b] -> [b]a + b[/b]
+- [b]sub[/b] -> [b]a - b[/b]
+- [b]mul[/b] -> [b]a * b[/b]
+- [b]div[/b] -> [b]a / b[/b]
+- [b]mod[/b] -> [b]math.fmod(a, b)[/b] (truncate-quotient remainder, matches IC10)
+- [b]pow[/b] -> [b]a ^ b[/b] or [b]math.pow(a, b)[/b]
+- [b]exp[/b] -> [b]math.exp(x)[/b]
+- [b]sqrt[/b] -> [b]math.sqrt(x)[/b]
+- [b]log[/b] -> [b]math.log(x)[/b]
+- [b]ceil[/b] -> [b]math.ceil(x)[/b]
+- [b]floor[/b] -> [b]math.floor(x)[/b]
+- [b]round[/b] -> Implement a helper function (IC10 tie-breaking not specified).
+- [b]trunc[/b] -> [b]x >= 0 and math.floor(x) or math.ceil(x)[/b]
+- [b]max[/b] -> [b]math.max(a, b)[/b]
+- [b]min[/b] -> [b]math.min(a, b)[/b]
+- [b]rand[/b] -> [b]math.random()[/b]
+- [b]move[/b] (assignment) -> [b]dst = src[/b]
+- [b]lerp[/b] -> [b]a + (b - a) * t[/b] (IC10 clamps t to 0..1; add clamp if needed).
+{/LIST}
+
+{{HEADER:Trigonometric instructions}}
+{LIST}
+- [b]sin[/b] -> [b]math.sin(x)[/b]
+- [b]cos[/b] -> [b]math.cos(x)[/b]
+- [b]tan[/b] -> [b]math.tan(x)[/b]
+- [b]asin[/b] -> [b]math.asin(x)[/b]
+- [b]acos[/b] -> [b]math.acos(x)[/b]
+- [b]atan[/b] -> [b]math.atan(x)[/b]
+- [b]atan2[/b] -> [b]math.atan(y, x)[/b] (Lua's math.atan with two args is atan2).
+{/LIST}
+
+{{HEADER:Stack and memory instructions}}
+{LIST}
+- [b]push[/b] (push to chip stack) -> [b]stack_push(value)[/b]
+- [b]pop[/b] (pop from chip stack) -> [b]stack_pop()[/b]
+- [b]peek[/b] (read stack top) -> [b]stack_peek()[/b] — does not change sp.
+- [b]poke[/b] (write stack at address) -> [b]stack_poke(address, value)[/b]
+- [b]get[/b] (read device memory) -> [b]mem_get(deviceIndex, address [, networkIndex])[/b]
+- [b]put[/b] (write device memory) -> [b]mem_put(deviceIndex, address, value [, networkIndex])[/b]
+- [b]clr[/b] (clear device memory) -> [b]mem_clear_device(deviceIndex [, networkIndex])[/b]
+- [b]getd[/b] (read device memory by id) -> [b]mem_get_id(deviceId, address [, networkIndex])[/b]
+- [b]putd[/b] (write device memory by id) -> [b]mem_put_id(deviceId, address, value [, networkIndex])[/b]
+- [b]clrd[/b] (clear device memory by id) -> [b]mem_clear_id(deviceId [, networkIndex])[/b]
+{/LIST}
+
+For chip-local memory (not device memory):
+{LIST}
+- [b]mem_read(address)[/b] / [b]mem_write(address, value)[/b] / [b]mem_clear()[/b]
+{/LIST}
+
+{{HEADER:Logic read/write instructions}}
+{LIST}
+- [b]l[/b] (load logic value) -> [b]read(deviceIndex, logicType [, networkIndex])[/b] — returns nil if device missing.
+- [b]s[/b] (store logic value) -> [b]write(deviceIndex, logicType, value [, networkIndex])[/b] — may throw if device missing.
+- [b]ls[/b] (load slot value) -> [b]read_slot(deviceIndex, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]ss[/b] (store slot value) -> [b]write_slot(deviceIndex, slotIndex, logicSlotType, value [, networkIndex])[/b]
+- [b]lr[/b] (load reagent) -> [b]read_reagent(deviceIndex, reagentMode, reagentHash [, networkIndex])[/b]
+- [b]rmap[/b] (reagent map) -> [b]rmap(deviceIndex [, networkIndex])[/b] — returns a table.
+{/LIST}
+
+{{HEADER:Batch read/write instructions}}
+{LIST}
+- [b]lb[/b] (batch load by prefab hash) -> [b]batch_read(prefabHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]lbn[/b] (batch load + name filter) -> [b]batch_read_name(prefabHash, nameHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]lbs[/b] (batch load slot) -> [b]batch_read_slot(prefabHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]lbns[/b] (batch load slot + name) -> [b]batch_read_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]sb[/b] (batch store) -> [b]batch_write(prefabHash, logicType, value [, networkIndex])[/b]
+- [b]sbn[/b] (batch store + name) -> [b]batch_write_name(prefabHash, nameHash, logicType, value [, networkIndex])[/b]
+- [b]sbs[/b] (batch store slot) -> [b]batch_write_slot(prefabHash, slotIndex, logicSlotType, value [, networkIndex])[/b]
+{/LIST}
+
+[i]Note: The optional networkIndex on batch functions is a StationeersLua extension. Vanilla IC10 batch does not support network selection.[/i]
+
+{{HEADER:Bitwise instructions (53-bit safe)}}
+{LIST}
+- [b]and[/b] -> [b]bit_and(a, b)[/b]
+- [b]or[/b] -> [b]bit_or(a, b)[/b]
+- [b]xor[/b] -> [b]bit_xor(a, b)[/b]
+- [b]nor[/b] -> [b]bit_nor(a, b)[/b]
+- [b]not[/b] -> [b]bit_not(a)[/b]
+- [b]sll[/b] (shift left logical) -> [b]bit_sll(a, shift)[/b]
+- [b]sla[/b] (shift left arithmetic) -> [b]bit_sll(a, shift)[/b] — same as sll in this context.
+- [b]srl[/b] (shift right logical) -> [b]bit_srl(a, shift)[/b]
+- [b]sra[/b] (shift right arithmetic) -> [b]bit_sra(a, shift)[/b]
+- [b]ext[/b] (extract bit field) -> [b]bit_ext(value, pos, len)[/b]
+- [b]ins[/b] (insert bit field) -> [b]bit_ins(dst, src, pos, len)[/b]
+{/LIST}
+
+{{HEADER:Comparison instructions}}
+IC10 has many "set-if" comparison instructions. In Lua, use standard comparisons and return 1 or 0:
+
+{LIST}
+- [b]select[/b] (conditional select) -> [b]cond ~= 0 and a or b[/b]
+- [b]seq[/b] (a == b) -> [b](a == b) and 1 or 0[/b]
+- [b]seqz[/b] (a == 0) -> [b](a == 0) and 1 or 0[/b]
+- [b]sne[/b] (a ~= b) -> [b](a ~= b) and 1 or 0[/b]
+- [b]snez[/b] (a ~= 0) -> [b](a ~= 0) and 1 or 0[/b]
+- [b]sge[/b] (a >= b) -> [b](a >= b) and 1 or 0[/b]
+- [b]sgez[/b] (a >= 0) -> [b](a >= 0) and 1 or 0[/b]
+- [b]sgt[/b] (a > b) -> [b](a > b) and 1 or 0[/b]
+- [b]sgtz[/b] (a > 0) -> [b](a > 0) and 1 or 0[/b]
+- [b]sle[/b] (a <= b) -> [b](a <= b) and 1 or 0[/b]
+- [b]slez[/b] (a <= 0) -> [b](a <= 0) and 1 or 0[/b]
+- [b]slt[/b] (a < b) -> [b](a < b) and 1 or 0[/b]
+- [b]sltz[/b] (a < 0) -> [b](a < 0) and 1 or 0[/b]
+- [b]snan[/b] (is NaN) -> [b](x ~= x) and 1 or 0[/b] — NaN is the only value where x ~= x.
+- [b]snanz[/b] (is not NaN) -> [b](x == x) and 1 or 0[/b]
+- [b]sap/sna/sapz/snaz[/b] (approximate compare) -> Implement tolerance helpers in Lua.
+{/LIST}
+
+{{HEADER:Branching instructions}}
+IC10 uses assembly-style jumps. In Lua, use native control flow:
+
+{LIST}
+- [b]j[/b] (unconditional jump) -> [b]while true do ... end[/b] or [b]goto label[/b]
+- [b]jal[/b] (call + set ra) -> Define and call functions: [b]function foo() ... end; foo()[/b]
+- [b]jr / j ra[/b] (return) -> [b]return[/b]
+- [b]beq/bne/bgt/bge/blt/ble[/b] (conditional branch) -> [b]if a == b then ... end[/b] (use standard comparisons)
+- [b]beqz/bnez/bgtz/bgez/bltz/blez[/b] (compare to zero) -> [b]if a == 0 then ... end[/b]
+- [b]bdns[/b] (branch if device not set) -> [b]if read(dev, logicType) == nil then ... end[/b]
+- [b]bdse[/b] (branch if device set) -> [b]if read(dev, logicType) ~= nil then ... end[/b]
+{/LIST}
+
+[i]Tip: Lua's [b]if/elseif/else[/b], [b]while[/b], [b]for[/b], and [b]repeat/until[/b] replace all IC10 branching patterns. You never need to count line numbers or manage jump targets.[/i]
+
+{{HEADER:Numeric format equivalents}}
+{LIST}
+- IC10: [b]$FF[/b] (hex) -> Lua: [b]0xFF[/b]
+- IC10: [b]$E1B2[/b] (hex) -> Lua: [b]0xE1B2[/b]
+- IC10: [b]%101010[/b] (binary) -> Lua: [b]tonumber("101010", 2)[/b] (Lua 5.2 has no [b]0b[/b] literals)
+{/LIST}
+
+{{HEADER:Hash generation}}
+IC10 uses CRC-32 hashes for batch addressing and device identification. StationeersLua provides [b]hash()[/b] to generate the same values:
+
+{LIST}
+- [b]hash("StructureGasSensor")[/b] — prefab hash for batch_read/batch_write.
+- [b]hash("My Sensor")[/b] — name hash for batch_read_name/batch_write_name.
+- [b]prefab_name(hash)[/b] — reverse lookup: hash to prefab name string.
+- [b]device_name(deviceIndex [, networkIndex])[/b] — live display name of a wired device.
+- [b]namehash_name(deviceHash, nameHash [, networkIndex])[/b] — resolve a nameHash to a display name by scanning visible devices.
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+    </HelpPage>
+</Language>

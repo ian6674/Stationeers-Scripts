@@ -1,0 +1,1264 @@
+<?xml version="1.0"?>
+<Language>
+    <Name>StationeersLua</Name>
+    <Code>FR</Code>
+    <Font></Font>
+    <Things>
+        <RecordThing>
+            <Key>ItemIntegratedCircuitLua</Key>
+            <Value>Circuit intégré (Lua)</Value>
+            <Description>Circuit intégré programmable Lua.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>MotherboardLuaDebugger</Key>
+            <Value>Carte mère (débogueur Lua)</Value>
+            <Description><![CDATA[Carte mère pour inspecter les erreurs de script Lua et l'état d'exécution sur un réseau de données.
+
+{{HEADER:Installation}
+{LIST}
+- Insérez la carte mère dans un ordinateur ou une console.
+- Assurez-vous que l'ordinateur est sur le <b>même réseau de données</b> que la puce Lua que vous souhaitez inspecter.
+- Allumez l'ordinateur.
+- Pour un accès au développement sans fil, installez un deuxième {THING:MotherboardLuaDebugger} dans l'emplacement du débogueur à l'intérieur du {THING:WirelessDataNetworkAccessBoard}.
+{/LIST}
+
+{{HEADER:Utilisation}
+{LIST}
+- Sélectionnez un point de terminaison cible dans la liste déroulante. Tous les points de terminaison de la puce Lua sur le réseau sont répertoriés.
+- Cliquez sur <b>Refresh</b> pour demander un instantané faisant autorité sur le serveur de l'état de la puce.
+- Utilisez <b>Copy</b> pour copier le texte complet de l'instantané dans votre presse-papiers pour examen externe.
+{/LIST}
+
+{{HEADER:Ce que vous verrez}
+{LIST}
+- <b>État d'erreur :</b> Type d'erreur de compilation/d'exécution de la puce et numéro de ligne.
+- <b>Message d'erreur :</b> Dernier message d'erreur Lua complet et traceback capturé par le runtime Lua.
+- <b>État d'exécution :</b> Temps de veille restant, nombre de files d'attente d'événements en attente, nombre de files d'attente de messages réseau en attente.
+- <b>Pointeur de pile</b> (sp) et <b>adresse de retour</b> (ra).
+- <b>Fenêtre mémoire de la puce :</b> Vue paginée des 512 adresses mémoire. Naviguez avec les boutons Précédent/Suivant.
+- <b>Sortie du journal :</b> L'onglet Journaux affiche la sortie print() de la puce cible (tampon limité, effacé lors du cycle d'alimentation ou de la réinitialisation de l'exécution).
+{/LIST}
+
+{{HEADER:Débogueur VS Code [Expérimental]}
+L'extension StationeersLua VS Code peut se connecter à une puce Lua et utiliser ce même état de débogage pour le débogage externe. Cette fonctionnalité nécessite <b>EnableExperimentalDebugger = true</b> dans la section de configuration <b>[MCP Server]</b>.
+
+{LIST}
+- Points d'arrêt dans la source, pause, continuer, pas à pas, entrée et sortie.
+- Cadres de pile, portées et variables du runtime actuellement en pause.
+- Sortie print() plus erreurs d'exécution/tracebacks transmises à la session de débogage.
+- Les puces Lua hébergées par ScriptedScreens apparaissent via leur carte hôte ou leur point final de cartouche.
+{/LIST}
+
+{{HEADER:Conseils}
+{LIST}
+- Utilisez <b>print(...)</b> dans vos scripts Lua pour écrire la sortie de débogage. Affichez-le dans l'onglet Journaux.
+- Le débogueur cible les points de terminaison sur le réseau de données actuel de l'ordinateur.
+- Les diagnostics sans fil MCP/VS Code nécessitent également un {THING:MotherboardLuaDebugger} installé à l'intérieur de la carte de développement sans fil.
+- Pour les puces Lua hébergées par ScriptedScreens, les cibles sont affichées en tant que périphérique de point final hôte (la carte/cartouche).
+- Cette carte mère ne débogue <b>pas</b> les puces Vanilla IC10 - uniquement les puces Lua.
+- Plusieurs ordinateurs équipés de cartes mères de débogueur peuvent cibler simultanément la même puce.
+- En multijoueur, VS Code se connecte à un pont local dans le propre client de jeu du joueur, et non directement au serveur dédié via HTTP.
+{/LIST}
+
+{{HEADER:Liste de contrôle de débogage}
+Lorsqu'un script ne fonctionne pas :
+{LIST}
+- Vérifiez l'état d'erreur dans le débogueur. S'il y a une erreur de compilation, le script a un problème de syntaxe.
+- S'il y a une erreur d'exécution, lisez le traçage pour trouver quelle ligne a échoué et pourquoi.
+- Utilisez généreusement print() pour tracer les valeurs des variables et le flux de code.
+- Vérifiez que les appareils sont connectés aux bonnes broches (d0-d5) en imprimant device_id() et device_name().
+- N'oubliez pas que read() renvoie nil pour les périphériques manquants - vérifiez nil avant d'utiliser la valeur.
+- Enveloppez les écritures dans pcall() pour détecter les erreurs avec élégance.
+{/LIST}]]></Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>WirelessDataNetworkAccessBoard</Key>
+            <Value>Carte de développement sans fil</Value>
+            <Description><![CDATA[Module de combinaison qui expose l'accès au développement de puces Lua à distance via des {THING:WirelessDataAccessPoint} alimentés. Bien qu'il soit activement connecté, il draine passivement la batterie de la combinaison.
+
+{{HEADER:Aperçu}
+Module de combinaison EVA portable qui donne au serveur MCP et à l'extension VS Code un accès à distance aux puces Lua sur un réseau de {THING:WirelessDataAccessPoint} alimentés.
+
+{{HEADER:Installation}
+{LIST}
+- Imprimez la carte à partir d'une imprimante électronique.
+- Insérez-la dans l'emplacement dédié pour carte sans fil sur une combinaison EVA prise en charge.
+- Portez la combinaison.
+- Ouvrez l'emplacement de la carte sans fil pour accéder à l'interface utilisateur de la carte et à ses commandes sans fil.
+- Facultatif : installez un {THING:MotherboardLuaDebugger} dans l'emplacement de débogueur interne de la carte pour déverrouiller les diagnostics sans fil dans MCP/VS Code.
+{/LIST}
+
+{{HEADER:Commandes de la carte}
+{LIST}
+- <b>Réseau sans fil</b> - Parcourez les {THING:WirelessDataAccessPoint} alimentés actuellement à portée.
+- <b>Wireless Mesh</b> - Indiquez si la carte peut passer le transfert au meilleur émetteur à portée du réseau sélectionné.
+- <b>Déconnexion sans fil</b> - Effacer la cible sans fil actuelle.
+{/LIST}
+
+{{HEADER:Comportement}
+{LIST}
+- Le réseau sélectionné persiste pendant la sauvegarde/le chargement.
+- Lors de la reconnexion, la carte se reconnecte automatiquement si le réseau sélectionné est toujours à portée.
+- De brèves pannes d'émetteur sont tolérées avec une courte période de grâce de reconnexion.
+- Le retrait de la combinaison ou de la carte supprime immédiatement l'accès au développement sans fil.
+- Pendant que vous restez connecté et à portée, la carte consomme une petite quantité d'énergie supplémentaire de la batterie de la combinaison.
+{/LIST}
+
+{{HEADER:Accès MCP et VS Code}
+{LIST}
+- Nécessite que la configuration du serveur <b>AllowNetworkChipAccess</b> soit activée.
+- Une fois connectées, les puces Lua distantes sur le réseau de données sans fil sélectionné sont disponibles pour MCP et l'extension VS Code.
+- Les diagnostics de compilation/exécution via sans fil nécessitent également un {THING:MotherboardLuaDebugger} installé dans la carte sans fil elle-même.
+- Si vous disposez également d'un éditeur en jeu ouvert sur un autre réseau filaire, les deux réseaux sont accessibles en même temps.
+- Si la configuration est désactivée, la carte affiche un état informatif désactivé et n'accorde aucun accès à distance.
+- Si le proxy de débogage multijoueur est activé, un client multijoueur peut continuer à utiliser son propre pont StationeersLua local pendant que le jeu achemine le trafic de débogage vers le serveur faisant autorité via les messages réseau du mod.
+- Les serveurs dédiés n'exposent <b>pas</b> directement l'écouteur HTTP/MCP.
+{/LIST}
+
+{{HEADER:Conseils}
+{LIST}
+- Seuls les {THING:WirelessDataAccessPoint} <b>alimentés</b> à portée peuvent être sélectionnés.
+- Le mode maillé est utile lorsque plusieurs points d'accès relient le même réseau.
+- Le texte étendu du tableau affiche l'état actuel de la connexion, la portée et les réseaux accessibles.
+{/LIST}
+
+{{HEADER:Puces Lua dans la combinaison}
+Les puces Lua installées dans les emplacements IC <b>normaux de la combinaison</b> sur la même combinaison qu'une carte de développement sans fil connectée utilisent le <b>réseau de données sans fil</b> de cette carte pour <b>read</b>/<b>write</b>, <b>ic.net</b>, les appels par lots, <b>require()</b>, etc. - le même lien du point d'accès que la carte.
+
+{{HEADER:Scripting : ic.wireless}
+À partir des puces de combinaison et des <b>cartouches de tablette sans fil</b> (ScriptedScreens), vous pouvez piloter le lien du point d'accès dans Lua :
+{LIST}
+- <b>ic.wireless.list()</b> - tableau des émetteurs à portée (<b>id</b>, <b>network_id</b>, <b>name</b>, <b>distance</b>, <b>max_distance</b>).
+- <b>ic.wireless.connect(id [, mesh])</b> - connecter ; renvoie <b>true</b> ou <b>false, error_string</b>.
+- <b>ic.wireless.disconnect()</b> - efface le lien.
+- <b>ic.wireless.status()</b> - instantané sécurisé (<b>available</b>, <b>connected</b>, <b>in_range</b>, <b>mesh</b>, identifiants/noms, distances) ; renvoie <b>available=false</b> lorsqu'il n'y a pas d'hôte sans fil.
+- <b>ic.wireless.set_mesh(enabled)</b> - bascule le transfert du maillage sans se reconnecter.
+{/LIST}
+<i>Alias :</i> <b>ic.wireless_list</b>, <b>ic.wireless_connect</b>, <b>ic.wireless_disconnect</b>, <b>ic.wireless_status</b>, <b>ic.wireless_set_mesh</b>.]]></Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>SuitNetworkingModule</Key>
+            <Value>Module réseau de combinaison</Value>
+            <Description><![CDATA[Module de combinaison EVA qui relie l'équipement porté en un réseau personnel pour les scripts Lua.
+
+{{HEADER:Aperçu}
+Module passif pour l'accès local aux données entre l'équipement porté, sans pont vers un {THING:WirelessDataAccessPoint} distant. Les objets Lua portés (puce de combinaison, visière programmable, tablette, etc.) peuvent utiliser <b>device_list</b>, <b>read_id</b> et <b>write_id</b> sur les autres appareils équipés de premier niveau. Installé dans une combinaison portée, il consomme un peu d'énergie de la batterie de la combinaison.
+
+{{HEADER:Installation}
+{LIST}
+- Imprimer le module à l'imprimante électronique.
+- L'insérer dans l'emplacement <b>Module de combinaison</b> d'une combinaison EVA prise en charge (même emplacement que {THING:WirelessDataNetworkAccessBoard}).
+- Porter de l'équipement Lua pendant que le module est installé.
+{/LIST}
+
+{{HEADER:Comportement}
+{LIST}
+- Emplacements portés de premier niveau uniquement : combinaison, casque, lunettes, sac à dos, ceinture, uniforme et les deux mains.
+- Pas de contenu imbriqué dans les conteneurs.
+- Pas de connexion aux réseaux de données distants ni aux points d'accès données sans fil.
+- Mutuellement exclusif avec la carte de développement sans fil dans le même emplacement.
+{/LIST}]]></Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>ItemKitWirelessDataAccessPoint</Key>
+            <Value>Kit (Point d'accès données sans fil)</Value>
+            <Description>Kit de construction pour un point d'accès données sans fil sur un réseau de données.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>WirelessDataAccessPoint</Key>
+            <Value>Point d'accès données sans fil</Value>
+            <Description><![CDATA[Pont sans fil vers un réseau de données pour cartes de combinaison et cartouches de tablette.
+
+{{HEADER:Aperçu}
+Structure montable sur mur, plafond ou sol qui relie un <b>réseau de câbles de données</b> aux clients sans fil à portée ({THING:WirelessDataNetworkAccessBoard}, cartouches sans fil ScriptedScreens pour tablette, et puces Lua du scaphandre utilisant ces liaisons).
+
+{{HEADER:Installation}
+{LIST}
+- Imprimez le kit à l'imprimante électronique et placez-le sur une surface (dos plaqué au mur, plafond ou sol).
+- Branchez l'<b>alimentation</b> et un câble <b>données</b>.
+- Mettez l'appareil <b>sous tension</b>. Il doit être alimenté et sur un réseau de données pour servir les clients sans fil.
+{/LIST}
+
+{{HEADER:Voyants d'état}
+{LIST}
+- <b>LED bleue (éteinte)</b> - Aucun joueur sans fil n'est actuellement connecté à portée.
+- <b>LED bleue (allumée)</b> - Au moins un appareil joueur a une liaison sans fil active à portée via ce point d'accès.
+- <b>Erreur</b> - L'appareil est sous tension mais <b>aucun câble réseau de données</b> n'est branché. Les clients sans fil ne peuvent pas l'utiliser tant que les données ne sont pas connectées.
+- <b>Marche / Arrêt</b> - Interrupteur principal. Arrêt désactive le pont sans fil.
+- <b>Alimenté</b> - Voyant d'alimentation standard ; l'appareil a besoin du réseau électrique sur son câble d'alimentation.
+{/LIST}
+
+{{HEADER:Portée sans fil}
+{LIST}
+- Les clients doivent être dans la portée d'émission du point d'accès (la distance s'affiche lors du choix d'une cible).
+- Seuls les points d'accès <b>sous tension</b>, <b>alimentés</b> et <b>sans erreur</b> sur un réseau de données apparaissent comme cibles sans fil valides.
+- Plusieurs points d'accès peuvent relier le même réseau de données ; le mode mesh sur la carte de développement ou la cartouche peut basculer entre eux.
+{/LIST}
+
+{{HEADER:Voir aussi}
+{LIST}
+- {LINK:ThingWirelessDataNetworkAccessBoard;Wireless Development Board} - Module de combinaison qui se connecte aux points d'accès pour le développement distant MCP / VS Code.
+{/LIST}]]></Description>
+        </RecordThing>
+    </Things>
+    <Interface>
+        <Record>
+            <Key>StationeersLuaGuideButton</Key>
+            <Value>PapeterieLua</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaSuitModuleSlotName</Key>
+            <Value>Module de combinaison</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSlotName</Key>
+            <Value>Module de combinaison</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDebuggerSlotName</Key>
+            <Value>Carte de débogage Lua</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionNetwork</Key>
+            <Value>Réseau sans fil</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionMesh</Key>
+            <Value>Maillage sans fil</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionDisconnect</Key>
+            <Value>Déconnexion sans fil</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInsertFirst</Key>
+            <Value>Insérez d'abord une carte de développement sans fil dans la combinaison.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDisabled</Key>
+            <Value>L'accès au développement sans fil est désactivé par la configuration.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardEnableConfig</Key>
+            <Value>Activez AllowNetworkChipAccess pour utiliser le développement de réseau à distance.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInstallSuit</Key>
+            <Value>Installez cette carte dans une combinaison EVA équipée pour utiliser l'accès au développement sans fil.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoSelection</Key>
+            <Value>Aucun réseau sans fil sélectionné.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardConnected</Key>
+            <Value>Connecté à {0}.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardRange</Key>
+            <Value>Plage : {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNetworkId</Key>
+            <Value>ID réseau : {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReconnecting</Key>
+            <Value>Essayer de se reconnecter au point d'accès sans fil sélectionné...</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSelectedNetwork</Key>
+            <Value>Réseau sélectionné : {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardUnavailable</Key>
+            <Value>Le réseau sans fil sélectionné est actuellement indisponible.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshStatus</Key>
+            <Value>Transfert de maillage : {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshEnabled</Key>
+            <Value>Activé</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshLockedToTransmitter</Key>
+            <Value>Verrouillé sur l'émetteur</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardPowerDrainActive</Key>
+            <Value>Liaison de données sans fil : vidange de la batterie de la combinaison.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaPanModulePowerDrainActive</Key>
+            <Value>Réseau personnel : vidange de la batterie de la combinaison.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessCartridgePowerDrainActive</Key>
+            <Value>Liaison de données sans fil : batterie de la tablette qui s'épuise.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoTransmitters</Key>
+            <Value>Aucun point d'accès sans fil alimenté à portée.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReachableNetworks</Key>
+            <Value>Réseaux accessibles :</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReachableEntry</Key>
+            <Value>{0}{1} [{2}] -> Net {3}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSuitRequired</Key>
+            <Value>La carte sans fil doit être installée dans une combinaison équipée.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardOutOfRange</Key>
+            <Value>Le point d'accès sans fil sélectionné n'est pas à portée.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInstallToConnect</Key>
+            <Value>Installez la carte dans une combinaison équipée pour vous connecter.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardTarget</Key>
+            <Value>Cible : {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardUnableToConnect</Key>
+            <Value>Impossible de se connecter.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshFollow</Key>
+            <Value>Le transfert maillé suivra le meilleur émetteur à portée sur le réseau sélectionné.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshLock</Key>
+            <Value>La connexion restera verrouillée sur l'émetteur sélectionné uniquement.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoNetworkSelected</Key>
+            <Value>Aucun réseau sans fil n'est actuellement sélectionné.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDisconnectNetwork</Key>
+            <Value>Déconnectez le réseau {0}.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSelectNetwork</Key>
+            <Value>Sélectionnez un réseau sans fil</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNetworkFallback</Key>
+            <Value>Réseau {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextMeshEnabled</Key>
+            <Value>Maillage sans fil : activé</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextMeshLocked</Key>
+            <Value>Maillage sans fil : verrouillé</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextDisconnect</Key>
+            <Value>Déconnecter le réseau sans fil</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextDisconnectNet</Key>
+            <Value>Déconnecter le réseau {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSimpleConnected</Key>
+            <Value>Connecté</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSimpleDisconnected</Key>
+            <Value>Déconnecté</Value>
+        </Record>
+        <!-- Wireless Network Panel UI -->
+        <Record>
+            <Key>StationeersLuaWirelessPanelConnect</Key>
+            <Value>Connecter</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelConnected</Key>
+            <Value>Connecté</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelRefresh</Key>
+            <Value>Rafraîchir</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelSelectPrompt</Key>
+            <Value>Sélectionnez un réseau ci-dessous ({0} disponible).</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelStatusConnected</Key>
+            <Value>Connecté à {0} - Réseau {1}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelNotWorn</Key>
+            <Value>Installez cette carte dans une combinaison EVA usée pour activer l'accès au réseau sans fil.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorInactive</Key>
+            <Value>Allumez la visière avec une batterie chargée pour vous connecter à un réseau sans fil.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorNotWorn</Key>
+            <Value>Portez la visière programmable (emplacement pour lunettes) ou maintenez-la pour configurer l'accès au réseau sans fil.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorNoPosition</Key>
+            <Value>Portez la visière ou ramassez-la pour établir une position pour la configuration sans fil.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorPowerDrainActive</Key>
+            <Value>Liaison de données sans fil : décharge de la batterie de la visière.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudShow</Key>
+            <Value>Afficher le HUD</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHide</Key>
+            <Value>Masquer le HUD</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHiddenByUser</Key>
+            <Value>HUD programmable : masqué (utilisez Show HUD).</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightOff</Key>
+            <Value>La visière est éteinte ou n'a pas de batterie.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNoChip</Key>
+            <Value>Aucune puce programmable insérée.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNotLua</Key>
+            <Value>Insérez une puce programmable Lua.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightRunning</Key>
+            <Value>La puce fonctionne sans erreur.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightReady</Key>
+            <Value>Visière allumée : la puce s'exécutera dans l'emplacement des lunettes.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorGlassTintNext</Key>
+            <Value>Couleur des verres : {0}</Value>
+        </Record>
+    </Interface>
+    <HomePageButtonsOverride>
+        <SPDAHomePageButtonOverride>
+            <CategoryName>StationeersLuaGuideButton</CategoryName>
+            <ThingNameForImage>ItemIntegratedCircuitLua</ThingNameForImage>
+            <LinkedPageKey>StationeersLua_Guide</LinkedPageKey>
+        </SPDAHomePageButtonOverride>
+    </HomePageButtonsOverride>
+    <HelpPage>
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 1: Main Guide (landing page)
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Guide</Key>
+            <Title>PapeterieLua Guide</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1000</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua}-
+
+StationeersLua ajoute le script [b]Lua[/b] aux puces programmables Stationeers, remplaçant l'assemblage IC10 par un langage de programmation complet. Écrivez des scripts d'automatisation, des réseaux de capteurs et une logique complexe dans Lua au lieu d'un assemblage basé sur des registres de bas niveau.
+
+{{HEADER:Items added by this mod}
+{LIST}
+- {LINK:ThingItemIntegratedCircuitLua;Integrated Circuit (Lua)} - La puce compatible Lua. Insérez dans n'importe quel boîtier IC.
+- {LINK:ThingMotherboardLuaDebugger;Motherboard (Lua Debugger)} - Inspectez les erreurs de la puce Lua et l'état d'exécution dans le jeu.
+- {LINK:ThingWirelessDataAccessPoint;Point d'accès données sans fil} - Pont sans fil vers un réseau de données pour cartes de combinaison et cartouches de tablette.
+- {LINK:ThingWirelessDataNetworkAccessBoard;Wireless Development Board} - Module de combinaison EVA pour le développement Lua à distance sur des {THING:WirelessDataAccessPoint} alimentés (active aussi le réseau personnel local).
+- {LINK:ThingSuitNetworkingModule;Module réseau de combinaison} - Module EVA moins cher pour le réseau personnel local entre l'équipement Lua porté.
+{/LIST}
+
+{{HEADER:Requirements}
+{LIST}
+- Cadre de modding [b]BepInEx 5.x[/b]
+- Chargeur de mods [b]StationeersLaunchPad[/b]
+- [b]IC10Editor[/b] (recommandé, pour éditer des scripts dans le jeu)
+{/LIST}
+
+{{HEADER:Editor intelligence (LSP)}
+{LIST}
+- Serveur de langue [b] en option[/b] pour l'éditeur IC10 du jeu sur les scripts Lua : complétions, survol, diagnostics et formatage optimisés pour StationeersLua. Activez [b]EnableLspServer[/b] sous [b][MCP Server][/b] dans la configuration du mod ; port TCP par défaut [b]3031[/b] (séparé de HTTP pour MCP/REST).
+- Le [b]ExternalLuaLanguageServerPath[/b] facultatif dans la même section exécute le [b]lua-lingual-server[/b] générique à côté du service intégré si vous l'installez.
+- L'extension [b]StationeersLua[/b] VS Code peut utiliser le même TCP LSP pour Stationeers-aware IntelliSense - pas le même socket que MCP/REST sur [b]3030[/b].
+{/LIST}
+
+{{HEADER:Quick start}
+{LIST}
+- Créez ou générez un [b]Circuit intégré (Lua)[/b].
+- Insérez-le dans n'importe quel boîtier [b]IC[/b] (ou boîtier IC avancé).
+- Ouvrez l'éditeur de code du boîtier (IC10Editor).
+- Collez un script et enregistrez.
+{/LIST}
+
+Exemple - faites clignoter une lumière sur d0 toutes les secondes :
+
+[b]local LT = ic.enums.LogicType[/b]
+[b]local on = false[/b]
+[b]while true do[/b]
+[b]    on = not on[/b]
+[b]    write(0, LT.On, on and 1 or 0)[/b]
+[b]    sleep(1)[/b]
+[b]fin[/b]
+
+{{HEADER:How Lua chips work}
+{LIST}
+- [b]Server-authoritative:[/b] Tout le code Lua s'exécute sur le serveur/hôte. Les clients voient les résultats via la synchronisation de l'état du jeu.
+- [b]Power-gated :[/b] Si le boîtier IC est éteint ou non alimenté, le script ne s'exécutera pas.
+- [b]Sandboxed :[/b] Aucune E/S du système de fichiers, aucun thread. Ne dormez/cèdez que pour faire une pause.
+{/LIST}
+
+Cycle de vie:
+{LIST}
+- [b]Code enregistré : [/b] L'éditeur enregistre la source sur la puce.
+- [b]Compile/Init :[/b] Lua VM créée, table [b]ic[/b] injectée, code au niveau du module exécuté (par défaut jusqu'à 500 000 instructions de bytecode ; le serveur/hôte peut modifier [b]InitInstructionLimit[/b] sous la configuration du mod [b]Lua VM[/b]).
+- [b]Tick loop:[/b] Chaque tick de jeu (~0,5s) : messages réseau traités, événements distribués, coroutine principale reprise, tick(dt) appelé si défini. Budget par défaut : 50 000 instructions par tick ([b]TickInstructionLimit[/b] dans la configuration du mod [b]Lua VM[/b] sur le serveur/hôte).
+- [b]Shutdown :[/b] Boîtier éteint, puce retirée ou sortie du jeu.
+{/LIST}
+
+{{HEADER:Script structure patterns}
+
+[b]Pattern A: tick() function[/b]
+Définissez une fonction globale [b]tick(dt)[/b]. Il est appelé automatiquement à chaque tick de jeu. [b]dt[/b] est le temps delta en secondes depuis le dernier tick.
+
+[b]Pattern B : Boucle infinie avec rendement/sommeil[/b]
+Utilisez une boucle [b]while true do ... rendement() end[/b]. [b]yield()[/b] fait une pause jusqu'au prochain tick. [b]sleep(seconds)[/b] fait une pause pendant une durée en temps réel.
+
+[b]Modèle C : Hybride[/b]
+Combinez le code d'initialisation au niveau du module, une coroutine principale productive et une fonction tick(). La coroutine reprise et tick(dt) s'exécutent dans le même tick.
+
+{{HEADER:Enums and constants}
+Les énumérations de jeux sont disponibles sous [b]ic.enums[/b] :
+{LIST}
+- [b]ic.enums.LogicType[/b] - On, Off, Température, Pression, Réglage, etc.
+- [b]ic.enums.LogicSlotType[/b] - Occupé, quantité, charge, etc.
+- [b]ic.enums.LogicBatchMethod[/b] - Moyenne, Somme, Minimum, Maximum
+- [b]ic.enums.LogicReagentMode[/b] - TotalContents, etc.
+- [b]ic.enums.SoundAlert[/b] - Identificateurs sonores d'alerte du haut-parleur.
+- [b]ic.enums.SorterInstruction[/b] - Opcodes de la pile du trieur logique (à utiliser avec mem_put/mem_get sur le trieur).
+- [b]ic.enums.ConditionOperation[/b] - Equals, Greater, Less, NotEquals (mots de comparaison emballés pour la mémoire du trieur).
+{/LIST}
+
+Les constantes sont sous [b]ic.const[/b] :
+{LIST}
+- [b]ic.const.BASE_UNIT_INDEX[/b] - L'index du périphérique de logement (généralement 6, accessible en tant que base de données dans IC10).
+- [b]ic.const.BASE_NETWORK_INDEX[/b] - Index du réseau de base.
+{/LIST}
+
+{{HEADER:Persistence (save/load)}
+Lorsque le jeu est sauvegardé, les variables locales/globales Lua sont [b]NOT[/b] incluses dans le fichier de sauvegarde. Après avoir chargé une sauvegarde, votre script se réinitialise à partir de zéro (le code au niveau du module s'exécute à nouveau).
+
+[b]Recommandé : ic.persist[/b] - clé/valeur chaîne par puce :
+{LIST}
+- [b]ic.persist.set/get/has/delete/clear[/b]
+- Survit sauvegarde/chargement, alimentation boîtier IC, retrait/réinsertion de la puce si le code source est inchangé
+- Clés [b]__[/b] réservées ; tables via [b]util.json.encode/decode[/b]
+- Chargé [b]avant[/b] l'init du module
+{/LIST}
+
+[b]Legacy :[/b] [b]serialize()[/b] / [b]deserialize(blob)[/b] - toujours pris en charge. Préférez [b]ic.persist[/b] pour les nouveaux scripts.
+
+La mémoire de la puce ([b]mem_read/mem_write[/b], 512 adresses) est enregistrée automatiquement par le jeu.
+
+{{HEADER:Events}
+Enregistrez les gestionnaires pour les événements personnalisés d'autres mods ou systèmes :
+{LIST}
+- [b]ic.events.on(nom, gestionnaire)[/b] - Inscrivez-vous. Le gestionnaire peut être une fonction ou une chaîne nommant une fonction globale.
+- [b]ic.events.off(name)[/b] - Se désinscrire.
+{/LIST}
+
+Les événements sont traités au début de chaque tick, avant la reprise de la coroutine principale et avant l'appel de tick(dt). Les événements sont principalement utilisés par les mods compagnons (comme ScriptedScreens) pour fournir des événements d'entrée dans l'interface utilisateur.
+
+{{HEADER:Library chips and require()}
+Écrivez des modules Lua réutilisables sur des "puces de bibliothèque" que d'autres puces peuvent charger via [b]require("modname")[/b].
+
+{LIST}
+- Ajoutez [b]--@module modname[/b] en haut de la source d'une puce pour la déclarer comme puce de bibliothèque.
+- Les puces de bibliothèque sont des magasins de sources passives : elles n'ont pas de machine virtuelle Lua et ne s'exécutent pas d'elles-mêmes.
+- D'autres puces sur le [b]même réseau de câbles de données[/b] peuvent appeler [b]require("modname")[/b] pour charger le module.
+- La source de la bibliothèque est compilée et exécutée dans la VM de la puce demandeuse.
+- Les modules sont mis en cache par VM. Utilisez [b]require("modname", true)[/b] pour forcer un rechargement.
+- Une seule puce peut déclarer plusieurs modules avec plusieurs annotations [b]--@module[/b].
+- Les puces de bibliothèque doivent être dans un boîtier IC - elles ne peuvent pas être utilisées à l'intérieur de cartes ScriptedScreens ou de cartouches de tablette.
+{/LIST}
+
+Exemple de puce de bibliothèque :
+[b]--@module atmos[/b]
+[b]local atmos = {}[/b]
+[b]function atmos.to_celsius(k) return k - 273.15 end[/b]
+[b]return atmos[/b]
+
+Exemple de puce grand public :
+[b]local atmos = require("atmos")[/b]
+[b]local tempC = atmos.to_celsius(read(0, ic.enums.LogicType.Temperature))[/b]
+
+{{HEADER:Full API reference}
+{LIST}
+- {LINK:StationeersLua_Library;Core API Reference} - E/S logiques, batch, slots, mémoire, pile, bits, chaînes
+- {LINK:StationeersLua_Networking;Networking Reference} - Messagerie directe, pub/sub, RPC
+- {LINK:StationeersLua_Utilities;Utilities Reference} - Température, heure, JSON, HTTP, persistance
+- {LINK:ThingWirelessDataAccessPoint;Point d'accès données sans fil} - Voyants, câblage et portée sans fil
+- {LINK:ThingWirelessDataNetworkAccessBoard;Wireless Development Board} - Accès au développement de réseau à distance basé sur une combinaison
+- {LINK:StationeersLua_Mapping;IC10 to Lua Mapping} - Guide de traduction complet instruction par instruction
+- {LINK:ThingMotherboardLuaDebugger;Lua Debugger Motherboard} - Outil de débogage en jeu
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 2: Core API Reference
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Library</Key>
+            <Title>PapeterieLua Core API</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1001</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua Core API Reference}
+
+Toutes les fonctions ci-dessous sont disponibles sous forme globale (par exemple [b]read[/b], [b]write[/b]) et également sous la table [b]ic[/b] (par exemple [b]ic.read[/b], [b]ic.write[/b]).
+
+{{HEADER:Control flow}
+{LIST}
+- [b]sleep(seconds)[/b] - Suspend le script pour une durée en temps réel. Compte à rebours sur les ticks.
+- [b]yield()[/b] - Pause jusqu'au prochain tick de jeu.
+- [b]throw(message)[/b] - Génère immédiatement une erreur d'exécution Lua.
+- [b]hcf()[/b] - Arrêtez-vous et prenez feu. Détruit définitivement la puce. Aucune annulation.
+- [b]print(...)[/b] - Écrivez dans l'onglet Journaux du débogueur Lua. Plusieurs arguments sont séparés par des tabulations.
+{/LIST}
+
+{{HEADER:Reading devices}
+Les appareils sont connectés via les broches [b]device[/b] (d0 à d5). Le boîtier lui-même est [b]ic.const.BASE_UNIT_INDEX[/b] (db).
+
+{LIST}
+- [b]read(deviceIndex, logicType [, networkIndex])[/b] - Lire une valeur logique. Renvoie zéro si le périphérique est manquant.
+- [b]read_id(deviceId, logicType [, networkIndex])[/b] - Lu par ReferenceId (adressage stable).
+{/LIST}
+
+{{HEADER:Writing devices}
+{LIST}
+- [b]write(deviceIndex, logicType, value [, networkIndex])[/b] - Écrit une valeur logique. Peut lancer si l'appareil est manquant.
+- [b]write_id(deviceId, logicType, value [, networkIndex])[/b] - Écrit par ReferenceId.
+{/LIST}
+
+{{HEADER:Slot operations}
+Les appareils disposent d'emplacements (inventaire, ports bonbonnes de gaz, etc.). Lecture/écriture à l'aide de [b]LogicSlotType[/b] :
+
+{LIST}
+- [b]read_slot(deviceIndex, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]write_slot(deviceIndex, slotIndex, logicSlotType, valeur [, networkIndex])[/b]
+- [b]read_slot_id(deviceId, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]write_slot_id (deviceId, slotIndex, logicSlotType, valeur [, networkIndex])[/b]
+{/LIST}
+
+{{HEADER:Batch operations}
+Lecture/écriture sur [b]tous les appareils d'un type donné[/b] sur le réseau de données :
+
+{LIST}
+- [b]batch_read(prefabHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]batch_read_name(prefabHash, nameHash, logicType, batchMethod [, networkIndex])[/b] - Avec filtre de nom.
+- [b]batch_read_slot(prefabHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]batch_read_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]batch_write(prefabHash, logicType, valeur [, networkIndex])[/b]
+- [b]batch_write_name(prefabHash, nameHash, logicType, valeur [, networkIndex])[/b]
+- [b]batch_write_slot(prefabHash, slotIndex, logicSlotType, valeur [, networkIndex])[/b]
+- [b]batch_write_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, valeur [, networkIndex])[/b]
+{/LIST}
+
+Méthodes par lots : [b]Average[/b], [b]Sum[/b], [b]Minimum[/b], [b]Maximum[/b] (depuis ic.enums.LogicBatchMethod).
+
+[i]Remarque : Le networkIndex facultatif sur les fonctions batch est une extension StationeersLua. Le lot Vanilla IC10 ne prend pas en charge la sélection de réseau.[/i]
+
+{{HEADER:Reagent operations}
+{LIST}
+- [b]read_reagent(deviceIndex, reagentMode, reagentHash [, networkIndex])[/b]
+- [b]rmap(deviceIndex [, networkIndex])[/b] - Renvoie une table de mappage reagentHash à prefabHash.
+{/LIST}
+
+{{HEADER:Device info}
+{LIST}
+- [b]device_id(deviceIndex)[/b] - Obtenez le ReferenceId d'un appareil sur une broche.
+- [b]device_name(deviceIndex [, networkIndex])[/b] - Obtenez le nom d'affichage en direct.
+- [b]device_label(deviceIndex, name)[/b] / [b]label(deviceIndex, name)[/b] - Définissez le nom d'affichage d'un appareil.
+- [b]prefab_name(hash)[/b] - Récupère le nom du préfabriqué à partir d'un hachage connu (renvoie nul si inconnu).
+- [b]namehash_name(deviceHash, nameHash [, networkIndex])[/b] - Résout un nameHash en un nom d'affichage.
+- [b]device_list([networkIndex])[/b] - Renvoie un tableau Lua de tables { ref_id, prefab_hash, name_hash, display_name } pour chaque appareil sur le réseau câblé de données.
+- [b]host_info()[/b] - Renvoie un tableau décrivant l'hôte physique de la puce : [b]name[/b], [b]ref_id[/b], [b]prefab_hash[/b], [b]type[/b] ([b]suit[/b], [b]scripted_visor[/b] pour la visière programmable ScriptedScreens, [b]circuit_housing[/b], [b]tablet[/b], [b]carte mère[/b], [b]device[/b] ou [b]unknown[/b]). Lorsque l'hôte est porté par un joueur (combinaison ou visière scriptée), [b]wearer[/b] est le nom d'affichage du joueur équipé, plus [b]wearer_ref_id[/b] et [b]wearer_prefab_hash[/b] pour ce [b]Human[/b], lorsqu'il est résoluble ; ces clés sont absentes si elles ne sont pas portées.
+- [b]find(name [, mode [, networkIndex]])[/b] - Premier appareil par nom d'affichage (Labeler). Chaîne facultative [b]mode[/b] (insensible à la casse) : [b]auto[/b] (par défaut) - [b]glob[/b] si le modèle a [b]\[/b] ou un [b]*[/b] sans échappement, sinon correspondance exacte complète (sensible à la casse) ; [b]exact[/b] - chaîne complète exacte ; [b]glob[/b] - [b]*[/b] = sous-chaîne (échappements extérieurs insensibles à la casse), [b]\*[/b] littéral *, [b]\\[/b] littéral \; [b]regex[/b] - Regex .NET sur l'ensemble du modèle. Un seul [b]number[/b] facultatif est traité comme [b]networkIndex[/b] avec le mode par défaut, par ex. [b]find("Pompe", 2)[/b]. Avec les deux, transmettez [b]nil[/b] pour [b]mode[/b] si vous n'avez besoin que d'un index réseau dans le troisième emplacement, par ex. [b]find("Capteur", nul, 2)[/b]. [b]find("(?i)power", "regex")[/b] n'a besoin d'aucun espace réservé. Maximum 512 caractères ; mauvaise regex → néant.
+- [b]find_all(name [, mode [, networkIndex]])[/b] - Mêmes modes que [b]find[/b] ; tableau des identifiants de référence correspondants (indexé 1).
+{/LIST}
+
+[b]find[/b] et [b]find_all[/b] vous permettent d'adresser les appareils par leur nom d'étiqueteur au lieu d'indices d'emplacement ou d'ID de référence. Ceci est particulièrement puissant pour les scripts qui doivent interagir avec des périphériques nommés spécifiques sans nécessiter de connexions physiques par broches de câble de données :
+
+{LIST}
+- [b]local pompe = find("Pompe principale")[/b] puis [b]write_id(pump, LT.On, 1)[/b]
+- [b]local cams = find_all("Security Cam")[/b] pour que toutes les caméras soient nommées "Security Cam"
+- [b]local ps = find_all("*Power*")[/b] pour obtenir tous les appareils dont l'étiquette contient [b]Power[/b] (glob n'est pas sensible à la casse)
+- [b]local one = find("Line\\*2")[/b] correspond littéralement à une étiquette [b]Line*2[/b] (dans Lua, utilisez [b]\\[/b] avant [b]*[/b])
+- [b]local id = find("2 * 5kPa", "exact")[/b] lorsque le nom personnalisé complet inclut un astérisque et ne doit pas utiliser de caractères génériques globaux
+- [b]local xs = find_all("(?i)\\bpower\\b", "regex")[/b] pour une correspondance de limite de mot (échappez aux barres obliques inverses dans les chaînes Lua)
+{/LIST}
+
+[i]Remarque : dans les chaînes Lua, les barres obliques inverses glob/regex doivent être doublées ([b]\\[/b]). Regex utilise la syntaxe .NET lorsque [b]mode[/b] est [b]regex[/b]. DisplayName est le nom personnalisé de Labeler ou le nom préfabriqué par défaut. Même réseau de câbles de données uniquement.[/i]
+
+{{HEADER:Chip memory (512 addresses)}
+Chaque puce possède 512 adresses mémoire (0-511) qui persistent au fil des ticks et lors de la sauvegarde/du chargement :
+
+{LIST}
+- [b]mem_read(address)[/b] - Lecture à partir de la mémoire de la puce.
+- [b]mem_write(address, value)[/b] - Écrit dans la mémoire de la puce.
+- [b]mem_clear()[/b] - Effacer toute la mémoire de la puce.
+{/LIST}
+
+Mémoire de périphérique externe :
+{LIST}
+- [b]mem_get(deviceIndex, adresse [, networkIndex])[/b]
+- [b]mem_put(deviceIndex, adresse, valeur [, networkIndex])[/b]
+- [b]mem_clear_device(deviceIndex [, networkIndex])[/b]
+- [b]mem_get_id(deviceId, adresse [, networkIndex])[/b]
+- [b]mem_put_id(deviceId, adresse, valeur [, networkIndex])[/b]
+- [b]mem_clear_id(deviceId [, networkIndex])[/b]
+{/LIST}
+
+Les programmes [i]Logic Sorter sont écrits sous forme de mots de 64 bits dans la mémoire de cet appareil. Utilisez [b]ic.enums.SorterInstruction[/b] et [b]ic.enums.ConditionOperation[/b] pour l'opcode et comparez les constantes ; L'emballage complet des bits correspond à IC10 sur la broche du trieur (voir le wiki communautaire Logic Sorter).[/i]
+
+{{HEADER:Stack operations}
+Compatibilité de la pile IC10 (partagée avec la mémoire de la puce) :
+
+{LIST}
+- [b]stack_push(valeur)[/b], [b]stack_pop()[/b], [b]stack_peek()[/b], [b]stack_poke(adresse, valeur)[/b]
+- [b]stack_get_sp()[/b] / [b]stack_set_sp(value)[/b] - Pointeur de pile.
+- [b]stack_get_ra()[/b] / [b]stack_set_ra(value)[/b] - Adresse de retour.
+{/LIST}
+
+[i]Dans Lua, vous utiliserez presque toujours des variables et des tables locales au lieu de la pile IC10. Ceux-ci existent pour la compatibilité IC10 et pour communiquer avec les puces vanilla IC10 via la mémoire partagée.[/i]
+
+{{HEADER:Bitwise operations (53-bit safe)}
+{LIST}
+- [b]bit_and(a, b)[/b], [b]bit_or(a, b)[/b], [b]bit_xor(a, b)[/b], [b]bit_nor(a, b)[/b], [b]bit_not(a)[/b]
+- [b]bit_sll(a, n)[/b] - Décalage logique vers la gauche.
+- [b]bit_srl(a, n)[/b] - Décalage logique vers la droite (non signé).
+- [b]bit_sra(a, n)[/b] - Décalage arithmétique vers la droite (signé).
+- [b]bit_ext(value, pos, len)[/b] - Extraire un champ de bits : len bits commençant à la position pos.
+- [b]bit_ins(dst, src, pos, len)[/b] - Insérez src dans dst à la position pos, largeur len.
+{/LIST}
+
+{{HEADER:String and hash utilities}
+{LIST}
+- [b]hash(text)[/b] - Hachez une chaîne (identique à IC10 HASH). Utilise Animator.StringToHash.
+- [b]pack_ascii6(text)[/b] / [b]unpack_ascii6(number)[/b] - Packer/décompresser des chaînes courtes (codage ASCII-6, ~ 10 caractères).
+- [b]strip_color_tags(text)[/b] - Supprimez les balises de couleur de texte enrichi Unity.
+- [b]to_int53(value)[/b] - Convertit un flottant en un entier de 53 bits (partie fractionnaire tronquée).
+{/LIST}
+
+{{HEADER:Error handling and housing}
+{LIST}
+- [b]raise_error(state)[/b] / [b]clear_error()[/b] - Définir/effacer l'état d'erreur de la puce.
+- [b]hcf()[/b] - Arrêtez-vous et prenez feu. Détruit définitivement la puce.
+{/LIST}
+
+Utilisez [b]pcall()[/b] pour encapsuler les opérations susceptibles d'échouer :
+
+[b]local ok, err = pcall(function()[/b]
+[b]    write(0, LT.On, 1)[/b]
+[b]end)[/b]
+[b]if not ok then print("Write failed: " .. tostring(err)) end[/b]
+
+{{HEADER:Sandbox and instruction limits}
+{LIST}
+- [b]Initialisation :[/b] 500 000 instructions par défaut (code au niveau du module) ; configurable sur le serveur/hôte via [b]Lua VM[/b] [b]InitInstructionLimit[/b].
+- [b]Par tick :[/b] par défaut 50 000 instructions (coroutine + tick + événements) ; configurable via [b]TickInstructionLimit[/b] (même catégorie, serveur/hôte uniquement).
+- Le dépassement des limites déclenche une erreur d'exécution sur la puce.
+{/LIST}
+
+Bibliothèques standards disponibles : [b]math[/b], [b]string[/b], [b]table[/b], [b]coroutine[/b], [b]utf8[/b], [b]os.clock[/b], [b]os.time[/b], [b]os.date[/b], [b]pcall[/b], [b]xpcall[/b], [b]tonumber[/b], [b]tostring[/b], [b]type[/b], [b]pairs[/b], [b]ipairs[/b], [b]select[/b], [b]unpack[/b], [b]load[/b].
+
+Bloqué : [b]io[/b], [b]debug[/b], [b]package[/b], [b]dofile[/b], [b]loadfile[/b], [b]os.execute[/b], [b]os.exit[/b] et d'autres opérations de système de fichiers/processus.
+
+[b]require("modname")[/b] est disponible pour charger des modules à partir de puces de bibliothèque sur le même réseau de câbles de données. Consultez la page principale du guide pour plus de détails.
+
+{{HEADER:More references}
+{LIST}
+- {LINK:StationeersLua_Networking;Networking Reference} - Messagerie directe, pub/sub, RPC
+- {LINK:StationeersLua_Utilities;Utilities Reference} - Température, heure, JSON, HTTP
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 3: Networking Reference
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Networking</Key>
+            <Title>PapeterieLua Networking</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1002</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua Networking Reference}
+
+Les puces Lua sur le [b]même réseau de données[/b] peuvent communiquer entre elles. Tous les réseaux font autorité sur le serveur et s'étendent au réseau de câbles de données physique (y compris les réseaux pontés).
+
+L'API réseau peut être basculée par l'administrateur du serveur via l'option de configuration [b]AllowNet[/b] (par défaut : true). Les fonctions d'emballage/déballage sont toujours disponibles.
+
+{{HEADER:Identity and peers}
+{LIST}
+- [b]ic.net.id()[/b] - Renvoie votre propre ID de point de terminaison (le ReferenceId du boîtier).
+- [b]ic.net.peers()[/b] - Renvoie un tableau de tables { name, id } pour tous les pairs de puce Lua sur le réseau.
+{/LIST}
+
+{{HEADER:Direct messaging}
+
+[b]Envoi :[/b]
+{LIST}
+- [b]ic.net.send(target, channel, payload)[/b] - Envoyer à une cible spécifique par nom (nom de l'étiqueteur sur le boîtier) ou par ReferenceId.
+- [b]ic.net.broadcast(channel, payload)[/b] - Diffusion sur TOUTES les puces Lua du réseau. Renvoie le nombre de pairs auxquels sont livrés.
+{/LIST}
+
+[b]Receiving (handler-based, recommended):[/b]
+{LIST}
+- [b]ic.net.listen(channel, handler)[/b] - Enregistrez un auditeur. Le gestionnaire reçoit (fromId, fromName, payload).
+- Le gestionnaire peut être une fonction ou une chaîne nommant une fonction globale.
+- Passez nil en tant que gestionnaire pour vous désinscrire : [b]ic.net.listen(channel, nil)[/b]
+{/LIST}
+
+[b]Receiving (poll-based):[/b]
+{LIST}
+- [b]ic.net.recv()[/b] - Renvoie fromId, fromName, canal, charge utile (ou nul si aucun message).
+{/LIST}
+
+[b]Règles de la chaîne :[/b]
+{LIST}
+- Les canaux sont des chaînes (par exemple "alerts", "sensor_data"). Les canaux entiers sont traités comme leur représentation sous forme de chaîne.
+- Taille maximale de la charge utile : 128 Ko (MessagePack encodé).
+- Types pris en charge : nul, booléen, nombre, chaîne, tableau. Les fonctions, les données utilisateur et les tables cycliques ne sont pas prises en charge.
+{/LIST}
+
+{{HEADER:Pub/Sub (topic-based)}
+Publication/abonnement basé sur un sujet. Les éditeurs n'ont pas besoin de connaître les abonnés. Les abonnés peuvent utiliser des modèles génériques.
+
+[b]Publication :[/b]
+{LIST}
+- [b]ic.net.publish(sujet, charge utile [, options])[/b]
+- Tableau des options (toutes facultatives) :
+{LIST}
+- [b]retain[/b] (booléen) - Les nouveaux abonnés obtiennent immédiatement la dernière valeur conservée.
+- [b]ttl[/b] (numéro) - Le message conservé expire après ce nombre de secondes.
+- [b]include_self[/b] (booléen) - S'il faut se livrer à soi-même (par défaut : faux).
+{/LIST}
+- Publiez nil avec retention=true pour effacer un message conservé.
+{/LIST}
+
+[b]Abonnement :[/b]
+{LIST}
+- [b]ic.net.subscribe(pattern, handler)[/b] - Le gestionnaire reçoit (sujet, charge utile, fromId, fromName, retenu).
+- Caractères génériques : [b]*[/b] correspond à n'importe quelle séquence de caractères, [b]?[/b] correspond à un seul caractère.
+- Le gestionnaire peut être une fonction ou une chaîne nommant une fonction globale.
+- [b]ic.net.unsubscribe(pattern)[/b] - Supprimer un abonnement.
+{/LIST}
+
+[b]Règles du sujet :[/b]
+{LIST}
+- Longueur maximale du sujet : 128 caractères.
+- Limite de file d'attente : 128 messages par file d'attente d'abonné (contre-pression).
+{/LIST}
+
+{{HEADER:RPC (request/response)}
+Appelez des fonctions sur une autre puce avec des identifiants de corrélation et des délais d'attente.
+
+[b]Server side (register methods):[/b]
+{LIST}
+- [b]ic.net.register(methodName, handler)[/b] - Le gestionnaire reçoit (charge utile, fromId, fromName). La valeur de retour devient la réponse.
+- Si le gestionnaire lance, l'erreur est renvoyée à l'appelant.
+- [b]ic.net.unregister(methodName)[/b]
+{/LIST}
+
+[b]Client side (call methods):[/b]
+{LIST}
+- [b]ic.net.request(cible, méthode, charge utile, rappel [, timeout])[/b]
+- Target est une chaîne de nom ou ReferenceId.
+- Le rappel reçoit (ok, payload, err, fromId, fromName).
+- Délai d'expiration par défaut : 10 secondes. Maximum : 120 secondes.
+- Si ok est faux, err contient le message d'erreur.
+{/LIST}
+
+[b]Règles RPC :[/b]
+{LIST}
+- Nom de la méthode max : 64 caractères.
+- Les demandes expirées expirent silencieusement (pas de rappel).
+- Le serveur et le client doivent être dans une boucle de rendement/veille pour traiter RPC.
+{/LIST}
+
+{{HEADER:Pack / Unpack}
+Sérialisez les valeurs Lua vers/depuis MessagePack codé en base64. Utile pour stocker des données structurées dans la mémoire de la puce ou pour un transfert hors réseau.
+
+{LIST}
+- [b]ic.net.pack(value)[/b] - Emballez une valeur Lua dans une chaîne base64.
+- [b]ic.net.unpack(str)[/b] - Décompressez une chaîne base64 en une valeur Lua.
+{/LIST}
+
+Types pris en charge : nul, booléen, nombre, chaîne, table (tableaux et cartes). Le pack/déballage est toujours disponible même si AllowNet est désactivé.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 4: Utilities Reference
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Utilities</Key>
+            <Title>PapeterieLua Utilities</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1003</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua Utilities Reference}
+
+{{HEADER:Temperature conversion}
+Convertissez entre Kelvin, Celsius et Fahrenheit à l'aide de [b]util.temp(value, from, to)[/b].
+
+{LIST}
+- [b]util.temp(value, from, to)[/b] - Convertit la température entre les unités.
+- Unités : [b]"K"[/b] (Kelvin), [b]"C"[/b] (Celsius), [b]"F"[/b] (Fahrenheit). Insensible à la casse.
+- [b]from[/b] est par défaut "K", [b]to[/b] est par défaut "C".
+- Raccourci : [b]util.temp(295)[/b] convertit 295K en Celsius.
+{/LIST}
+
+Exemple:
+[b]local tempK = read(0, ic.enums.LogicType.Temperature)[/b]
+[b]local tempC = util.temp(tempK, "K", "C")[/b]
+
+{{HEADER:Time utilities}
+Aides au temps de jeu faisant autorité sur le serveur :
+
+{LIST}
+- [b]util.game_time()[/b] - Secondes depuis le début du monde.
+- [b]util.days_past()[/b] - Nombre entier de jours.
+{/LIST}
+
+Horloge orbitale :
+{LIST}
+- [b]util.time_of_day()[/b] - Fraction de jour (0..1).
+- [b]util.clock_time([pattern])[/b] - Chaîne d'horloge formatée.
+{/LIST}
+
+Jetons de modèle d'horloge :
+{LIST}
+- [b]HH[/b] = heure de 24 heures, [b]hh[/b] = heure de 12 heures
+- [b]MM[/b] ou [b]mm[/b] = minutes, [b]ss[/b] = secondes
+- [b]A[/b] ou [b]a[/b] = AM/PM
+{/LIST}
+
+Exemples :
+[b]util.clock_time()[/b] renvoie "14:30" (par défaut "HH:MM")
+[b]util.clock_time("hh:MM A")[/b] renvoie "14h30"
+[b]util.clock_time("HH:MM:ss")[/b] renvoie "14:30:45"
+
+{{HEADER:JSON utilities}
+Encodage/décodage JSON à usage général sous l'espace de noms [b]util[/b] :
+
+{LIST}
+- [b]util.json.encode(value)[/b] - Encode une valeur Lua en chaîne JSON.
+- [b]util.json.decode(str)[/b] - Décode une chaîne JSON en une valeur Lua.
+{/LIST}
+
+Supports : nul, booléen, nombre, chaîne, tableau (tableaux et cartes). Utile pour la persistance (sérialiser/désérialiser) et pour les données structurées.
+
+{{HEADER:HTTP API (ic.http)}
+Effectuez des requêtes HTTP vers des services Web externes. Cette API est [b]gated par l'option [b]AllowHttp[/b] de configuration du serveur [b]AllowHttp[/b] (par défaut : false). L'administrateur du serveur doit l'activer explicitement. [b]AllowHttpLocalhost[/b] (par défaut : false) autorise les URL localhost et loopback lorsque [b]AllowHttp[/b] est activé ; les adresses link-local restent bloquées.
+
+[b]Fonctions de requête :[/b]
+{LIST}
+- [b]ic.http.get(url [, en-têtes] [, timeout])[/b] - Requête GET. Renvoie un requestId.
+- [b]ic.http.post(url, body [, contentType] [, headers] [, timeout])[/b] - Requête POST. Renvoie un requestId.
+- [b]ic.http.put(url, body [, contentType] [, headers] [, timeout])[/b] - Requête PUT.
+- [b]ic.http.delete(url [, en-têtes] [, timeout])[/b] - Demande DELETE.
+- [b]ic.http.patch(url, body [, contentType] [, headers] [, timeout])[/b] - Requête PATCH.
+{/LIST}
+
+[b]Recherche de réponses :[/b]
+{LIST}
+- [b]ic.http.poll()[/b] - Renvoie l'identifiant, le succès, le statut, le corps, l'erreur (ou nul si aucun résultat n'est prêt).
+- Appelez votre boucle tick/rendement pour recevoir des réponses.
+{/LIST}
+
+Fonctions utilitaires [b]URL :[/b]
+{LIST}
+- [b]ic.http.url_encode(str)[/b] - Encode en pourcentage une chaîne.
+- [b]ic.http.url_decode(str)[/b] - Décode une chaîne codée en pourcentage.
+- [b]ic.http.build_query(table)[/b] - Créez une chaîne de requête à partir d'une table clé-valeur.
+- [b]ic.http.build_url(base, params)[/b] - Créez une URL complète avec des paramètres de requête.
+{/LIST}
+
+[b]HTTP limits (configurable by server admin):[/b]
+{LIST}
+- Nombre maximum de requêtes simultanées : 8
+- Corps maximum de la requête : 64 Ko
+- Corps de réponse maximum : 256 Ko
+- Délai d'expiration par défaut : 10 secondes (max 30)
+- Longueur maximale de l'URL : 2 048 caractères
+- Max en-têtes personnalisés : 8
+{/LIST}
+
+Exemple de modèle :
+[b]local id = ic.http.get("https://api.example.com/data")[/b]
+[b]while true do[/b]
+[b]    local rid, ok, status, body, err = ic.http.poll()[/b]
+[b]    if rid == id then[/b]
+[b]        if ok then print("Response: " .. body)[/b]
+[b]        else print("Error: " .. tostring(err)) end[/b]
+[b] pause[/b]
+[b] fin[/b]
+[b]    yield()[/b]
+[b]fin[/b]
+
+{{HEADER:Save/Load persistence}
+Lorsque le jeu est sauvegardé, les variables locales/globales Lua sont [b]NOT[/b] incluses dans le fichier de sauvegarde. Après avoir chargé une sauvegarde, votre script se réinitialise à partir de zéro (le code au niveau du module s'exécute à nouveau).
+
+[b]Saved automatically by the game (no extra work):[/b]
+{LIST}
+- Code source de la puce
+- État de type IC10 : registres, pile, mémoire (la mémoire de la puce à 512 adresses)
+- Les valeurs [b]mem_read/mem_write[/b] sont écrites dans le fichier de sauvegarde et restaurées au chargement.
+{/LIST}
+
+[b]État du script - ic.persist (recommandé) :[/b]
+{LIST}
+- [b]ic.persist.set/get/has/delete/clear[/b]
+- Chargé avant l'init du module ; section BepInEx [b]Lua Persist[/b] pour les limites
+{/LIST}
+
+[b]Legacy serialize/deserialize :[/b] toujours pris en charge. Exemple : [b]Examples/PersistExample.lua[/b]
+
+{{HEADER:Migrating from IC10}
+Principales différences par rapport à l'assemblage IC10 :
+{LIST}
+- [b]Aucun registre [/b] - Utilisez des variables Lua. Pas de limite de 16 registres.
+- [b]Aucun numéro de ligne[/b] - Utilisez des fonctions, des boucles et if/else.
+- [b]Nil au lieu d'erreurs[/b] - read() renvoie zéro pour les périphériques manquants au lieu de planter.
+- [b]Strings sont natives[/b] - Aucun emballage ASCII-6 n'est nécessaire pour la plupart des choses.
+- [b]Tables[/b] - Utilisez les tables Lua pour les structures de données.
+- [b]Functions[/b] - Définissez des fonctions réutilisables au lieu des modèles de saut jal/j ra.
+- [b]Gestion des erreurs[/b] - Utilisez pcall() pour les appels protégés.
+{/LIST}
+
+Exemples de traduction rapides :
+{LIST}
+- IC10 : [b]l r0 d0 Température[/b] -> Lua : [b]local temp = read(0, LT.Temperature)[/b]
+- IC10 : [b]s d0 sur 1[/b] -> Lua : [b]write(0, LT.On, 1)[/b]
+- IC10 : [b]lb r0 HASH("GasSensor") Température 2[/b] -> Lua : [b]batch_read(hash("GasSensor"), LT.Temperature, LBM.Average)[/b]
+- IC10 : [b]push 42[/b] -> Lua : [b]stack_push(42)[/b]
+- IC10 : [b]sleep 5[/b] -> Lua : [b]sleep(5)[/b]
+{/LIST}
+
+Pour le mappage complet instruction par instruction, ouvrez :
+{LINK:StationeersLua_Mapping;IC10 to Lua Mapping}
+
+{{HEADER:Companion mod: ScriptedScreens}
+Pour les interfaces utilisateur à écran tactile personnalisées sur les consoles informatiques et les tablettes, installez [b]ScriptedScreens[/b]. Il ajoute des éléments déclaratifs d'interface utilisateur (boutons, curseurs, étiquettes, graphiques, tableaux, jauges), une saisie tactile et clavier, un dessin sur toile, un affichage d'image, une lecture sonore, des aides à la mise en page et des rappels d'images à 60 ips.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             PAGE 5: IC10 to Lua Mapping
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Mapping</Key>
+            <Title>Cartographie IC10 vers Lua</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1006</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:IC10 to Lua Mapping}-
+
+Il s'agit d'un mappage complet instruction par instruction de l'assemblage IC10 à StationeersLua. Si vous migrez le code IC10 existant vers Lua, utilisez-le comme référence de traduction.
+
+{{HEADER:Terminology}
+{LIST}
+- [b]r0..r15[/b] (registres IC10) -> Dans Lua : utilisez des variables locales, des tables ou mem_read/mem_write pour la mémoire de la puce.
+- [b]d0..d5[/b] (registres de périphériques IC10) -> Dans Lua : utilisez les index de périphérique (entiers) en lecture/écriture. d0 = 0, d1 = 1, etc.
+- [b]db[/b] (le boîtier de la puce) -> En Lua : [b]ic.const.BASE_UNIT_INDEX[/b] (généralement 6).
+- [b]sp / ra[/b] (pointeur de pile / adresse de retour) -> Dans Lua : [b]stack_get_sp()[/b], [b]stack_set_sp()[/b], [b]stack_get_ra()[/b], [b]stack_set_ra()[/b]. Généralement inutile – Lua a des fonctions et des appels natifs.
+- [b]HASH("...")[/b] -> En Lua : [b]hash("...")[/b]. Même hachage CRC-32.
+- [b]LogicType / LogicSlotType[/b] -> En Lua : [b]ic.enums.LogicType.*[/b], [b]ic.enums.LogicSlotType.*[/b].
+- [b]BatchMode (Moyenne/Somme/Min/Max)[/b] -> En Lua : [b]ic.enums.LogicBatchMethod.*[/b].
+- [b]Opcodes du tri / mode comparaison dans la mémoire du trieur[/b] -> En Lua : [b]ic.enums.SorterInstruction.*[/b], [b]ic.enums.ConditionOperation.*[/b] avec [b]mem_put[/b]/[b]mem_get[/b].
+- [b]d0:0 Channel0[/b] (adressage réseau) -> Dans Lua : passez un argument facultatif [b]networkIndex[/b] en lecture/écriture.
+{/LIST}
+
+{{HEADER:Utility instructions}
+{LIST}
+- [b]alias[/b] (nommer un registre/appareil) -> [b]local name = ...[/b] - utiliser des variables.
+- [b]define[/b] (définir une constante) -> [b]local PI = 3.14159[/b] - utiliser des constantes locales ou au niveau du module.
+- [b]hcf[/b] (arrêter et prendre feu) -> [b]hcf()[/b] - arrête l'exécution définitivement.
+- [b]sleep[/b] (pause de secondes) -> [b]sleep(seconds)[/b] - suspension de la coroutine.
+- [b]yield[/b] (pause pour 1 tick) -> [b]yield()[/b] - suspension de coroutine.
+{/LIST}
+
+{{HEADER:Math instructions}
+{LIST}
+- [b]abs[/b] -> [b]math.abs(x)[/b]
+- [b]add[/b] -> [b]a + b[/b]
+- [b]sub[/b] -> [b]a - b[/b]
+- [b]mul[/b] -> [b]a * b[/b]
+- [b]div[/b] -> [b]a / b[/b]
+- [b]mod[/b] -> [b]math.fmod(a, b)[/b] (reste de quotient tronqué, correspond à IC10)
+- [b]pow[/b] -> [b]a ^ b[/b] ou [b]math.pow(a, b)[/b]
+- [b]exp[/b] -> [b]math.exp(x)[/b]
+- [b]sqrt[/b] -> [b]math.sqrt(x)[/b]
+- [b]log[/b] -> [b]math.log(x)[/b]
+- [b]ceil[/b] -> [b]math.ceil(x)[/b]
+- [b]floor[/b] -> [b]math.floor(x)[/b]
+- [b]round[/b] -> Implémenter une fonction d'assistance (bris d'égalité IC10 non spécifié).
+- [b]trunc[/b] -> [b]x >= 0 et math.floor(x) ou math.ceil(x)[/b]
+- [b]max[/b] -> [b]math.max(a, b)[/b]
+- [b]min[/b] -> [b]math.min(a, b)[/b]
+- [b]rand[/b] -> [b]math.random()[/b]
+- [b]move[/b] (affectation) -> [b]dst = src[/b]
+- [b]lerp[/b] -> [b]a + (b - a) * t[/b] (IC10 serre t à 0..1 ; ajoutez une pince si nécessaire).
+{/LIST}
+
+{{HEADER:Trigonometric instructions}
+{LIST}
+- [b]sin[/b] -> [b]math.sin(x)[/b]
+- [b]cos[/b] -> [b]math.cos(x)[/b]
+- [b]tan[/b] -> [b]math.tan(x)[/b]
+- [b]asin[/b] -> [b]math.asin(x)[/b]
+- [b]acos[/b] -> [b]math.acos(x)[/b]
+- [b]atan[/b] -> [b]math.atan(x)[/b]
+- [b]atan2[/b] -> [b]math.atan(y, x)[/b] (le math.atan de Lua avec deux arguments est atan2).
+{/LIST}
+
+{{HEADER:Stack and memory instructions}
+{LIST}
+- [b]push[/b] (pousser vers la pile de jetons) -> [b]stack_push(value)[/b]
+- [b]pop[/b] (pop de la pile de jetons) -> [b]stack_pop()[/b]
+- [b]peek[/b] (lire le haut de la pile) -> [b]stack_peek()[/b] - ne change pas sp.
+- [b]poke[/b] (écrire la pile à l'adresse) -> [b]stack_poke(adresse, valeur)[/b]
+- [b]get[/b] (lire la mémoire de l'appareil) -> [b]mem_get(deviceIndex, adresse [, networkIndex])[/b]
+- [b]put[/b] (écrire la mémoire du périphérique) -> [b]mem_put(deviceIndex, adresse, valeur [, networkIndex])[/b]
+- [b]clr[/b] (effacer la mémoire de l'appareil) -> [b]mem_clear_device(deviceIndex [, networkIndex])[/b]
+- [b]getd[/b] (lire la mémoire de l'appareil par identifiant) -> [b]mem_get_id(deviceId, adresse [, networkIndex])[/b]
+- [b]putd[/b] (écrire la mémoire de l'appareil par identifiant) -> [b]mem_put_id(deviceId, adresse, valeur [, networkIndex])[/b]
+- [b]clrd[/b] (effacer la mémoire de l'appareil par identifiant) -> [b]mem_clear_id(deviceId [, networkIndex])[/b]
+{/LIST}
+
+Pour la mémoire locale de la puce (pas la mémoire de l'appareil) :
+{LIST}
+- [b]mem_read(adresse)[/b] / [b]mem_write(adresse, valeur)[/b] / [b]mem_clear()[/b]
+{/LIST}
+
+{{HEADER:Logic read/write instructions}
+{LIST}
+- [b]l[/b] (valeur logique de chargement) -> [b]read(deviceIndex, logicType [, networkIndex])[/b] - renvoie zéro si le périphérique est manquant.
+- [b]s[/b] (valeur logique de stockage) -> [b]write(deviceIndex, logicType, value [, networkIndex])[/b] - peut être lancé si le périphérique est manquant.
+- [b]ls[/b] (valeur de l'emplacement de chargement) -> [b]read_slot(deviceIndex, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]ss[/b] (valeur de l'emplacement de stockage) -> [b]write_slot(deviceIndex, slotIndex, logicSlotType, value [, networkIndex])[/b]
+- [b]lr[/b] (charger le réactif) -> [b]read_reagent(deviceIndex, reagentMode, reagentHash [, networkIndex])[/b]
+- [b]rmap[/b] (carte des réactifs) -> [b]rmap(deviceIndex [, networkIndex])[/b] - renvoie une table.
+{/LIST}
+
+{{HEADER:Batch read/write instructions}
+{LIST}
+- [b]lb[/b] (chargement par lots par hachage préfabriqué) -> [b]batch_read(prefabHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]lbn[/b] (chargement par lots + filtre de nom) -> [b]batch_read_name(prefabHash, nameHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]lbs[/b] (emplacement de chargement par lots) -> [b]batch_read_slot(prefabHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]lbns[/b] (emplacement de chargement par lots + nom) -> [b]batch_read_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]sb[/b] (magasin par lots) -> [b]batch_write(prefabHash, logicType, value [, networkIndex])[/b]
+- [b]sbn[/b] (magasin par lots + nom) -> [b]batch_write_name(prefabHash, nameHash, logicType, value [, networkIndex])[/b]
+- [b]sbs[/b] (emplacement de stockage par lots) -> [b]batch_write_slot(prefabHash, slotIndex, logicSlotType, value [, networkIndex])[/b]
+{/LIST}
+
+[i]Remarque : Le networkIndex facultatif sur les fonctions batch est une extension StationeersLua. Le lot Vanilla IC10 ne prend pas en charge la sélection de réseau.[/i]
+
+{{HEADER:Bitwise instructions (53-bit safe)}
+{LIST}
+- [b]et[/b] -> [b]bit_et(a, b)[/b]
+- [b]ou[/b] -> [b]bit_or(a, b)[/b]
+- [b]xor[/b] -> [b]bit_xor(a, b)[/b]
+- [b]nor[/b] -> [b]bit_nor(a, b)[/b]
+- [b]not[/b] -> [b]bit_not(a)[/b]
+- [b]sll[/b] (décalage logique vers la gauche) -> [b]bit_sll(a, shift)[/b]
+- [b]sla[/b] (décalage arithmétique vers la gauche) -> [b]bit_sll(a, shift)[/b] - identique à sll dans ce contexte.
+- [b]srl[/b] (décalage logique à droite) -> [b]bit_srl(a, shift)[/b]
+- [b]sra[/b] (décalage arithmétique à droite) -> [b]bit_sra(a, shift)[/b]
+- [b]ext[/b] (extrait le champ de bits) -> [b]bit_ext(value, pos, len)[/b]
+- [b]ins[/b] (insérer un champ de bits) -> [b]bit_ins(dst, src, pos, len)[/b]
+{/LIST}
+
+{{HEADER:Comparison instructions}
+IC10 possède de nombreuses instructions de comparaison « set-if ». En Lua, utilisez des comparaisons standards et renvoyez 1 ou 0 :
+
+{LIST}
+- [b]select[/b] (sélection conditionnelle) -> [b]cond ~= 0 et a ou b[/b]
+- [b]seq[/b] (a == b) -> [b](a == b) et 1 ou 0[/b]
+- [b]seqz[/b] (a == 0) -> [b](a == 0) et 1 ou 0[/b]
+- [b]sne[/b] (a ~= b) -> [b](a ~= b) et 1 ou 0[/b]
+- [b]snez[/b] (a ~= 0) -> [b](a ~= 0) et 1 ou 0[/b]
+- [b]sge[/b] (a >= b) -> [b](a >= b) et 1 ou 0[/b]
+- [b]sgez[/b] (a >= 0) -> [b](a >= 0) et 1 ou 0[/b]
+- [b]sgt[/b] (a > b) -> [b](a > b) et 1 ou 0[/b]
+- [b]sgtz[/b] (a > 0) -> [b](a > 0) et 1 ou 0[/b]
+- [b]sle[/b] (a <= b) -> [b](a <= b) et 1 ou 0[/b]
+- [b]slez[/b] (a <= 0) -> [b](a <= 0) et 1 ou 0[/b]
+- [b]slt[/b] (a < b) -> [b](a < b) et 1 ou 0[/b]
+- [b]sltz[/b] (a < 0) -> [b](a < 0) et 1 ou 0[/b]
+- [b]snan[/b] (est NaN) -> [b](x ~= x) et 1 ou 0[/b] - NaN est la seule valeur où x ~= x.
+- [b]snanz[/b] (n'est pas NaN) -> [b](x == x) et 1 ou 0[/b]
+- [b]sap/sna/sapz/snaz[/b] (comparaison approximative) -> Implémenter des assistants de tolérance dans Lua.
+{/LIST}
+
+{{HEADER:Branching instructions}
+IC10 utilise des sauts de style assemblage. Dans Lua, utilisez le flux de contrôle natif :
+
+{LIST}
+- [b]j[/b] (saut inconditionnel) -> [b]while true do ... end[/b] ou [b]goto label[/b]
+- [b]jal[/b] (call + set ra) -> Définir et appeler des fonctions : [b]function foo() ... end; foo()[/b]
+- [b]jr / j ra[/b] (retour) -> [b]retour[/b]
+- [b]beq/bne/bgt/bge/blt/ble[/b] (branche conditionnelle) -> [b]if a == b then ... end[/b] (utiliser des comparaisons standards)
+- [b]beqz/bnez/bgtz/bgez/bltz/blez[/b] (comparer à zéro) -> [b]if a == 0 alors ... end[/b]
+- [b]bdns[/b] (branche si périphérique non défini) -> [b]if read(dev, logicType) == nil then ... end[/b]
+- [b]bdse[/b] (branche si périphérique défini) -> [b]if read(dev, logicType) ~= nil then ... end[/b]
+{/LIST}
+
+[i]Tip : [b]if/elseif/else[/b] de Lua, [b]while[/b], [b]for[/b] et [b]repeat/until[/b] remplacent tous les modèles de branchement IC10. Vous n'avez jamais besoin de compter les numéros de ligne ni de gérer les cibles de saut.[/i]
+
+{{HEADER:Numeric format equivalents}
+{LIST}
+- IC10 : [b]$FF[/b] (hex) -> Lua : [b]0xFF[/b]
+- IC10 : [b]$E1B2[/b] (hex) -> Lua : [b]0xE1B2[/b]
+- IC10 : [b]%101010[/b] (binaire) -> Lua : [b]tonumber("101010", 2)[/b] (Lua 5.2 n'a pas de littéraux [b]0b[/b])
+{/LIST}
+
+{{HEADER:Hash generation}
+IC10 utilise les hachages CRC-32 pour l'adressage par lots et l'identification des appareils. StationeersLua fournit [b]hash()[/b] pour générer les mêmes valeurs :
+
+{LIST}
+- [b]hash("StructureGasSensor")[/b] - hachage préfabriqué pour batch_read/batch_write.
+- [b]hash("My Sensor")[/b] - hachage de nom pour batch_read_name/batch_write_name.
+- [b]prefab_name(hash)[/b] - recherche inversée : hachage de la chaîne de nom du préfabriqué.
+- [b]device_name(deviceIndex [, networkIndex])[/b] - nom d'affichage en direct d'un appareil filaire.
+- [b]namehash_name(deviceHash, nameHash [, networkIndex])[/b] - résolvez un nameHash en un nom d'affichage en analysant les appareils visibles.
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+    </HelpPage>
+</Language>

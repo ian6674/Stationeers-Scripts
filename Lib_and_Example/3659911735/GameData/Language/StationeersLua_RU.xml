@@ -1,0 +1,1222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language>
+    <Name>StationeersLua</Name>
+    <Code>RU</Code>
+    <Font></Font>
+    <Things>
+        <RecordThing>
+            <Key>ItemIntegratedCircuitLua</Key>
+            <Value>Интегральная схема (Lua)</Value>
+            <Description>Программируемая интегральная схема на языке Lua.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>MotherboardLuaDebugger</Key>
+            <Value>Материнская плата (Отладчик Lua)</Value>
+            <Description>Материнская плата для просмотра ошибок скриптов Lua и состояния среды выполнения в сети данных.</Description>
+        </RecordThing>
+        <RecordThing>
+            <Key>WirelessDataNetworkAccessBoard</Key>
+            <Value>Плата беспроводной разработки</Value>
+            <Description>Модуль костюма, открывающий удалённый доступ к разработке Lua-чипов через запитанные всенаправленные передатчики данных. При активной связи пассивно расходует заряд батареи костюма.</Description>
+        </RecordThing>
+    </Things>
+    <Interface>
+        <Record>
+            <Key>StationeersLuaGuideButton</Key>
+            <Value>StationeersLua</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSlotName</Key>
+            <Value>Беспров. плата</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDebuggerSlotName</Key>
+            <Value>Плата отладчика Lua</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionNetwork</Key>
+            <Value>Беспроводная сеть</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionMesh</Key>
+            <Value>Беспроводная mesh-сеть</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardActionDisconnect</Key>
+            <Value>Отключить беспроводную сеть</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInsertFirst</Key>
+            <Value>Сначала вставьте в костюм плату беспроводной разработки.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDisabled</Key>
+            <Value>Беспроводной доступ для разработки отключён конфигурацией.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardEnableConfig</Key>
+            <Value>Включите AllowNetworkChipAccess, чтобы использовать удалённую разработку по сети.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInstallSuit</Key>
+            <Value>Чтобы использовать беспроводной доступ для разработки, установите эту плату в надетый EVA-костюм.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoSelection</Key>
+            <Value>Беспроводная сеть не выбрана.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardConnected</Key>
+            <Value>Подключено к {0}.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardRange</Key>
+            <Value>Дистанция: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNetworkId</Key>
+            <Value>ID сети: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReconnecting</Key>
+            <Value>Попытка переподключения к выбранному всенаправленному передатчику...</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSelectedNetwork</Key>
+            <Value>Выбранная сеть: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardUnavailable</Key>
+            <Value>Выбранная беспроводная сеть сейчас недоступна.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshStatus</Key>
+            <Value>Mesh-переход: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshEnabled</Key>
+            <Value>Включён</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshLockedToTransmitter</Key>
+            <Value>Привязан к передатчику</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardPowerDrainActive</Key>
+            <Value>Беспроводная связь данных: расходуется заряд батареи костюма.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessCartridgePowerDrainActive</Key>
+            <Value>Беспроводная связь данных: расходуется заряд батареи планшета.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoTransmitters</Key>
+            <Value>В радиусе нет запитанных всенаправленных передатчиков.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReachableNetworks</Key>
+            <Value>Доступные сети:</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardReachableEntry</Key>
+            <Value>{0}{1} [{2}] -&gt; Сеть {3}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSuitRequired</Key>
+            <Value>Плата должна быть установлена в надетый костюм.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardOutOfRange</Key>
+            <Value>Выбранный запитанный всенаправленный передатчик вне радиуса действия.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardInstallToConnect</Key>
+            <Value>Установите плату в надетый костюм, чтобы подключиться.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardTarget</Key>
+            <Value>Цель: {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardUnableToConnect</Key>
+            <Value>Не удалось подключиться.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshFollow</Key>
+            <Value>Mesh-переход будет следовать за лучшим передатчиком выбранной сети, который находится в радиусе.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardMeshLock</Key>
+            <Value>Подключение останется привязанным только к выбранному передатчику.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNoNetworkSelected</Key>
+            <Value>Беспроводная сеть сейчас не выбрана.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardDisconnectNetwork</Key>
+            <Value>Отключить сеть {0}.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSelectNetwork</Key>
+            <Value>Выбрать беспроводную сеть</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardNetworkFallback</Key>
+            <Value>Сеть {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextMeshEnabled</Key>
+            <Value>Беспроводная mesh-сеть: включена</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextMeshLocked</Key>
+            <Value>Беспроводная mesh-сеть: привязка</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextDisconnect</Key>
+            <Value>Отключить беспроводную сеть</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardContextDisconnectNet</Key>
+            <Value>Отключить сеть {0}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSimpleConnected</Key>
+            <Value>Подключено</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessBoardSimpleDisconnected</Key>
+            <Value>Отключено</Value>
+        </Record>
+        <!-- Wireless Network Panel UI -->
+        <Record>
+            <Key>StationeersLuaWirelessPanelConnect</Key>
+            <Value>Подключить</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelConnected</Key>
+            <Value>Подключено</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelRefresh</Key>
+            <Value>Обновить</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelSelectPrompt</Key>
+            <Value>Выберите сеть ниже (доступно: {0}).</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelStatusConnected</Key>
+            <Value>Подключено к {0} — Сеть {1}</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessPanelNotWorn</Key>
+            <Value>Установите плату в надетый скафандр для активации беспроводного доступа к сети.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorInactive</Key>
+            <Value>Включите визор и убедитесь, что батарея заряжена, для подключения к беспроводной сети.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorNotWorn</Key>
+            <Value>Наденьте программируемый визор (слот очков) или держите его в руках, чтобы настроить беспроводной доступ.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorNoPosition</Key>
+            <Value>Наденьте визор или возьмите его в руки, чтобы задать позицию для настройки беспроводной сети.</Value>
+        </Record>
+        <Record>
+            <Key>StationeersLuaWirelessVisorPowerDrainActive</Key>
+            <Value>Беспроводное соединение с данными: разряжается батарея визора.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudShow</Key>
+            <Value>Показать HUD</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHide</Key>
+            <Value>Скрыть HUD</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorHudHiddenByUser</Key>
+            <Value>Программируемый HUD скрыт (используйте «Показать HUD»).</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightOff</Key>
+            <Value>Визор выключен или нет батареи.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNoChip</Key>
+            <Value>Чип не установлен.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightNotLua</Key>
+            <Value>Установите Lua-чип.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightRunning</Key>
+            <Value>Чип работает без ошибок.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorStatusLightReady</Key>
+            <Value>Визор включён: чип запустится в слоте очков.</Value>
+        </Record>
+        <Record>
+            <Key>ScriptedScreensVisorGlassTintNext</Key>
+            <Value>Цвет линзы: {0}</Value>
+        </Record>
+    </Interface>
+    <HomePageButtonsOverride>
+        <SPDAHomePageButtonOverride>
+            <CategoryName>StationeersLuaGuideButton</CategoryName>
+            <ThingNameForImage>ItemIntegratedCircuitLua</ThingNameForImage>
+            <LinkedPageKey>StationeersLua_Guide</LinkedPageKey>
+        </SPDAHomePageButtonOverride>
+    </HomePageButtonsOverride>
+    <HelpPage>
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 1: Главное руководство (стартовая страница)
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Guide</Key>
+            <Title>Руководство StationeersLua</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1000</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:StationeersLua}}-
+
+StationeersLua добавляет [b]скриптинг на Lua[/b] в программируемые чипы Stationeers, заменяя ассемблер IC10 полноценным языком программирования. Пишите скрипты автоматизации, сенсорные сети и сложную логику на Lua вместо низкоуровневой регистровой сборки.
+
+{{HEADER:Предметы, добавляемые модом}}
+{LIST}
+- {{LINK:ThingItemIntegratedCircuitLua;Интегральная схема (Lua)}} — чип с поддержкой Lua. Вставьте в любой корпус ИС.
+- {{LINK:ThingMotherboardLuaDebugger;Материнская плата (Отладчик Lua)}} — просматривайте ошибки чипов и состояние среды выполнения прямо в игре.
+- {{LINK:ThingWirelessDataNetworkAccessBoard;Плата беспроводной разработки}} — модуль EVA-костюма для удалённой Lua-разработки через запитанные всенаправленные передатчики.
+{/LIST}
+
+{{HEADER:Требования}}
+{LIST}
+- [b]BepInEx 5.x[/b] — фреймворк для модов
+- [b]StationeersLaunchPad[/b] — загрузчик модов
+- [b]IC10Editor[/b] (рекомендуется — для редактирования скриптов в игре)
+{/LIST}
+
+{{HEADER:Подсказки редактора (LSP)}}
+{LIST}
+- Необязательный [b]сервер языка[/b] для встроенного IC10Editor (Lua): автодополнение, подсказки, диагностика и форматирование под StationeersLua. Включите [b]EnableLspServer[/b] в настройках мода, раздел [b][MCP Server][/b]; порт TCP по умолчанию [b]3031[/b] (отдельно от HTTP для MCP/REST).
+- Необязательно: [b]ExternalLuaLanguageServerPath[/b] в том же разделе — путь к [b]lua-language-server[/b] для более полной поддержки обычного Lua, если вы установили его сами.
+- Расширение [b]StationeersLua[/b] для VS Code может подключаться к этому же LSP по TCP — это не MCP/REST на порту [b]3030[/b].
+{/LIST}
+
+{{HEADER:Быстрый старт}}
+{LIST}
+- Скрафтите или заспавните [b]Интегральную схему (Lua)[/b].
+- Вставьте её в любой [b]корпус ИС[/b] (или расширенный корпус ИС).
+- Откройте редактор кода корпуса (IC10Editor).
+- Вставьте скрипт и сохраните.
+{/LIST}
+
+Пример — мигание лампы на d0 каждую секунду:
+
+[b]local LT = ic.enums.LogicType[/b]
+[b]local on = false[/b]
+[b]while true do[/b]
+[b]    on = not on[/b]
+[b]    write(0, LT.On, on and 1 or 0)[/b]
+[b]    sleep(1)[/b]
+[b]end[/b]
+
+{{HEADER:Как работают чипы Lua}}
+{LIST}
+- [b]Выполнение на сервере:[/b] Весь код Lua работает на сервере/хосте. Клиенты видят результаты через синхронизацию состояния игры.
+- [b]Зависимость от питания:[/b] Если корпус ИС выключен или обесточен, скрипт не запустится.
+- [b]Изолированная среда:[/b] Нет файлового ввода-вывода, нет потоков. Только sleep/yield для паузы.
+{/LIST}
+
+Жизненный цикл:
+{LIST}
+- [b]Сохранение кода:[/b] Редактор сохраняет исходный код в чип.
+- [b]Компиляция/Инициализация:[/b] Создаётся Lua VM, внедряется таблица [b]ic[/b], выполняется код модуля (по умолчанию до 500 000 байткод-инструкций; сервер/хост может изменить [b]InitInstructionLimit[/b] в настройках мода, категория [b]Lua VM[/b]).
+- [b]Цикл тиков:[/b] Каждый тик игры (~0.5 с): обрабатываются сетевые сообщения, диспетчеризируются события, возобновляется основная сопрограмма, вызывается tick(dt) если определена. Бюджет по умолчанию: 50 000 инструкций на тик ([b]TickInstructionLimit[/b] в настройках мода [b]Lua VM[/b] на сервере/хосте).
+- [b]Завершение:[/b] Корпус выключен, чип извлечён или игра закрыта.
+{/LIST}
+
+{{HEADER:Паттерны структуры скрипта}}
+
+[b]Паттерн A: функция tick()[/b]
+Определите глобальную функцию [b]tick(dt)[/b]. Она вызывается каждый тик автоматически. [b]dt[/b] — время в секундах с последнего тика.
+
+[b]Паттерн B: бесконечный цикл с yield/sleep[/b]
+Используйте цикл [b]while true do ... yield() end[/b]. [b]yield()[/b] приостанавливает выполнение до следующего тика. [b]sleep(seconds)[/b] — пауза на заданное время.
+
+[b]Паттерн C: гибридный[/b]
+Объедините инициализацию на уровне модуля, основную сопрограмму с yield и функцию tick(). Оба компонента выполняются в одном тике.
+
+{{HEADER:Перечисления и константы}}
+Перечисления игры доступны через [b]ic.enums[/b]:
+{LIST}
+- [b]ic.enums.LogicType[/b] — On, Off, Temperature, Pressure, Setting и др.
+- [b]ic.enums.LogicSlotType[/b] — Occupied, Quantity, Charge и др.
+- [b]ic.enums.LogicBatchMethod[/b] — Average, Sum, Minimum, Maximum
+- [b]ic.enums.LogicReagentMode[/b] — TotalContents и др.
+- [b]ic.enums.SoundAlert[/b] — идентификаторы звуков оповещения динамика.
+- [b]ic.enums.SorterInstruction[/b] — опкоды стека Logic Sorter (с [b]mem_put[/b]/[b]mem_get[/b] на устройстве сортировщика).
+- [b]ic.enums.ConditionOperation[/b] — Equals, Greater, Less, NotEquals (режим сравнения в упакованных словах памяти сортировщика).
+{/LIST}
+
+Константы доступны через [b]ic.const[/b]:
+{LIST}
+- [b]ic.const.BASE_UNIT_INDEX[/b] — индекс устройства-корпуса (обычно 6, в IC10 — db).
+- [b]ic.const.BASE_NETWORK_INDEX[/b] — базовый индекс сети.
+{/LIST}
+
+{{HEADER:Сохранение и загрузка}}
+При сохранении игры локальные и глобальные переменные Lua [b]НЕ[/b] включаются в файл сохранения. После загрузки скрипт переинициализируется заново (код модуля выполняется снова).
+
+[b]Рекомендуется: ic.persist[/b] — строковые ключ/значение на чип:
+{LIST}
+- [b]ic.persist.set/get/has/delete/clear[/b]
+- Сохраняется при сохранении/загрузке мира, отключении/включении корпуса IC и извлечении/вставке чипа при неизменном исходном коде
+- Ключи с [b]__[/b] зарезервированы; таблицы через [b]util.json.encode/decode[/b]
+- Загружается [b]до[/b] инициализации модуля
+{/LIST}
+
+[b]Устаревшее:[/b] [b]serialize()[/b] / [b]deserialize(blob)[/b] — по-прежнему работают. Для новых скриптов используйте [b]ic.persist[/b].
+
+Память чипа ([b]mem_read/mem_write[/b], 512 адресов) сохраняется игрой автоматически.
+
+{{HEADER:События}}
+Регистрируйте обработчики для пользовательских событий от других модов или систем:
+{LIST}
+- [b]ic.events.on(name, handler)[/b] — регистрация. Обработчик может быть функцией или строкой с именем глобальной функции.
+- [b]ic.events.off(name)[/b] — отмена регистрации.
+{/LIST}
+
+События обрабатываются в начале каждого тика, до возобновления основной сопрограммы и вызова tick(dt). Используются преимущественно сопутствующими модами (например, ScriptedScreens) для передачи событий ввода интерфейса.
+
+{{HEADER:Библиотечные чипы и require()}}
+Пишите повторно используемые модули Lua на «библиотечных чипах», которые другие чипы могут загружать через [b]require("modname")[/b].
+
+{LIST}
+- Добавьте [b]--@module modname[/b] в начало исходника чипа, чтобы объявить его библиотечным.
+- Библиотечные чипы — пассивные хранилища кода. Они не имеют Lua VM и не выполняются самостоятственно.
+- Другие чипы в [b]той же сети кабелей данных[/b] могут вызывать [b]require("modname")[/b] для загрузки модуля.
+- Исходный код библиотеки компилируется и выполняется внутри Lua VM запрашивающего чипа.
+- Модули кэшируются в рамках VM. Используйте [b]require("modname", true)[/b] для принудительной перезагрузки.
+- Один чип может объявлять несколько модулей через несколько аннотаций [b]--@module[/b].
+- Библиотечные чипы должны находиться в корпусе ИС — они не работают внутри плат ScriptedScreens или картриджей планшета.
+{/LIST}
+
+Пример библиотечного чипа:
+[b]--@module atmos[/b]
+[b]local atmos = {}[/b]
+[b]function atmos.to_celsius(k) return k - 273.15 end[/b]
+[b]return atmos[/b]
+
+Пример чипа-потребителя:
+[b]local atmos = require("atmos")[/b]
+[b]local tempC = atmos.to_celsius(read(0, ic.enums.LogicType.Temperature))[/b]
+
+{{HEADER:Полный справочник API}}
+{LIST}
+- {{LINK:StationeersLua_Library;Справочник основного API}} — логический ввод-вывод, пакетные операции, слоты, память, стек, биты, строки
+- {{LINK:StationeersLua_Networking;Справочник сети}} — прямые сообщения, pub/sub, RPC
+- {{LINK:StationeersLua_Utilities;Справочник утилит}} — температура, время, JSON, HTTP
+- {{LINK:StationeersLua_WirelessBoard;Плата беспроводной разработки}} — удалённый доступ к сети через модуль костюма
+- {{LINK:StationeersLua_Mapping;Маппинг IC10 → Lua}} — полное руководство по переводу инструкций
+- {{LINK:StationeersLua_Debugger;Отладчик Lua (материнская плата)}} — инструмент отладки в игре
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 2: Справочник основного API
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Library</Key>
+            <Title>StationeersLua: Основной API</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1001</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Справочник основного API StationeersLua}}
+
+Все функции ниже доступны как глобальные (например, [b]read[/b], [b]write[/b]) и через таблицу [b]ic[/b] (например, [b]ic.read[/b], [b]ic.write[/b]).
+
+{{HEADER:Управление потоком}}
+{LIST}
+- [b]sleep(seconds)[/b] — приостанавливает скрипт на заданное время. Отсчёт ведётся по тикам.
+- [b]yield()[/b] — пауза до следующего тика игры.
+- [b]throw(message)[/b] — немедленно бросает ошибку времени выполнения Lua.
+- [b]hcf()[/b] — Halt and Catch Fire. Навсегда уничтожает чип. Отмены нет.
+- [b]print(...)[/b] — запись в вкладку «Логи» Отладчика Lua. Несколько аргументов разделяются табуляцией.
+{/LIST}
+
+{{HEADER:Чтение устройств}}
+Устройства подключаются через [b]пины устройств[/b] (d0–d5). Корпус чипа — [b]ic.const.BASE_UNIT_INDEX[/b] (db).
+
+{LIST}
+- [b]read(deviceIndex, logicType [, networkIndex])[/b] — читает логическое значение. Возвращает nil, если устройство отсутствует.
+- [b]read_id(deviceId, logicType [, networkIndex])[/b] — чтение по ReferenceId (стабильная адресация).
+{/LIST}
+
+{{HEADER:Запись в устройства}}
+{LIST}
+- [b]write(deviceIndex, logicType, value [, networkIndex])[/b] — запись логического значения. Может выбросить ошибку, если устройство отсутствует.
+- [b]write_id(deviceId, logicType, value [, networkIndex])[/b] — запись по ReferenceId.
+{/LIST}
+
+{{HEADER:Операции со слотами}}
+У устройств есть слоты (инвентарь, порты газовых баллонов и т.д.). Чтение/запись с использованием [b]LogicSlotType[/b]:
+
+{LIST}
+- [b]read_slot(deviceIndex, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]write_slot(deviceIndex, slotIndex, logicSlotType, value [, networkIndex])[/b]
+- [b]read_slot_id(deviceId, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]write_slot_id(deviceId, slotIndex, logicSlotType, value [, networkIndex])[/b]
+{/LIST}
+
+{{HEADER:Пакетные операции}}
+Чтение/запись [b]для всех устройств заданного типа[/b] в сети данных:
+
+{LIST}
+- [b]batch_read(prefabHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]batch_read_name(prefabHash, nameHash, logicType, batchMethod [, networkIndex])[/b] — с фильтром по имени.
+- [b]batch_read_slot(prefabHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]batch_read_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]batch_write(prefabHash, logicType, value [, networkIndex])[/b]
+- [b]batch_write_name(prefabHash, nameHash, logicType, value [, networkIndex])[/b]
+- [b]batch_write_slot(prefabHash, slotIndex, logicSlotType, value [, networkIndex])[/b]
+- [b]batch_write_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, value [, networkIndex])[/b]
+{/LIST}
+
+Методы: [b]Average[/b] (среднее), [b]Sum[/b] (сумма), [b]Minimum[/b] (минимум), [b]Maximum[/b] (максимум) — из ic.enums.LogicBatchMethod.
+
+[i]Примечание: опциональный параметр networkIndex для пакетных функций — расширение StationeersLua. Оригинальный IC10 не поддерживает выбор сети для пакетных операций.[/i]
+
+{{HEADER:Операции с реагентами}}
+{LIST}
+- [b]read_reagent(deviceIndex, reagentMode, reagentHash [, networkIndex])[/b]
+- [b]rmap(deviceIndex [, networkIndex])[/b] — возвращает таблицу соответствия reagentHash → prefabHash.
+{/LIST}
+
+{{HEADER:Информация об устройстве}}
+{LIST}
+- [b]device_id(deviceIndex)[/b] — получает ReferenceId устройства на пине.
+- [b]device_name(deviceIndex [, networkIndex])[/b] — получает текущее отображаемое имя.
+- [b]device_label(deviceIndex, name)[/b] / [b]label(deviceIndex, name)[/b] — устанавливает отображаемое имя устройства.
+- [b]prefab_name(hash)[/b] — получает имя префаба по известному хешу (возвращает nil если неизвестно).
+- [b]namehash_name(deviceHash, nameHash [, networkIndex])[/b] — разрешает nameHash в отображаемое имя.
+- [b]device_list([networkIndex])[/b] — возвращает массив таблиц { ref_id, prefab_hash, name_hash, display_name } для каждого устройства в сети.
+- [b]host_info()[/b] — таблица о физическом носителе чипа: [b]name[/b], [b]ref_id[/b], [b]prefab_hash[/b], [b]type[/b] ([b]suit[/b], [b]scripted_visor[/b] для программируемого визора ScriptedScreens, [b]circuit_housing[/b], [b]tablet[/b], [b]motherboard[/b], [b]device[/b] или [b]unknown[/b]). Для костюма или такого визора при надевании: [b]wearer[/b] (имя игрока), [b]wearer_ref_id[/b], [b]wearer_prefab_hash[/b] для Human; если не надето — этих ключей нет.
+- [b]find(name [, mode [, networkIndex]])[/b] — первое устройство по имени. Опциональная строка [b]mode[/b] (без учёта регистра): [b]auto[/b] (по умолчанию) — [b]glob[/b], если в шаблоне есть [b]\[/b] или неэкранированная [b]*[/b], иначе полное точное совпадение с регистром; [b]exact[/b] — точное совпадение всей строки; [b]glob[/b] — [b]*[/b] подстрока (без учёта регистра вне экранирований), [b]\*[/b] буквальная *, [b]\\[/b] буквальный \; [b]regex[/b] — .NET по всей строке. Один необязательный [b]числовой[/b] аргумент — это [b]networkIndex[/b] с режимом по умолчанию, напр. [b]find("Pump", 2)[/b]. Если нужны оба, [b]nil[/b] для [b]mode[/b] и индекс в третьем слоте: [b]find("Sensor", nil, 2)[/b]. [b]find("(?i)power", "regex")[/b] без заполнителя. До 512 символов.
+- [b]find_all(name [, mode [, networkIndex]])[/b] — те же режимы; таблица ReferenceId (с 1).
+{/LIST}
+
+[b]find[/b] и [b]find_all[/b] позволяют обращаться к устройствам по имени, установленному Маркировщиком, вместо индексов слотов или ReferenceId. Особенно полезно для скриптов, которым нужно взаимодействовать с конкретными именованными устройствами без физического подключения к пинам:
+
+{LIST}
+- [b]local pump = find("Main Pump")[/b], затем [b]write_id(pump, LT.On, 1)[/b]
+- [b]local cams = find_all("Security Cam")[/b] для получения всех камер с именем "Security Cam"
+- [b]local ps = find_all("*Power*")[/b] — все устройства, в имени которых есть [b]Power[/b] (glob без учёта регистра)
+- [b]local one = find("Line\\*2")[/b] — метка буквально [b]Line*2[/b] (в Lua [b]\\[/b] перед [b]*[/b])
+- [b]local id = find("2 * 5kPa", "exact")[/b] — полное имя с * без glob-шаблона
+- [b]local xs = find_all("(?i)\\bpower\\b", "regex")[/b] — граница слова (в Lua удваивайте [b]\[/b])
+{/LIST}
+
+[i]Примечание: в строках Lua для glob/regex удваивайте [b]\[/b]. Regex — .NET при [b]mode[/b] = [b]regex[/b]. DisplayName; та же сеть данных.[/i]
+
+{{HEADER:Память чипа (512 адресов)}}
+Каждый чип имеет 512 адресов памяти (0–511), которые сохраняются между тиками и при сохранении/загрузке:
+
+{LIST}
+- [b]mem_read(address)[/b] — читает из памяти чипа.
+- [b]mem_write(address, value)[/b] — записывает в память чипа.
+- [b]mem_clear()[/b] — очищает всю память чипа.
+{/LIST}
+
+Память внешнего устройства:
+{LIST}
+- [b]mem_get(deviceIndex, address [, networkIndex])[/b]
+- [b]mem_put(deviceIndex, address, value [, networkIndex])[/b]
+- [b]mem_clear_device(deviceIndex [, networkIndex])[/b]
+- [b]mem_get_id(deviceId, address [, networkIndex])[/b]
+- [b]mem_put_id(deviceId, address, value [, networkIndex])[/b]
+- [b]mem_clear_id(deviceId [, networkIndex])[/b]
+{/LIST}
+
+[i]Программы Logic Sorter задаются 64-битными словами в памяти этого устройства. Константы опкодов — [b]ic.enums.SorterInstruction[/b], режима сравнения — [b]ic.enums.ConditionOperation[/b]; упаковка бит совпадает с IC10 на пине сортировщика (см. вики Logic Sorter).[/i]
+
+{{HEADER:Операции со стеком}}
+Совместимость со стеком IC10 (общий с памятью чипа):
+
+{LIST}
+- [b]stack_push(value)[/b], [b]stack_pop()[/b], [b]stack_peek()[/b], [b]stack_poke(address, value)[/b]
+- [b]stack_get_sp()[/b] / [b]stack_set_sp(value)[/b] — указатель стека.
+- [b]stack_get_ra()[/b] / [b]stack_set_ra(value)[/b] — адрес возврата.
+{/LIST}
+
+[i]В Lua вы почти всегда будете использовать локальные переменные и таблицы вместо стека IC10. Эти функции существуют для совместимости с IC10 и для обмена данными с ванильными чипами IC10 через общую память.[/i]
+
+{{HEADER:Побитовые операции (безопасные для 53 бит)}}
+{LIST}
+- [b]bit_and(a, b)[/b], [b]bit_or(a, b)[/b], [b]bit_xor(a, b)[/b], [b]bit_nor(a, b)[/b], [b]bit_not(a)[/b]
+- [b]bit_sll(a, n)[/b] — логический сдвиг влево.
+- [b]bit_srl(a, n)[/b] — логический сдвиг вправо (беззнаковый).
+- [b]bit_sra(a, n)[/b] — арифметический сдвиг вправо (знаковый).
+- [b]bit_ext(value, pos, len)[/b] — извлечь битовое поле: len бит начиная с позиции pos.
+- [b]bit_ins(dst, src, pos, len)[/b] — вставить src в dst на позицию pos, ширина len.
+{/LIST}
+
+{{HEADER:Строки и хеш-утилиты}}
+{LIST}
+- [b]hash(text)[/b] — хеширует строку (то же, что HASH в IC10). Использует Animator.StringToHash.
+- [b]pack_ascii6(text)[/b] / [b]unpack_ascii6(number)[/b] — упаковка/распаковка коротких строк (кодировка ASCII-6, ~10 символов).
+- [b]strip_color_tags(text)[/b] — удаляет теги цвета Unity rich-text.
+- [b]to_int53(value)[/b] — конвертирует float в 53-битное целое (отбрасывая дробную часть).
+{/LIST}
+
+{{HEADER:Обработка ошибок и корпус}}
+{LIST}
+- [b]raise_error(state)[/b] / [b]clear_error()[/b] — установить/сбросить состояние ошибки чипа.
+- [b]hcf()[/b] — Halt and Catch Fire. Навсегда уничтожает чип.
+{/LIST}
+
+Используйте [b]pcall()[/b] для защиты операций, которые могут завершиться ошибкой:
+
+[b]local ok, err = pcall(function()[/b]
+[b]    write(0, LT.On, 1)[/b]
+[b]end)[/b]
+[b]if not ok then print("Ошибка записи: " .. tostring(err)) end[/b]
+
+{{HEADER:Изолированная среда и лимиты инструкций}}
+{LIST}
+- [b]Инициализация:[/b] по умолчанию 500 000 инструкций (код уровня модуля); на сервере/хосте настраивается через [b]InitInstructionLimit[/b] (категория [b]Lua VM[/b]).
+- [b]На тик:[/b] по умолчанию 50 000 инструкций (сопрограмма + tick + события); настраивается через [b]TickInstructionLimit[/b] (та же категория, только сервер/хост).
+- Превышение лимита вызывает ошибку времени выполнения на чипе.
+{/LIST}
+
+Доступные стандартные библиотеки: [b]math[/b], [b]string[/b], [b]table[/b], [b]coroutine[/b], [b]utf8[/b], [b]os.clock[/b], [b]os.time[/b], [b]os.date[/b], [b]pcall[/b], [b]xpcall[/b], [b]tonumber[/b], [b]tostring[/b], [b]type[/b], [b]pairs[/b], [b]ipairs[/b], [b]select[/b], [b]unpack[/b], [b]load[/b].
+
+Заблокированы: [b]io[/b], [b]debug[/b], [b]package[/b], [b]dofile[/b], [b]loadfile[/b], [b]os.execute[/b], [b]os.exit[/b] и другие файловые и процессные операции.
+
+[b]require("modname")[/b] доступен для загрузки модулей из библиотечных чипов в той же сети кабелей данных.
+
+{{HEADER:Дополнительные справочники}}
+{LIST}
+- {{LINK:StationeersLua_Networking;Справочник сети}} — прямые сообщения, pub/sub, RPC, pack/unpack
+- {{LINK:StationeersLua_Utilities;Справочник утилит}} — температура, время, JSON, HTTP
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 3: Справочник сети
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Networking</Key>
+            <Title>StationeersLua: Сеть</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1002</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Справочник сетевого API StationeersLua}}
+
+Чипы Lua в [b]одной сети данных[/b] могут обмениваться сообщениями. Вся работа с сетью выполняется на сервере и ограничена физической сетью кабелей данных (включая мостовые сети).
+
+Сетевой API может быть отключён администратором сервера через опцию конфигурации [b]AllowNet[/b] (по умолчанию: true). Функции pack/unpack доступны всегда.
+
+{{HEADER:Идентификация и участники}}
+{LIST}
+- [b]ic.net.id()[/b] — возвращает ваш идентификатор конечной точки (ReferenceId корпуса).
+- [b]ic.net.peers()[/b] — возвращает массив таблиц { name, id } для всех чипов Lua в сети.
+{/LIST}
+
+{{HEADER:Прямые сообщения}}
+
+[b]Отправка:[/b]
+{LIST}
+- [b]ic.net.send(target, channel, payload)[/b] — отправка конкретному адресату по имени (метка корпуса) или по ReferenceId.
+- [b]ic.net.broadcast(channel, payload)[/b] — широковещательная рассылка ВСЕМ чипам Lua в сети. Возвращает количество доставленных адресатов.
+{/LIST}
+
+[b]Получение (через обработчики, рекомендуется):[/b]
+{LIST}
+- [b]ic.net.listen(channel, handler)[/b] — регистрация слушателя. Обработчик получает (fromId, fromName, payload).
+- Обработчик может быть функцией или строкой с именем глобальной функции.
+- Для отмены регистрации передайте nil: [b]ic.net.listen(channel, nil)[/b]
+{/LIST}
+
+[b]Получение (опрос):[/b]
+{LIST}
+- [b]ic.net.recv()[/b] — возвращает fromId, fromName, channel, payload (или nil если сообщений нет).
+{/LIST}
+
+[b]Правила каналов:[/b]
+{LIST}
+- Каналы — строки (например, "alerts", "sensor_data"). Целочисленные каналы трактуются как их строковые представления.
+- Максимальный размер payload: 128 КБ (MessagePack).
+- Поддерживаемые типы: nil, boolean, number, string, table. Функции, userdata и циклические таблицы не поддерживаются.
+{/LIST}
+
+{{HEADER:Pub/Sub (тематические рассылки)}}
+Публикация и подписка по темам. Издатели не обязаны знать подписчиков. Подписчики могут использовать шаблоны с подстановочными знаками.
+
+[b]Публикация:[/b]
+{LIST}
+- [b]ic.net.publish(topic, payload [, options])[/b]
+- Таблица options (все необязательны):
+  {LIST}
+  - [b]retain[/b] (boolean) — новые подписчики сразу получают последнее сохранённое значение.
+  - [b]ttl[/b] (number) — сохранённое сообщение истекает через указанное количество секунд.
+  - [b]include_self[/b] (boolean) — доставлять ли себе (по умолчанию: false).
+  {/LIST}
+- Публикация nil с retain=true очищает сохранённое сообщение.
+{/LIST}
+
+[b]Подписка:[/b]
+{LIST}
+- [b]ic.net.subscribe(pattern, handler)[/b] — обработчик получает (topic, payload, fromId, fromName, retained).
+- Подстановочные знаки: [b]*[/b] соответствует любой последовательности символов, [b]?[/b] — одному символу.
+- Обработчик может быть функцией или строкой с именем глобальной функции.
+- [b]ic.net.unsubscribe(pattern)[/b] — отменить подписку.
+{/LIST}
+
+[b]Правила тем:[/b]
+{LIST}
+- Максимальная длина темы: 128 символов.
+- Лимит очереди: 128 сообщений на очередь подписчика (ограничение нагрузки).
+{/LIST}
+
+{{HEADER:RPC (запрос/ответ)}}
+Вызов функций на другом чипе с идентификаторами корреляции и таймаутами.
+
+[b]Серверная сторона (регистрация методов):[/b]
+{LIST}
+- [b]ic.net.register(methodName, handler)[/b] — обработчик получает (payload, fromId, fromName). Возвращаемое значение становится ответом.
+- Если обработчик выбросил ошибку, она отправляется обратно вызывающему.
+- [b]ic.net.unregister(methodName)[/b]
+{/LIST}
+
+[b]Клиентская сторона (вызов методов):[/b]
+{LIST}
+- [b]ic.net.request(target, method, payload, callback [, timeout])[/b]
+- Target — строка-имя или ReferenceId.
+- Callback получает (ok, payload, err, fromId, fromName).
+- Таймаут по умолчанию: 10 секунд. Максимум: 120 секунд.
+- Если ok равно false, в err содержится сообщение об ошибке.
+{/LIST}
+
+[b]Правила RPC:[/b]
+{LIST}
+- Максимальная длина имени метода: 64 символа.
+- Запросы с истёкшим таймаутом тихо удаляются (без вызова callback).
+- И сервер, и клиент должны находиться в цикле yield/sleep для обработки RPC.
+{/LIST}
+
+{{HEADER:Pack / Unpack}}
+Сериализация значений Lua в/из base64-строки MessagePack. Удобно для хранения структурированных данных в памяти чипа или для передачи данных вне сети.
+
+{LIST}
+- [b]ic.net.pack(value)[/b] — упаковать значение Lua в base64-строку.
+- [b]ic.net.unpack(str)[/b] — распаковать base64-строку обратно в значение Lua.
+{/LIST}
+
+Поддерживаемые типы: nil, boolean, number, string, table (массивы и словари). Pack/unpack доступны даже если AllowNet отключён.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 4: Справочник утилит
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Utilities</Key>
+            <Title>StationeersLua: Утилиты</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1003</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Справочник утилит StationeersLua}}
+
+{{HEADER:Конвертация температуры}}
+Конвертация между Кельвинами, Цельсием и Фаренгейтом через [b]util.temp(value, from, to)[/b].
+
+{LIST}
+- [b]util.temp(value, from, to)[/b] — конвертация температуры между единицами.
+- Единицы: [b]"K"[/b] (Кельвин), [b]"C"[/b] (Цельсий), [b]"F"[/b] (Фаренгейт). Регистр не важен.
+- [b]from[/b] по умолчанию "K", [b]to[/b] по умолчанию "C".
+- Краткая форма: [b]util.temp(295)[/b] конвертирует 295K в Цельсий.
+{/LIST}
+
+Пример:
+[b]local tempK = read(0, ic.enums.LogicType.Temperature)[/b]
+[b]local tempC = util.temp(tempK, "K", "C")[/b]
+
+{{HEADER:Утилиты времени}}
+Серверные хелперы игрового времени:
+
+{LIST}
+- [b]util.game_time()[/b] — секунды с начала мира.
+- [b]util.days_past()[/b] — количество прошедших дней (целое).
+{/LIST}
+
+Орбитальные часы:
+{LIST}
+- [b]util.time_of_day()[/b] — доля суток (0..1).
+- [b]util.clock_time([pattern])[/b] — форматированная строка времени.
+{/LIST}
+
+Токены формата часов:
+{LIST}
+- [b]HH[/b] = час (24-часовой), [b]hh[/b] = час (12-часовой)
+- [b]MM[/b] или [b]mm[/b] = минуты, [b]ss[/b] = секунды
+- [b]A[/b] или [b]a[/b] = AM/PM
+{/LIST}
+
+Примеры:
+[b]util.clock_time()[/b] возвращает "14:30" (по умолчанию "HH:MM")
+[b]util.clock_time("hh:MM A")[/b] возвращает "02:30 PM"
+[b]util.clock_time("HH:MM:ss")[/b] возвращает "14:30:45"
+
+{{HEADER:JSON-утилиты}}
+Универсальная сериализация/десериализация JSON через пространство имён [b]util[/b]:
+
+{LIST}
+- [b]util.json.encode(value)[/b] — кодирует значение Lua в JSON-строку.
+- [b]util.json.decode(str)[/b] — декодирует JSON-строку в значение Lua.
+{/LIST}
+
+Поддерживает: nil, boolean, number, string, table (массивы и словари). Удобно для сохранения (serialize/deserialize) и структурированных данных.
+
+{{HEADER:HTTP API (ic.http)}}
+HTTP-запросы к внешним веб-сервисам. API [b]управляется конфигурацией сервера[/b] через опцию [b]AllowHttp[/b] (по умолчанию: false). Администратор сервера должен явно включить его. Опция [b]AllowHttpLocalhost[/b] (по умолчанию: false) разрешает URL localhost и loopback при включённом [b]AllowHttp[/b]; link-local по-прежнему запрещены.
+
+[b]Функции запросов:[/b]
+{LIST}
+- [b]ic.http.get(url [, headers] [, timeout])[/b] — GET-запрос. Возвращает requestId.
+- [b]ic.http.post(url, body [, contentType] [, headers] [, timeout])[/b] — POST-запрос. Возвращает requestId.
+- [b]ic.http.put(url, body [, contentType] [, headers] [, timeout])[/b] — PUT-запрос.
+- [b]ic.http.delete(url [, headers] [, timeout])[/b] — DELETE-запрос.
+- [b]ic.http.patch(url, body [, contentType] [, headers] [, timeout])[/b] — PATCH-запрос.
+{/LIST}
+
+[b]Опрос ответов:[/b]
+{LIST}
+- [b]ic.http.poll()[/b] — возвращает id, success, status, body, error (или nil если нет готовых результатов).
+- Вызывайте в вашем цикле tick/yield для получения ответов.
+{/LIST}
+
+[b]Утилиты URL:[/b]
+{LIST}
+- [b]ic.http.url_encode(str)[/b] — процентное кодирование строки.
+- [b]ic.http.url_decode(str)[/b] — декодирование процентно-кодированной строки.
+- [b]ic.http.build_query(table)[/b] — построение строки запроса из таблицы ключ-значение.
+- [b]ic.http.build_url(base, params)[/b] — построение полного URL с параметрами запроса.
+{/LIST}
+
+[b]Лимиты HTTP (настраиваются администратором сервера):[/b]
+{LIST}
+- Максимум одновременных запросов: 8
+- Максимальный размер тела запроса: 64 КБ
+- Максимальный размер тела ответа: 256 КБ
+- Таймаут по умолчанию: 10 секунд (максимум 30)
+- Максимальная длина URL: 2048 символов
+- Максимум пользовательских заголовков: 8
+{/LIST}
+
+Пример паттерна:
+[b]local id = ic.http.get("https://api.example.com/data")[/b]
+[b]while true do[/b]
+[b]    local rid, ok, status, body, err = ic.http.poll()[/b]
+[b]    if rid == id then[/b]
+[b]        if ok then print("Ответ: " .. body)[/b]
+[b]        else print("Ошибка: " .. tostring(err)) end[/b]
+[b]        break[/b]
+[b]    end[/b]
+[b]    yield()[/b]
+[b]end[/b]
+
+{{HEADER:Сохранение и загрузка}}
+При сохранении игры локальные и глобальные переменные Lua [b]НЕ[/b] включаются в файл сохранения. После загрузки скрипт переинициализируется заново.
+
+[b]Сохраняется игрой автоматически (ничего дополнительного не нужно):[/b]
+{LIST}
+- Исходный код чипа
+- Состояние IC10: регистры, стек, память (512 адресов чипа)
+- Значения [b]mem_read/mem_write[/b] записываются в файл сохранения и восстанавливаются при загрузке.
+{/LIST}
+
+[b]Состояние скрипта — ic.persist (рекомендуется):[/b]
+Строковые ключ/значение на чип. Сохраняется при сохранении/загрузке, цикле питания корпуса IC и извлечении/вставке чипа при неизменном коде.
+{LIST}
+- [b]ic.persist.set/get/has/delete/clear[/b]
+- Загружается до инициализации модуля; лимиты в BepInEx [b]Lua Persist[/b]
+{/LIST}
+
+[b]Устаревшее serialize/deserialize:[/b] по-прежнему работают. Пример: [b]Examples/PersistExample.lua[/b]
+
+{{HEADER:Миграция с IC10}}
+Ключевые отличия от ассемблера IC10:
+{LIST}
+- [b]Нет регистров[/b] — используйте переменные Lua. Нет ограничения в 16 регистров.
+- [b]Нет номеров строк[/b] — используйте функции, циклы и if/else.
+- [b]nil вместо ошибок[/b] — read() возвращает nil для отсутствующих устройств вместо краша.
+- [b]Строки нативные[/b] — упаковка ASCII-6 в большинстве случаев не нужна.
+- [b]Таблицы[/b] — используйте таблицы Lua для структур данных.
+- [b]Функции[/b] — определяйте переиспользуемые функции вместо паттернов jal/j ra.
+- [b]Обработка ошибок[/b] — используйте pcall() для graceful-обработки ошибок.
+{/LIST}
+
+Краткие примеры перевода:
+{LIST}
+- IC10: [b]l r0 d0 Temperature[/b] → Lua: [b]local temp = read(0, LT.Temperature)[/b]
+- IC10: [b]s d0 On 1[/b] → Lua: [b]write(0, LT.On, 1)[/b]
+- IC10: [b]lb r0 HASH("GasSensor") Temperature 2[/b] → Lua: [b]batch_read(hash("GasSensor"), LT.Temperature, LBM.Average)[/b]
+- IC10: [b]push 42[/b] → Lua: [b]stack_push(42)[/b]
+- IC10: [b]sleep 5[/b] → Lua: [b]sleep(5)[/b]
+{/LIST}
+
+Полное пошаговое руководство по переводу инструкций:
+{{LINK:StationeersLua_Mapping;Маппинг IC10 → Lua}}
+
+{{HEADER:Сопутствующий мод: ScriptedScreens}}
+Для создания пользовательских сенсорных интерфейсов на компьютерных консолях и планшетах установите [b]ScriptedScreens[/b]. Добавляет декларативные UI-элементы (кнопки, слайдеры, метки, графики, таблицы, датчики), сенсорный и клавиатурный ввод, рисование на холсте, отображение изображений, воспроизведение звука, хелперы для разметки и callback'и на 60fps.
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 5: Отладчик
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Debugger</Key>
+            <Title>Материнская плата: Отладчик Lua</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1004</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Материнская плата: Отладчик Lua}}
+
+{{THING:MotherboardLuaDebugger}} позволяет просматривать ошибки Lua-чипов и состояние среды выполнения прямо в игре.
+
+{{HEADER:Настройка}}
+{LIST}
+- Вставьте материнскую плату в компьютер или консоль.
+- Убедитесь, что компьютер находится в [b]той же сети данных[/b], что и Lua-чип, который вы хотите диагностировать.
+- Включите компьютер.
+- Для беспроводного доступа к диагностике установите вторую {{THING:MotherboardLuaDebugger}} во внутренний слот отладчика внутри {{THING:WirelessDataNetworkAccessBoard}}.
+{/LIST}
+
+{{HEADER:Как пользоваться}}
+{LIST}
+- Выберите конечную точку цели в выпадающем списке. Там перечислены все конечные точки Lua-чипов в сети.
+- Нажмите [b]Refresh[/b], чтобы запросить сервер-авторитетный снимок состояния чипа.
+- Используйте [b]Copy[/b], чтобы скопировать полный текст снимка в буфер обмена для внешнего анализа.
+{/LIST}
+
+{{HEADER:Что вы увидите}}
+{LIST}
+- [b]Состояние ошибки:[/b] Тип compile/runtime-ошибки чипа и номер строки.
+- [b]Сообщение об ошибке:[/b] Полное последнее сообщение об ошибке Lua и traceback, захваченные средой выполнения.
+- [b]Состояние среды выполнения:[/b] Оставшееся время сна, количество ожидающих событий, количество ожидающих сетевых сообщений.
+- [b]Указатель стека[/b] (sp) и [b]адрес возврата[/b] (ra).
+- [b]Окно памяти чипа:[/b] постраничный просмотр 512 адресов памяти. Используйте кнопки Prev/Next для навигации.
+- [b]Вывод логов:[/b] Вкладка «Логи» показывает вывод print() целевого чипа (ограниченный буфер, очищается при сбросе питания или runtime).
+{/LIST}
+
+{{HEADER:Отладчик VS Code [Экспериментально]}}
+Расширение StationeersLua для VS Code может подключаться к Lua-чипу и использовать то же состояние отладки для внешней отладки. Для этого требуется [b]EnableExperimentalDebugger = true[/b] в секции [b][MCP Server][/b] конфига мода.
+
+{LIST}
+- Точки останова в исходнике, пауза, продолжение, шаг с обходом, шаг с заходом и шаг с выходом.
+- Стек вызовов, области видимости и переменные из текущей приостановленной среды выполнения.
+- Вывод print() и ошибки времени выполнения с трассировкой, пересылаемые в подключённую отладочную сессию.
+- Lua-чипы внутри ScriptedScreens отображаются через конечную точку их платы или картриджа.
+{/LIST}
+
+{{HEADER:Советы}}
+{LIST}
+- Используйте [b]print(...)[/b] в Lua-скриптах, чтобы писать отладочный вывод. Смотрите его во вкладке «Логи».
+- Отладчик находит endpoint-ы в текущей сети данных компьютера.
+- Для беспроводной диагностики MCP / VS Code также требуется {{THING:MotherboardLuaDebugger}}, установленная внутри платы беспроводной разработки.
+- Для Lua-чипов в ScriptedScreens цели отображаются как конечная точка хост-платы или картриджа.
+- Эта материнская плата [b]не[/b] отлаживает ванильные IC10-чипы — только Lua-чипы.
+- Несколько компьютеров с отладчиком Lua могут одновременно просматривать один и тот же чип.
+- В мультиплеере VS Code подключается к локальному мосту в собственном игровом клиенте, а не к выделенному серверу по HTTP.
+{/LIST}
+
+{{HEADER:Чеклист отладки}}
+Когда скрипт не работает:
+{LIST}
+- Проверьте состояние ошибки в отладчике. Ошибка компиляции означает синтаксическую проблему в скрипте.
+- При ошибке выполнения прочитайте трассировку стека, чтобы найти строку и причину сбоя.
+- Используйте print() для трассировки значений переменных и потока выполнения.
+- Убедитесь, что устройства подключены к правильным пинам (d0-d5): выведите device_id() и device_name().
+- Помните, что read() возвращает nil для отсутствующих устройств — проверяйте nil перед использованием значения.
+- Оборачивайте операции записи в pcall() для аккуратной обработки ошибок.
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 6: Плата беспроводной разработки
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_WirelessBoard</Key>
+            <Title>Плата беспроводной разработки</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1005</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Плата беспроводной разработки}}
+
+{{THING:WirelessDataNetworkAccessBoard}} — это носимый модуль EVA-костюма, который даёт MCP-серверу и расширению VS Code удалённый доступ к Lua-чипам в сети запитанного всенаправленного передатчика.
+
+{{HEADER:Настройка}}
+{LIST}
+- Напечатайте плату в принтере электроники.
+- Установите её в выделенный слот платы беспроводной разработки в подходящем EVA-костюме.
+- Наденьте костюм.
+- Откройте слот платы беспроводной разработки, чтобы получить доступ к интерфейсу платы и её беспроводным элементам управления.
+- Необязательно: установите {{THING:MotherboardLuaDebugger}} во внутренний слот отладчика платы, чтобы открыть беспроводную диагностику в MCP / VS Code.
+{/LIST}
+
+{{HEADER:Управление платой}}
+{LIST}
+- [b]Беспроводная сеть[/b] — переключение между запитанными всенаправленными передатчиками в радиусе действия.
+- [b]Беспроводная mesh-сеть[/b] — разрешает плате переключаться на лучший передатчик выбранной сети, находящийся в радиусе.
+- [b]Отключить беспроводную сеть[/b] — очищает текущую беспроводную цель.
+{/LIST}
+
+{{HEADER:Поведение}}
+{LIST}
+- Выбранная сеть сохраняется при сохранении/загрузке.
+- После повторного входа плата переподключается автоматически, если выбранная сеть всё ещё в радиусе действия.
+- Кратковременные пропадания передатчика переживаются за счёт короткого grace-периода переподключения.
+- Снятие костюма или самой платы немедленно убирает беспроводной доступ для разработки.
+- Пока вы остаётесь подключёнными и в радиусе действия, плата дополнительно расходует небольшой заряд батареи костюма; в описании предмета есть пометка, пока это действует.
+{/LIST}
+
+{{HEADER:Доступ из MCP и VS Code}}
+{LIST}
+- Требуется включённая серверная настройка [b]AllowNetworkChipAccess[/b].
+- При подключении удалённые Lua-чипы в выбранной беспроводной сети данных становятся доступны из MCP и расширения VS Code.
+- Для беспроводной compile/runtime-диагностики также требуется {{THING:MotherboardLuaDebugger}}, установленная прямо в плату беспроводной разработки.
+- Если одновременно открыт внутриигровой редактор на другой проводной сети, обе сети доступны сразу.
+- Если конфигурация выключена, плата показывает только информационное состояние и не даёт удалённого доступа.
+- Если включён мультиплеерный прокси отладки, клиент в мультиплеере продолжает использовать собственный локальный мост StationeersLua, а игра перенаправляет отладочный трафик на авторитетный сервер через сетевые сообщения мода.
+- Выделенные серверы [b]не[/b] публикуют HTTP/MCP listener напрямую.
+{/LIST}
+
+{{HEADER:Советы}}
+{LIST}
+- Выбирать можно только [b]запитанные[/b] всенаправленные передатчики в радиусе действия.
+- Mesh-режим удобен, когда одну и ту же сеть мостят несколько всенаправленных передатчиков.
+- Режим привязки удерживает подключение только к одному конкретному передатчику.
+- Расширенное описание платы показывает текущее состояние подключения, дистанцию и доступные сети.
+{/LIST}
+
+{{HEADER:Lua-чипы в слотах костюма}}
+Lua-чипы в [b]обычных IC-слотах костюма[/b] на том же костюме, где установлена и подключена плата беспроводной разработки, используют [b]ту же беспроводную сеть данных[/b], что и плата, для [b]read[/b]/[b]write[/b], [b]ic.net[/b], пакетных вызовов, [b]require()[/b] и т.д.
+
+{{HEADER:Скриптинг: ic.wireless}}
+Из чипов в костюме и с [b]беспроводных планшетных картриджей[/b] (ScriptedScreens) можно управлять связью с омни в Lua:
+{LIST}
+- [b]ic.wireless.list()[/b] — таблица передатчиков в радиусе ([b]id[/b], [b]network_id[/b], [b]name[/b], [b]distance[/b], [b]max_distance[/b]).
+- [b]ic.wireless.connect(id [, mesh])[/b] — подключение; возвращает [b]true[/b] или [b]false, строка_ошибки[/b].
+- [b]ic.wireless.disconnect()[/b] — сбросить связь.
+- [b]ic.wireless.status()[/b] — безопасный снимок ([b]available[/b], [b]connected[/b], [b]in_range[/b], [b]mesh[/b], идентификаторы/имена, дистанции); без беспроводного хоста — [b]available=false[/b].
+- [b]ic.wireless.set_mesh(enabled)[/b] — mesh без переподключения.
+{/LIST}
+[i]Псевдонимы:[/i] [b]ic.wireless_list[/b], [b]ic.wireless_connect[/b], [b]ic.wireless_disconnect[/b], [b]ic.wireless_status[/b], [b]ic.wireless_set_mesh[/b].
+]]></Text>
+        </StationpediaPage>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             СТРАНИЦА 7: Маппинг IC10 → Lua
+             ═══════════════════════════════════════════════════════════════════ -->
+        <StationpediaPage>
+            <Key>StationeersLua_Mapping</Key>
+            <Title>Маппинг IC10 → Lua</Title>
+            <DisplayFilter>Guides</DisplayFilter>
+            <SortPriority>1006</SortPriority>
+            <Text>
+<![CDATA[
+{{HEADER:Маппинг IC10 → Lua}}-
+
+Полный пошаговый маппинг инструкций IC10 в StationeersLua. Если вы переносите существующий код IC10 на Lua, используйте этот раздел как справочник перевода.
+
+{{HEADER:Терминология}}
+{LIST}
+- [b]r0..r15[/b] (регистры IC10) → в Lua: используйте локальные переменные, таблицы или mem_read/mem_write для памяти чипа.
+- [b]d0..d5[/b] (регистры устройств IC10) → в Lua: индексы устройств (целые числа) с read/write. d0 = 0, d1 = 1 и т.д.
+- [b]db[/b] (корпус чипа) → в Lua: [b]ic.const.BASE_UNIT_INDEX[/b] (обычно 6).
+- [b]sp / ra[/b] (указатель стека / адрес возврата) → в Lua: [b]stack_get_sp()[/b], [b]stack_set_sp()[/b], [b]stack_get_ra()[/b], [b]stack_set_ra()[/b]. Обычно не нужно — в Lua есть нативные функции и вызовы.
+- [b]HASH("...")[/b] → в Lua: [b]hash("...")[/b]. Тот же CRC-32 хеш.
+- [b]LogicType / LogicSlotType[/b] → в Lua: [b]ic.enums.LogicType.*[/b], [b]ic.enums.LogicSlotType.*[/b].
+- [b]BatchMode (Average/Sum/Min/Max)[/b] → в Lua: [b]ic.enums.LogicBatchMethod.*[/b].
+- [b]Опкоды сортировщика / режим сравнения в памяти сортировщика[/b] → в Lua: [b]ic.enums.SorterInstruction.*[/b], [b]ic.enums.ConditionOperation.*[/b] с [b]mem_put[/b]/[b]mem_get[/b].
+- [b]d0:0 Channel0[/b] (сетевая адресация) → в Lua: передайте необязательный аргумент [b]networkIndex[/b] в read/write.
+{/LIST}
+
+{{HEADER:Служебные инструкции}}
+{LIST}
+- [b]alias[/b] (имя для регистра/устройства) → [b]local name = ...[/b] — используйте переменные.
+- [b]define[/b] (определить константу) → [b]local PI = 3.14159[/b] — используйте локальные переменные или константы уровня модуля.
+- [b]hcf[/b] (halt and catch fire) → [b]hcf()[/b] — навсегда останавливает выполнение.
+- [b]sleep[/b] (пауза на секунды) → [b]sleep(seconds)[/b] — приостановка сопрограммы.
+- [b]yield[/b] (пауза на 1 тик) → [b]yield()[/b] — приостановка сопрограммы.
+{/LIST}
+
+{{HEADER:Математические инструкции}}
+{LIST}
+- [b]abs[/b] → [b]math.abs(x)[/b]
+- [b]add[/b] → [b]a + b[/b]
+- [b]sub[/b] → [b]a - b[/b]
+- [b]mul[/b] → [b]a * b[/b]
+- [b]div[/b] → [b]a / b[/b]
+- [b]mod[/b] → [b]math.fmod(a, b)[/b] (остаток с усечением частного, соответствует IC10)
+- [b]pow[/b] → [b]a ^ b[/b] или [b]math.pow(a, b)[/b]
+- [b]exp[/b] → [b]math.exp(x)[/b]
+- [b]sqrt[/b] → [b]math.sqrt(x)[/b]
+- [b]log[/b] → [b]math.log(x)[/b]
+- [b]ceil[/b] → [b]math.ceil(x)[/b]
+- [b]floor[/b] → [b]math.floor(x)[/b]
+- [b]round[/b] → реализуйте вспомогательную функцию (правило округления IC10 не специфицировано).
+- [b]trunc[/b] → [b]x >= 0 and math.floor(x) or math.ceil(x)[/b]
+- [b]max[/b] → [b]math.max(a, b)[/b]
+- [b]min[/b] → [b]math.min(a, b)[/b]
+- [b]rand[/b] → [b]math.random()[/b]
+- [b]move[/b] (присваивание) → [b]dst = src[/b]
+- [b]lerp[/b] → [b]a + (b - a) * t[/b] (IC10 зажимает t в 0..1; добавьте clamp при необходимости).
+{/LIST}
+
+{{HEADER:Тригонометрические инструкции}}
+{LIST}
+- [b]sin[/b] → [b]math.sin(x)[/b]
+- [b]cos[/b] → [b]math.cos(x)[/b]
+- [b]tan[/b] → [b]math.tan(x)[/b]
+- [b]asin[/b] → [b]math.asin(x)[/b]
+- [b]acos[/b] → [b]math.acos(x)[/b]
+- [b]atan[/b] → [b]math.atan(x)[/b]
+- [b]atan2[/b] → [b]math.atan(y, x)[/b] (math.atan в Lua с двумя аргументами — это atan2).
+{/LIST}
+
+{{HEADER:Инструкции стека и памяти}}
+{LIST}
+- [b]push[/b] (положить в стек чипа) → [b]stack_push(value)[/b]
+- [b]pop[/b] (извлечь из стека чипа) → [b]stack_pop()[/b]
+- [b]peek[/b] (прочитать вершину стека) → [b]stack_peek()[/b] — не меняет sp.
+- [b]poke[/b] (записать в стек по адресу) → [b]stack_poke(address, value)[/b]
+- [b]get[/b] (читать память устройства) → [b]mem_get(deviceIndex, address [, networkIndex])[/b]
+- [b]put[/b] (писать память устройства) → [b]mem_put(deviceIndex, address, value [, networkIndex])[/b]
+- [b]clr[/b] (очистить память устройства) → [b]mem_clear_device(deviceIndex [, networkIndex])[/b]
+- [b]getd[/b] (читать память устройства по id) → [b]mem_get_id(deviceId, address [, networkIndex])[/b]
+- [b]putd[/b] (писать память устройства по id) → [b]mem_put_id(deviceId, address, value [, networkIndex])[/b]
+- [b]clrd[/b] (очистить память устройства по id) → [b]mem_clear_id(deviceId [, networkIndex])[/b]
+{/LIST}
+
+Для локальной памяти чипа (не памяти устройства):
+{LIST}
+- [b]mem_read(address)[/b] / [b]mem_write(address, value)[/b] / [b]mem_clear()[/b]
+{/LIST}
+
+{{HEADER:Инструкции логического чтения/записи}}
+{LIST}
+- [b]l[/b] (загрузить логическое значение) → [b]read(deviceIndex, logicType [, networkIndex])[/b] — возвращает nil если устройство отсутствует.
+- [b]s[/b] (сохранить логическое значение) → [b]write(deviceIndex, logicType, value [, networkIndex])[/b] — может выбросить ошибку если устройство отсутствует.
+- [b]ls[/b] (загрузить значение слота) → [b]read_slot(deviceIndex, slotIndex, logicSlotType [, networkIndex])[/b]
+- [b]ss[/b] (сохранить значение слота) → [b]write_slot(deviceIndex, slotIndex, logicSlotType, value [, networkIndex])[/b]
+- [b]lr[/b] (загрузить реагент) → [b]read_reagent(deviceIndex, reagentMode, reagentHash [, networkIndex])[/b]
+- [b]rmap[/b] (карта реагентов) → [b]rmap(deviceIndex [, networkIndex])[/b] — возвращает таблицу.
+{/LIST}
+
+{{HEADER:Инструкции пакетного чтения/записи}}
+{LIST}
+- [b]lb[/b] (пакетная загрузка по хешу префаба) → [b]batch_read(prefabHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]lbn[/b] (пакетная загрузка + фильтр по имени) → [b]batch_read_name(prefabHash, nameHash, logicType, batchMethod [, networkIndex])[/b]
+- [b]lbs[/b] (пакетная загрузка слота) → [b]batch_read_slot(prefabHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]lbns[/b] (пакетная загрузка слота + имя) → [b]batch_read_slot_name(prefabHash, nameHash, slotIndex, logicSlotType, batchMethod [, networkIndex])[/b]
+- [b]sb[/b] (пакетное сохранение) → [b]batch_write(prefabHash, logicType, value [, networkIndex])[/b]
+- [b]sbn[/b] (пакетное сохранение + имя) → [b]batch_write_name(prefabHash, nameHash, logicType, value [, networkIndex])[/b]
+- [b]sbs[/b] (пакетное сохранение слота) → [b]batch_write_slot(prefabHash, slotIndex, logicSlotType, value [, networkIndex])[/b]
+{/LIST}
+
+[i]Примечание: опциональный networkIndex для пакетных функций — расширение StationeersLua. Оригинальный IC10 не поддерживает выбор сети для пакетных операций.[/i]
+
+{{HEADER:Побитовые инструкции (безопасные для 53 бит)}}
+{LIST}
+- [b]and[/b] → [b]bit_and(a, b)[/b]
+- [b]or[/b] → [b]bit_or(a, b)[/b]
+- [b]xor[/b] → [b]bit_xor(a, b)[/b]
+- [b]nor[/b] → [b]bit_nor(a, b)[/b]
+- [b]not[/b] → [b]bit_not(a)[/b]
+- [b]sll[/b] (логический сдвиг влево) → [b]bit_sll(a, shift)[/b]
+- [b]sla[/b] (арифметический сдвиг влево) → [b]bit_sll(a, shift)[/b] — то же самое в данном контексте.
+- [b]srl[/b] (логический сдвиг вправо) → [b]bit_srl(a, shift)[/b]
+- [b]sra[/b] (арифметический сдвиг вправо) → [b]bit_sra(a, shift)[/b]
+- [b]ext[/b] (извлечь битовое поле) → [b]bit_ext(value, pos, len)[/b]
+- [b]ins[/b] (вставить битовое поле) → [b]bit_ins(dst, src, pos, len)[/b]
+{/LIST}
+
+{{HEADER:Инструкции сравнения}}
+В IC10 много инструкций сравнения «set-if». В Lua используйте стандартные сравнения, возвращающие 1 или 0:
+
+{LIST}
+- [b]select[/b] (условный выбор) → [b]cond ~= 0 and a or b[/b]
+- [b]seq[/b] (a == b) → [b](a == b) and 1 or 0[/b]
+- [b]seqz[/b] (a == 0) → [b](a == 0) and 1 or 0[/b]
+- [b]sne[/b] (a ~= b) → [b](a ~= b) and 1 or 0[/b]
+- [b]snez[/b] (a ~= 0) → [b](a ~= 0) and 1 or 0[/b]
+- [b]sge[/b] (a >= b) → [b](a >= b) and 1 or 0[/b]
+- [b]sgez[/b] (a >= 0) → [b](a >= 0) and 1 or 0[/b]
+- [b]sgt[/b] (a > b) → [b](a > b) and 1 or 0[/b]
+- [b]sgtz[/b] (a > 0) → [b](a > 0) and 1 or 0[/b]
+- [b]sle[/b] (a <= b) → [b](a <= b) and 1 or 0[/b]
+- [b]slez[/b] (a <= 0) → [b](a <= 0) and 1 or 0[/b]
+- [b]slt[/b] (a < b) → [b](a < b) and 1 or 0[/b]
+- [b]sltz[/b] (a < 0) → [b](a < 0) and 1 or 0[/b]
+- [b]snan[/b] (is NaN) → [b](x ~= x) and 1 or 0[/b] — NaN единственное значение, где x ~= x.
+- [b]snanz[/b] (is not NaN) → [b](x == x) and 1 or 0[/b]
+- [b]sap/sna/sapz/snaz[/b] (приближённое сравнение) → реализуйте вспомогательные функции с допуском в Lua.
+{/LIST}
+
+{{HEADER:Инструкции ветвления}}
+IC10 использует прыжки в стиле ассемблера. В Lua используйте нативные конструкции управления потоком:
+
+{LIST}
+- [b]j[/b] (безусловный прыжок) → [b]while true do ... end[/b] или [b]goto label[/b]
+- [b]jal[/b] (вызов + установка ra) → определяйте и вызывайте функции: [b]function foo() ... end; foo()[/b]
+- [b]jr / j ra[/b] (возврат) → [b]return[/b]
+- [b]beq/bne/bgt/bge/blt/ble[/b] (условный прыжок) → [b]if a == b then ... end[/b] (используйте стандартные сравнения)
+- [b]beqz/bnez/bgtz/bgez/bltz/blez[/b] (сравнение с нулём) → [b]if a == 0 then ... end[/b]
+- [b]bdns[/b] (прыжок если устройство не подключено) → [b]if read(dev, logicType) == nil then ... end[/b]
+- [b]bdse[/b] (прыжок если устройство подключено) → [b]if read(dev, logicType) ~= nil then ... end[/b]
+{/LIST}
+
+[i]Совет: [b]if/elseif/else[/b], [b]while[/b], [b]for[/b] и [b]repeat/until[/b] в Lua заменяют все паттерны ветвления IC10. Вам никогда не нужно считать номера строк или управлять целями прыжков.[/i]
+
+{{HEADER:Эквиваленты числовых форматов}}
+{LIST}
+- IC10: [b]$FF[/b] (шестнадцатеричный) → Lua: [b]0xFF[/b]
+- IC10: [b]$E1B2[/b] (шестнадцатеричный) → Lua: [b]0xE1B2[/b]
+- IC10: [b]%101010[/b] (двоичный) → Lua: [b]tonumber("101010", 2)[/b] (в Lua 5.2 нет литералов [b]0b[/b])
+{/LIST}
+
+{{HEADER:Генерация хешей}}
+IC10 использует CRC-32 хеши для пакетной адресации и идентификации устройств. StationeersLua предоставляет [b]hash()[/b] для генерации тех же значений:
+
+{LIST}
+- [b]hash("StructureGasSensor")[/b] — хеш префаба для batch_read/batch_write.
+- [b]hash("My Sensor")[/b] — хеш имени для batch_read_name/batch_write_name.
+- [b]prefab_name(hash)[/b] — обратный поиск: хеш → имя префаба.
+- [b]device_name(deviceIndex [, networkIndex])[/b] — текущее отображаемое имя подключённого устройства.
+- [b]namehash_name(deviceHash, nameHash [, networkIndex])[/b] — разрешает nameHash в отображаемое имя по сканированию видимых устройств.
+- [b]find(name)[/b] — поиск устройства по имени (см. раздел «Информация об устройстве»).
+- [b]find_all(name)[/b] — поиск всех устройств по имени.
+{/LIST}
+]]></Text>
+        </StationpediaPage>
+    </HelpPage>
+</Language>

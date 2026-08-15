@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Lua API Reference Data for the IC10Editor in-game reference panel.
+  This file is compiled as an EmbeddedResource and loaded by LuaReferenceData.cs.
+  
+  Schema: <LuaReference> → <Section> → <Category> → <Entry>
+  Each Entry has: name, signature, description, and an optional example.
+  
+  To add a new language, copy this file as LuaReference_RU.xml (etc.) and translate
+  the description and example fields. Name and signature should stay in English
+  since they are code identifiers.
+-->
+<LuaReference><!-- ══════════════════════════════════════════════════════════════════════ --><!-- Functions tab                                                         --><!-- ══════════════════════════════════════════════════════════════════════ -->
+  <Section name="Functions">
+    <Category name="Device I/O">
+      <Entry name="ic.read" signature="ic.read(pin, logicType [, networkIndex])" description="Read a logic value from a device by pin index." example="local temp = ic.read(0, ic.enums.LogicType.Temperature)"/>
+      <Entry name="ic.write" signature="ic.write(pin, logicType, value [, networkIndex])" description="Write a logic value to a device by pin index." example="ic.write(0, ic.enums.LogicType.Setting, 100)"/>
+      <Entry name="ic.read_id" signature="ic.read_id(refId, logicType [, networkIndex])" description="Read a logic value from a device by reference ID." example="local v = ic.read_id(id, ic.enums.LogicType.On)"/>
+      <Entry name="ic.write_id" signature="ic.write_id(refId, logicType, value [, networkIndex])" description="Write a logic value to a device by reference ID." example="ic.write_id(id, ic.enums.LogicType.On, 1)"/>
+      <Entry name="ic.read_slot" signature="ic.read_slot(pin, slot, slotLogicType [, networkIndex])" description="Read a slot logic value from a device by pin." example="local occ = ic.read_slot(0, 0, ic.enums.LogicSlotType.Occupied)"/>
+      <Entry name="ic.write_slot" signature="ic.write_slot(pin, slot, slotLogicType, value [, networkIndex])" description="Write a slot logic value to a device by pin."/>
+      <Entry name="ic.read_slot_id" signature="ic.read_slot_id(refId, slot, slotLogicType [, networkIndex])" description="Read a slot logic value from a device by reference ID."/>
+      <Entry name="ic.write_slot_id" signature="ic.write_slot_id(refId, slot, slotLogicType, value [, networkIndex])" description="Write a slot logic value to a device by reference ID."/>
+      <Entry name="ic.read_reagent" signature="ic.read_reagent(pin, reagentMode, reagentHash [, networkIndex])" description="Read reagent data from a device." example="local amt = ic.read_reagent(0, ic.enums.LogicReagentMode.Contents, hash)"/>
+      <Entry name="ic.rmap" signature="ic.rmap(pin [, networkIndex])" description="Get reagent-to-prefab hash mapping table for a device."/>
+    </Category>
+    <Category name="Batch Operations">
+      <Entry name="ic.batch_read" signature="ic.batch_read(prefabHash, logicType, batchMethod [, networkIndex])" description="Batch read a logic value from all matching devices." example="local avg = ic.batch_read(hash, ic.enums.LogicType.Temperature, ic.enums.LogicBatchMethod.Average)"/>
+      <Entry name="ic.batch_read_name" signature="ic.batch_read_name(prefabHash, nameHash, logicType, batchMethod [, networkIndex])" description="Batch read filtered by prefab hash AND name hash."/>
+      <Entry name="ic.batch_read_slot" signature="ic.batch_read_slot(prefabHash, slot, slotLogicType, batchMethod [, networkIndex])" description="Batch read a slot value from all matching devices."/>
+      <Entry name="ic.batch_read_slot_name" signature="ic.batch_read_slot_name(prefabHash, nameHash, slot, slotLogicType, batchMethod [, networkIndex])" description="Batch read a slot value filtered by name hash."/>
+      <Entry name="ic.batch_write" signature="ic.batch_write(prefabHash, logicType, value [, networkIndex])" description="Batch write a logic value to all matching devices."/>
+      <Entry name="ic.batch_write_name" signature="ic.batch_write_name(prefabHash, nameHash, logicType, value [, networkIndex])" description="Batch write filtered by name hash."/>
+      <Entry name="ic.batch_write_slot" signature="ic.batch_write_slot(prefabHash, slot, slotLogicType, value [, networkIndex])" description="Batch write a slot value to all matching devices."/>
+      <Entry name="ic.batch_write_slot_name" signature="ic.batch_write_slot_name(prefabHash, nameHash, slot, slotLogicType, value [, networkIndex])" description="Batch write a slot value filtered by name hash."/>
+    </Category>
+    <Category name="Name Lookup">
+      <Entry name="ic.find" signature="ic.find(displayName [, mode [, networkIndex]])" description="Find first device by display name (Labeler). Optional mode (string): auto (default) — glob if pattern has \ or unescaped *, else exact case-sensitive; exact — full-string exact; glob — * substring (case-insensitive outside escapes), \* literal *, \\ literal \; regex — .NET regex on the whole pattern. A single optional number is networkIndex (default mode). With mode and network, use find(&quot;pat&quot;, &quot;regex&quot;, 2) or find(&quot;pat&quot;, nil, 2) for default mode. Max 512 chars; bad regex → nil." example="local id = ic.find(&quot;Line\\*A&quot;)"/>
+      <Entry name="ic.find_all" signature="ic.find_all(displayName [, mode [, networkIndex]])" description="Find all devices; same modes as ic.find. Returns 1-indexed ref_id table." example="local ids = ic.find_all(&quot;2 * 5kPa&quot;, &quot;exact&quot;)"/>
+    </Category>
+    <Category name="Device Info">
+      <Entry name="ic.device_name" signature="ic.device_name(pin [, networkIndex])" description="Get the display name of a device by pin index." example="local name = ic.device_name(0)"/>
+      <Entry name="ic.namehash_name" signature="ic.namehash_name(prefabHash, nameHash [, networkIndex])" description="Get the display name of a device by prefab hash and name hash."/>
+      <Entry name="ic.device_label" signature="ic.device_label(pin, label)" description="Set the display label on a device by pin index." example="ic.device_label(0, &quot;My Sensor&quot;)"/>
+      <Entry name="ic.device_list" signature="ic.device_list([networkIndex])" description="List all devices on the data network. Returns table of {ref_id, prefab_hash, name_hash, display_name}." example="local devs = ic.device_list()"/>
+      <Entry name="ic.host_info" signature="ic.host_info()" description="Get metadata about the chip&apos;s host device. Returns a table with: name (display name), ref_id, prefab_hash, type (&apos;suit&apos;, &apos;toolbelt&apos; for the Survival Toolbelt IC slot, &apos;scripted_visor&apos;, &apos;circuit_housing&apos;, &apos;tablet&apos;, &apos;motherboard&apos;, &apos;device&apos;, or &apos;unknown&apos;). When the host is worn by a player (suit, toolbelt, or ScriptedScreens programmable visor), also includes wearer (display name), wearer_ref_id, and wearer_prefab_hash for the wearing Human when resolvable; keys are absent if not worn." example="local info = ic.host_info()&#xA;if info.type == &apos;suit&apos; or info.type == &apos;toolbelt&apos; or info.type == &apos;scripted_visor&apos; then&#xA;  print(&apos;Worn by: &apos; .. (info.wearer or &apos;nobody&apos;))&#xA;end"/>
+    </Category>
+    <Category name="Memory &amp; Stack">
+      <Entry name="ic.mem_read" signature="ic.mem_read(address)" description="Read from the chip&apos;s internal memory." example="local v = ic.mem_read(0)"/>
+      <Entry name="ic.mem_write" signature="ic.mem_write(address, value)" description="Write to the chip&apos;s internal memory." example="ic.mem_write(0, 42)"/>
+      <Entry name="ic.mem_clear" signature="ic.mem_clear()" description="Clear all chip internal memory to zero."/>
+      <Entry name="ic.mem_get" signature="ic.mem_get(pin, address [, networkIndex])" description="Read from another device&apos;s memory by pin."/>
+      <Entry name="ic.mem_put" signature="ic.mem_put(pin, address, value [, networkIndex])" description="Write to another device&apos;s memory by pin."/>
+      <Entry name="ic.mem_get_id" signature="ic.mem_get_id(refId, address [, networkIndex])" description="Read from another device&apos;s memory by reference ID."/>
+      <Entry name="ic.mem_put_id" signature="ic.mem_put_id(refId, address, value [, networkIndex])" description="Write to another device&apos;s memory by reference ID."/>
+      <Entry name="ic.mem_clear_device" signature="ic.mem_clear_device(pin [, networkIndex])" description="Clear another device&apos;s memory by pin."/>
+      <Entry name="ic.mem_clear_id" signature="ic.mem_clear_id(refId [, networkIndex])" description="Clear another device&apos;s memory by reference ID."/>
+      <Entry name="ic.stack_push" signature="ic.stack_push(value)" description="Push a value onto the chip&apos;s stack."/>
+      <Entry name="ic.stack_pop" signature="ic.stack_pop()" description="Pop a value from the chip&apos;s stack."/>
+      <Entry name="ic.stack_peek" signature="ic.stack_peek()" description="Peek at the top of the chip&apos;s stack without removing."/>
+      <Entry name="ic.stack_poke" signature="ic.stack_poke(address, value)" description="Write directly to a stack address."/>
+      <Entry name="ic.stack_get_sp" signature="ic.stack_get_sp()" description="Get the current stack pointer."/>
+      <Entry name="ic.stack_set_sp" signature="ic.stack_set_sp(value)" description="Set the stack pointer."/>
+      <Entry name="ic.stack_get_ra" signature="ic.stack_get_ra()" description="Get the return address register."/>
+      <Entry name="ic.stack_set_ra" signature="ic.stack_set_ra(value)" description="Set the return address register."/>
+    </Category>
+    <Category name="Utilities">
+      <Entry name="ic.hash" signature="ic.hash(string)" description="Compute the Stationeers string hash (same as HASH in IC10)." example="local h = ic.hash(&quot;StructureGasSensor&quot;)"/>
+      <Entry name="ic.prefab_name" signature="ic.prefab_name(prefabHash)" description="Reverse lookup a prefab hash to its name string."/>
+      <Entry name="ic.to_int53" signature="ic.to_int53(value [, signed])" description="Convert a double to a 53-bit integer. signed defaults to true."/>
+      <Entry name="ic.sleep" signature="ic.sleep(seconds)" description="Pause execution for the given duration (yields to game)." example="ic.sleep(1.5)"/>
+      <Entry name="ic.yield" signature="ic.yield()" description="Yield execution for one game tick." example="ic.yield()"/>
+      <Entry name="ic.hcf" signature="ic.hcf()" description="Halt and Catch Fire — permanently halt the chip."/>
+      <Entry name="ic.raise_error" signature="ic.raise_error(state)" description="Raise or clear an error on the IC housing. Non-zero = error, 0 = clear."/>
+      <Entry name="ic.clear_error" signature="ic.clear_error()" description="Clear the error state on the IC housing."/>
+      <Entry name="ic.throw" signature="ic.throw(message)" description="Throw a Lua error with the given message."/>
+    </Category>
+    <Category name="Time &amp; Temperature (util)">
+      <Entry name="util.temp" signature="util.temp(value [, from, to])" description="Convert temperature between units. from/to: &apos;K&apos;, &apos;C&apos;, or &apos;F&apos;. Defaults: from=&apos;K&apos;, to=&apos;C&apos;." example="local c = util.temp(293.15) -- 20.0"/>
+      <Entry name="util.game_time" signature="util.game_time()" description="Get the current game time in seconds since world creation."/>
+      <Entry name="util.days_past" signature="util.days_past()" description="Get the number of in-game days elapsed."/>
+      <Entry name="util.time_of_day" signature="util.time_of_day()" description="Get the current time of day (0..1 fraction)."/>
+      <Entry name="util.clock_time" signature="util.clock_time([pattern])" description="Get the formatted clock time. Pattern tokens: HH (24h), hh (12h), MM (minutes), ss (seconds), A/a (AM/PM). Default: &apos;HH:MM&apos;." example="local t = util.clock_time(&apos;hh:MM a&apos;)"/>
+    </Category>
+    <Category name="Bit Operations">
+      <Entry name="ic.bit.and" signature="ic.bit.and(a, b)" description="Bitwise AND."/>
+      <Entry name="ic.bit.or" signature="ic.bit.or(a, b)" description="Bitwise OR."/>
+      <Entry name="ic.bit.xor" signature="ic.bit.xor(a, b)" description="Bitwise XOR."/>
+      <Entry name="ic.bit.nor" signature="ic.bit.nor(a, b)" description="Bitwise NOR."/>
+      <Entry name="ic.bit.not" signature="ic.bit.not(a)" description="Bitwise NOT."/>
+      <Entry name="ic.bit.sll" signature="ic.bit.sll(value, shift)" description="Shift left logical."/>
+      <Entry name="ic.bit.srl" signature="ic.bit.srl(value, shift)" description="Shift right logical."/>
+      <Entry name="ic.bit.sra" signature="ic.bit.sra(value, shift)" description="Shift right arithmetic."/>
+      <Entry name="ic.bit.ext" signature="ic.bit.ext(value, pos, len)" description="Extract bit field."/>
+      <Entry name="ic.bit.ins" signature="ic.bit.ins(dst, src, pos, len)" description="Insert bit field: insert len bits from src into dst at position pos."/>
+    </Category>
+    <Category name="String &amp; ASCII">
+      <Entry name="ic.ascii.pack6" signature="ic.ascii.pack6(string)" description="Pack a string into IC10 ASCII6 format (up to 10 chars per double)."/>
+      <Entry name="ic.ascii.unpack6" signature="ic.ascii.unpack6(packed [, signed])" description="Unpack an ASCII6 packed value to a string. Optional signed flag."/>
+      <Entry name="ic.string.strip_color_tags" signature="ic.string.strip_color_tags(text)" description="Remove Unity rich text color tags from a string."/>
+    </Category>
+    <Category name="Networking (ic.net)">
+      <Entry name="ic.net.id" signature="ic.net.id()" description="Get this chip&apos;s unique network endpoint ID."/>
+      <Entry name="ic.net.network_id" signature="ic.net.network_id()" description="Get the data cable network reference ID. Useful with read_id/write_id for Channel0-7 registers."/>
+      <Entry name="ic.net.listen" signature="ic.net.listen(channel, handler)" description="Register a listener on a channel. handler is a function, string name, or nil to unregister."/>
+      <Entry name="ic.net.send" signature="ic.net.send(target, channel, data)" description="Send a message to a specific chip on the network."/>
+      <Entry name="ic.net.broadcast" signature="ic.net.broadcast(channel, data)" description="Broadcast a message to all chips. Returns number of recipients."/>
+      <Entry name="ic.net.recv" signature="ic.net.recv()" description="Receive next pending message. Returns: fromId, fromName, channel, data (or nil if empty)."/>
+      <Entry name="ic.net.peers" signature="ic.net.peers()" description="List peer chips on the network. Returns table of {id, name}."/>
+      <Entry name="ic.net.publish" signature="ic.net.publish(topic, data)" description="Publish data to a pub/sub topic."/>
+      <Entry name="ic.net.subscribe" signature="ic.net.subscribe(topicFilter, handler)" description="Subscribe to a pub/sub topic. handler: function, string, or nil to unsubscribe."/>
+      <Entry name="ic.net.unsubscribe" signature="ic.net.unsubscribe(topicFilter)" description="Unsubscribe from a pub/sub topic."/>
+      <Entry name="ic.net.request" signature="ic.net.request(target, method, payload, callback [, timeout])" description="Send an RPC request. callback receives (success, result, error). timeout default 10s, max 120s."/>
+      <Entry name="ic.net.register" signature="ic.net.register(method, handler)" description="Register an RPC handler: function(sender, payload) -&gt; result. nil to unregister."/>
+      <Entry name="ic.net.unregister" signature="ic.net.unregister(method)" description="Unregister an RPC handler."/>
+      <Entry name="ic.net.pack" signature="ic.net.pack(value)" description="Pack a Lua value into a base64 MessagePack string."/>
+      <Entry name="ic.net.unpack" signature="ic.net.unpack(packed)" description="Unpack a base64 MessagePack string to a Lua value."/>
+    </Category>
+    <Category name="HTTP (ic.http)">
+      <Entry name="ic.http.get" signature="ic.http.get(url [, headers, timeout])" description="Async HTTP GET. Returns requestId. Use ic.http.poll() to get results."/>
+      <Entry name="ic.http.post" signature="ic.http.post(url, body [, contentType, headers, timeout])" description="Async HTTP POST. contentType defaults to &apos;application/json&apos;. Returns requestId."/>
+      <Entry name="ic.http.put" signature="ic.http.put(url, body [, contentType, headers, timeout])" description="Async HTTP PUT. Returns requestId."/>
+      <Entry name="ic.http.delete" signature="ic.http.delete(url [, headers, timeout])" description="Async HTTP DELETE. Returns requestId."/>
+      <Entry name="ic.http.patch" signature="ic.http.patch(url, body [, contentType, headers, timeout])" description="Async HTTP PATCH. Returns requestId."/>
+      <Entry name="ic.http.poll" signature="ic.http.poll()" description="Poll for next completed HTTP response. Returns: id, success, statusCode, body, error (or nil if none)."/>
+      <Entry name="ic.http.url_encode" signature="ic.http.url_encode(str)" description="URL-encode a string."/>
+      <Entry name="ic.http.url_decode" signature="ic.http.url_decode(str)" description="URL-decode a string."/>
+      <Entry name="ic.http.build_query" signature="ic.http.build_query(table)" description="Build a URL query string from a key-value table. Values are auto-encoded."/>
+      <Entry name="ic.http.build_url" signature="ic.http.build_url(base, params)" description="Build a complete URL: appends build_query(params) to base URL."/>
+    </Category>
+    <Category name="JSON (util.json)">
+      <Entry name="util.json.encode" signature="util.json.encode(value)" description="Encode a Lua value to a JSON string."/>
+      <Entry name="util.json.decode" signature="util.json.decode(jsonString)" description="Decode a JSON string to a Lua value."/>
+    </Category>
+    <Category name="Persistence (ic.persist)">
+      <Entry name="ic.persist.set" signature="ic.persist.set(key, value)" description="Store a string value for this chip. Returns true on success. Keys starting with __ are reserved. Survives world save/load, housing power cycles, and chip pull/reinsert when source is unchanged."/>
+      <Entry name="ic.persist.get" signature="ic.persist.get(key)" description="Read a stored string, or nil if missing."/>
+      <Entry name="ic.persist.has" signature="ic.persist.has(key)" description="Returns whether the key exists."/>
+      <Entry name="ic.persist.delete" signature="ic.persist.delete(key)" description="Remove one key. Returns true if it existed."/>
+      <Entry name="ic.persist.clear" signature="ic.persist.clear()" description="Remove all keys for this chip (including legacy serialize blob)."/>
+    </Category>
+    <Category name="Script Callbacks">
+      <Entry name="tick" signature="function tick(dt)" description="Called every game tick. dt is the elapsed time in seconds since the last tick. Define this as a global function for the runtime to call it automatically. Module-level code runs once at startup; tick() runs repeatedly." example="function tick(dt)&#xA;  local temp = ic.read(0, ic.enums.LogicType.Temperature)&#xA;  ic.write(0, ic.enums.LogicType.Setting, temp)&#xA;end"/>
+      <Entry name="serialize" signature="function serialize()" description="Legacy persistence callback (prefer ic.persist). Called on save and housing power-off. Return a string or nil. Stored in ic.persist under the hood." example="function serialize()&#xA;  return util.json.encode({count = myCounter})&#xA;end"/>
+      <Entry name="deserialize" signature="function deserialize(data)" description="Legacy persistence callback (prefer ic.persist). Called after init on load. KV from ic.persist is available earlier at module level." example="function deserialize(data)&#xA;  local state = util.json.decode(data)&#xA;  myCounter = state.count&#xA;end"/>
+    </Category>
+    <Category name="Events (ic.events)">
+      <Entry name="ic.events.on" signature="ic.events.on(eventName, handler)" description="Register an event handler. handler can be a function or a string naming a global function. Events are dispatched between ticks. Used for inter-chip messaging, ScriptedScreens UI events, and custom events." example="ic.events.on('my_event', function(arg)&#xA;  print('Got event: ' .. tostring(arg))&#xA;end)"/>
+      <Entry name="ic.events.off" signature="ic.events.off(eventName)" description="Unregister the event handler for the given event name."/>
+    </Category>
+    <Category name="Built-in Globals">
+      <Entry name="print" signature="print(...)" description="Print values to the chip&apos;s Lua Debugger log. Accepts any number of arguments. Output is visible in the VS Code debugger, the in-game IC editor log panel, and via MCP get_chip_logs." example="print('Temperature:', temp, 'Status:', ok)"/>
+      <Entry name="require" signature="require(moduleName)" description="Load a library module by name. Searches for modules registered on the same data network. Returns the module&apos;s return value (typically a table of functions)." example="local utils = require('my_utils')"/>
+    </Category>
+    <Category name="Constants (ic.const)">
+      <Entry name="ic.const" signature="ic.const.&lt;name&gt;" description="Constants table. Contains chip-specific constants and all ProgrammableChip constants. Values are integers." example="local net = ic.const.BASE_NETWORK_INDEX"/>
+      <Entry name="ic.const.BASE_UNIT_INDEX" signature="ic.const.BASE_UNIT_INDEX" description="The base unit index for the chip (usually 0). Used with ic.read/ic.write when no network index is specified."/>
+      <Entry name="ic.const.BASE_NETWORK_INDEX" signature="ic.const.BASE_NETWORK_INDEX" description="The base network index (0). The primary data network the chip is connected to."/>
+      <Entry name="ic.const.FIRST_AVAILABLE_NETWORK" signature="ic.const.FIRST_AVAILABLE_NETWORK" description="Index of the first available network beyond the base network."/>
+    </Category>
+    <Category name="Enums (ic.enums)">
+      <Entry name="ic.enums.LogicType" signature="ic.enums.LogicType.&lt;name&gt;" description="LogicType enum table. Contains all logic variable names: Temperature, Pressure, On, Setting, etc." example="local temp = ic.read(0, ic.enums.LogicType.Temperature)"/>
+      <Entry name="ic.enums.LogicSlotType" signature="ic.enums.LogicSlotType.&lt;name&gt;" description="LogicSlotType enum table. Contains all slot variable names: Occupied, OccupantHash, Quantity, etc." example="local occ = ic.read_slot(0, 0, ic.enums.LogicSlotType.Occupied)"/>
+      <Entry name="ic.enums.LogicBatchMethod" signature="ic.enums.LogicBatchMethod.&lt;name&gt;" description="LogicBatchMethod enum table: Average, Sum, Minimum, Maximum." example="local avg = ic.batch_read(h, ic.enums.LogicType.Temperature, ic.enums.LogicBatchMethod.Average)"/>
+      <Entry name="ic.enums.LogicReagentMode" signature="ic.enums.LogicReagentMode.&lt;name&gt;" description="LogicReagentMode enum table: Contents, Required, Recipe, TotalContents." example="local amt = ic.read_reagent(0, ic.enums.LogicReagentMode.Contents, hash)"/>
+      <Entry name="ic.enums.SoundAlert" signature="ic.enums.SoundAlert.&lt;name&gt;" description="SoundAlert enum table. Contains alert sound type identifiers."/>
+      <Entry name="ic.enums.SorterInstruction" signature="ic.enums.SorterInstruction.&lt;name&gt;" description="SorterInstruction enum table: Logic Sorter stack opcodes (FilterPrefabHashEquals, None, …). Use with ic.mem_put / ic.mem_get on the sorter device." example="local SI = ic.enums.SorterInstruction"/>
+      <Entry name="ic.enums.ConditionOperation" signature="ic.enums.ConditionOperation.&lt;name&gt;" description="ConditionOperation enum table: Equals, Greater, Less, NotEquals. Used when packing logic-stack compare words for sorter (and similar) memory." example="local CO = ic.enums.ConditionOperation"/>
+    </Category>
+  </Section><!-- ══════════════════════════════════════════════════════════════════════ --><!-- Variables (x) tab — LogicType enum with Lua usage patterns            --><!-- ══════════════════════════════════════════════════════════════════════ -->
+  <Section name="Variables (x)">
+    <Category name="ic.enums.LogicType — Common Values"><!-- Atmosphere / Environment -->
+      <Entry name="Temperature" signature="ic.enums.LogicType.Temperature" description="Temperature in Kelvin." example="local t = ic.read(0, ic.enums.LogicType.Temperature)"/>
+      <Entry name="Pressure" signature="ic.enums.LogicType.Pressure" description="Pressure in kPa."/>
+      <Entry name="RatioOxygen" signature="ic.enums.LogicType.RatioOxygen" description="Oxygen ratio (0..1)."/>
+      <Entry name="RatioCarbonDioxide" signature="ic.enums.LogicType.RatioCarbonDioxide" description="CO2 ratio (0..1)."/>
+      <Entry name="RatioNitrogen" signature="ic.enums.LogicType.RatioNitrogen" description="Nitrogen ratio (0..1)."/>
+      <Entry name="RatioMethane" signature="ic.enums.LogicType.RatioMethane" description="Volatiles/Methane ratio (0..1)."/>
+      <Entry name="RatioPollutant" signature="ic.enums.LogicType.RatioPollutant" description="Pollutant ratio (0..1)."/>
+      <Entry name="RatioWater" signature="ic.enums.LogicType.RatioWater" description="Water ratio (0..1)."/>
+      <Entry name="RatioNitrousOxide" signature="ic.enums.LogicType.RatioNitrousOxide" description="N2O ratio (0..1)."/>
+      <Entry name="RatioHydrogen" signature="ic.enums.LogicType.RatioHydrogen" description="Hydrogen ratio (0..1)."/>
+      <Entry name="RatioPollutedWater" signature="ic.enums.LogicType.RatioPollutedWater" description="Polluted Water ratio (0..1)."/>
+      <Entry name="RatioSteam" signature="ic.enums.LogicType.RatioSteam" description="Steam ratio (0..1)."/>
+      <Entry name="RatioHydrazine" signature="ic.enums.LogicType.RatioHydrazine" description="Hydrazine ratio (0..1)."/>
+      <Entry name="RatioLiquidAlcohol" signature="ic.enums.LogicType.RatioLiquidAlcohol" description="Ethanol ratio (0..1)."/>
+      <Entry name="RatioHelium" signature="ic.enums.LogicType.RatioHelium" description="Helium ratio (0..1)."/>
+      <Entry name="RatioSilanol" signature="ic.enums.LogicType.RatioSilanol" description="Silanol/Coolant ratio (0..1)."/>
+      <Entry name="RatioHydrochloricAcid" signature="ic.enums.LogicType.RatioHydrochloricAcid" description="HCl ratio (0..1)."/>
+      <Entry name="RatioOzone" signature="ic.enums.LogicType.RatioOzone" description="Ozone ratio (0..1)."/>
+      <Entry name="RatioLiquidOzone" signature="ic.enums.LogicType.RatioLiquidOzone" description="Liquid ozone mole ratio (0..1)."/>
+      <Entry name="RatioOzoneInput" signature="ic.enums.LogicType.RatioOzoneInput" description="Ozone gas ratio on primary input pipe/network."/>
+      <Entry name="RatioOzoneInput2" signature="ic.enums.LogicType.RatioOzoneInput2" description="Ozone gas ratio on secondary input pipe/network."/>
+      <Entry name="RatioOzoneOutput" signature="ic.enums.LogicType.RatioOzoneOutput" description="Ozone gas ratio on primary output pipe/network."/>
+      <Entry name="RatioOzoneOutput2" signature="ic.enums.LogicType.RatioOzoneOutput2" description="Ozone gas ratio on secondary output pipe/network."/>
+      <Entry name="RatioLiquidOzoneInput" signature="ic.enums.LogicType.RatioLiquidOzoneInput" description="Liquid ozone on primary input."/>
+      <Entry name="RatioLiquidOzoneInput2" signature="ic.enums.LogicType.RatioLiquidOzoneInput2" description="Liquid ozone on secondary input."/>
+      <Entry name="RatioLiquidOzoneOutput" signature="ic.enums.LogicType.RatioLiquidOzoneOutput" description="Liquid ozone on primary output."/>
+      <Entry name="RatioLiquidOzoneOutput2" signature="ic.enums.LogicType.RatioLiquidOzoneOutput2" description="Liquid ozone on secondary output."/>
+      <Entry name="TotalMoles" signature="ic.enums.LogicType.TotalMoles" description="Total moles of gas."/><!-- Power & state -->
+      <Entry name="On" signature="ic.enums.LogicType.On" description="Power on/off state (0 or 1)." example="ic.write(0, ic.enums.LogicType.On, 1)"/>
+      <Entry name="Open" signature="ic.enums.LogicType.Open" description="Open/closed state."/>
+      <Entry name="Lock" signature="ic.enums.LogicType.Lock" description="Lock state."/>
+      <Entry name="Error" signature="ic.enums.LogicType.Error" description="Error state (0 = OK, 1 = error)."/>
+      <Entry name="Power" signature="ic.enums.LogicType.Power" description="Current power draw in watts."/>
+      <Entry name="Setting" signature="ic.enums.LogicType.Setting" description="Generic setting value." example="ic.write(0, ic.enums.LogicType.Setting, 50)"/>
+      <Entry name="Mode" signature="ic.enums.LogicType.Mode" description="Operating mode."/>
+      <Entry name="Activate" signature="ic.enums.LogicType.Activate" description="Activation state."/><!-- Solar / Light -->
+      <Entry name="Horizontal" signature="ic.enums.LogicType.Horizontal" description="Horizontal angle (solar panels)."/>
+      <Entry name="Vertical" signature="ic.enums.LogicType.Vertical" description="Vertical angle (solar panels)."/>
+      <Entry name="SolarAngle" signature="ic.enums.LogicType.SolarAngle" description="Current solar angle."/>
+      <Entry name="SolarIrradiance" signature="ic.enums.LogicType.SolarIrradiance" description="Solar irradiance W/m2."/><!-- Network channels -->
+      <Entry name="Channel0" signature="ic.enums.LogicType.Channel0" description="Network channel register 0." example="ic.write_id(netId, ic.enums.LogicType.Channel0, val)"/>
+      <Entry name="Channel1" signature="ic.enums.LogicType.Channel1" description="Network channel register 1."/>
+      <Entry name="Channel2" signature="ic.enums.LogicType.Channel2" description="Network channel register 2."/>
+      <Entry name="Channel3" signature="ic.enums.LogicType.Channel3" description="Network channel register 3."/><!-- Quantities -->
+      <Entry name="Quantity" signature="ic.enums.LogicType.Quantity" description="Item quantity / contents amount."/>
+      <Entry name="Charge" signature="ic.enums.LogicType.Charge" description="Battery charge level (0..1)."/>
+      <Entry name="Volume" signature="ic.enums.LogicType.Volume" description="Volume in liters."/>
+      <Entry name="Ratio" signature="ic.enums.LogicType.Ratio" description="Generic ratio (0..1)."/>
+      <Entry name="LineNumber" signature="ic.enums.LogicType.LineNumber" description="Current IC10 line number / Lua line."/>
+      <Entry name="PrefabHash" signature="ic.enums.LogicType.PrefabHash" description="Prefab hash of the device."/>
+      <Entry name="ReferenceId" signature="ic.enums.LogicType.ReferenceId" description="Reference ID of the device."/>
+      <Entry name="NameHash" signature="ic.enums.LogicType.NameHash" description="Name hash (from Labeler tool)."/>
+    </Category>
+  </Section><!-- ══════════════════════════════════════════════════════════════════════ --><!-- Slot Vars (s(x)) tab — LogicSlotType enum with Lua usage patterns     --><!-- ══════════════════════════════════════════════════════════════════════ -->
+  <Section name="Slot Vars (s(x))">
+    <Category name="ic.enums.LogicSlotType — Common Values">
+      <Entry name="Occupied" signature="ic.enums.LogicSlotType.Occupied" description="Whether the slot contains an item (0 or 1)." example="local occ = ic.read_slot(0, 0, ic.enums.LogicSlotType.Occupied)"/>
+      <Entry name="OccupantHash" signature="ic.enums.LogicSlotType.OccupantHash" description="Prefab hash of the item in the slot." example="local hash = ic.read_slot(0, 0, ic.enums.LogicSlotType.OccupantHash)"/>
+      <Entry name="Quantity" signature="ic.enums.LogicSlotType.Quantity" description="Quantity of items in the slot."/>
+      <Entry name="Damage" signature="ic.enums.LogicSlotType.Damage" description="Damage value of the item in the slot."/>
+      <Entry name="Charge" signature="ic.enums.LogicSlotType.Charge" description="Charge level of the item in the slot."/>
+      <Entry name="ChargeRatio" signature="ic.enums.LogicSlotType.ChargeRatio" description="Charge ratio (0..1) of the item in the slot."/>
+      <Entry name="Class" signature="ic.enums.LogicSlotType.Class" description="Item class enum value."/>
+      <Entry name="MaxQuantity" signature="ic.enums.LogicSlotType.MaxQuantity" description="Maximum stack size for the slot."/>
+      <Entry name="PrefabHash" signature="ic.enums.LogicSlotType.PrefabHash" description="Prefab hash of the slot item (same as OccupantHash)."/>
+      <Entry name="SortingClass" signature="ic.enums.LogicSlotType.SortingClass" description="Sorting class for the item."/>
+      <Entry name="ReferenceId" signature="ic.enums.LogicSlotType.ReferenceId" description="Reference ID of the slot item."/>
+      <Entry name="LineNumber" signature="ic.enums.LogicSlotType.LineNumber" description="Line number for programmable chip slots."/>
+      <Entry name="MaturityRatio" signature="ic.enums.LogicSlotType.MaturityRatio" description="Crop maturity ratio (hydroponics trays, etc.)."/>
+      <Entry name="SeedingRatio" signature="ic.enums.LogicSlotType.SeedingRatio" description="Seeding / planting progress ratio."/>
+      <Entry name="FreeSlots" signature="ic.enums.LogicSlotType.FreeSlots" description="Number of empty inventory slots (storage devices)."/>
+      <Entry name="TotalSlots" signature="ic.enums.LogicSlotType.TotalSlots" description="Total inventory slot count (storage devices)."/>
+    </Category>
+  </Section><!-- ══════════════════════════════════════════════════════════════════════ --><!-- IC10 Migration tab — IC10 instruction → Lua equivalent                --><!-- ══════════════════════════════════════════════════════════════════════ -->
+  <Section name="IC10 Migration">
+    <Category name="IC10 → Lua Equivalent"><!-- Load / Store -->
+      <Entry name="l (load)" signature="l r0 d0 Temperature" description="Read a logic value from a device." example="local temp = ic.read(0, ic.enums.LogicType.Temperature)"/>
+      <Entry name="s (store)" signature="s d0 Setting 100" description="Write a logic value to a device." example="ic.write(0, ic.enums.LogicType.Setting, 100)"/>
+      <Entry name="ls (load slot)" signature="ls r0 d0 0 OccupantHash" description="Read a slot value." example="local h = ic.read_slot(0, 0, ic.enums.LogicSlotType.OccupantHash)"/>
+      <Entry name="ss (set slot)" signature="ss d0 0 OccupantHash r0" description="Write a slot value." example="ic.write_slot(0, 0, ic.enums.LogicSlotType.OccupantHash, val)"/>
+      <Entry name="lr (load reagent)" signature="lr r0 d0 Contents hash" description="Read reagent data." example="local v = ic.read_reagent(0, ic.enums.LogicReagentMode.Contents, hash)"/><!-- Batch -->
+      <Entry name="lb (load batch)" signature="lb r0 HASH Temperature Average" description="Batch read." example="local v = ic.batch_read(hash, ic.enums.LogicType.Temperature, ic.enums.LogicBatchMethod.Average)"/>
+      <Entry name="sb (store batch)" signature="sb HASH Setting 100" description="Batch write." example="ic.batch_write(hash, ic.enums.LogicType.Setting, 100)"/>
+      <Entry name="lbn (load batch name)" signature="lbn r0 HASH NHASH Temp Average" description="Batch read by name." example="local v = ic.batch_read_name(hash, nhash, ic.enums.LogicType.Temperature, ic.enums.LogicBatchMethod.Average)"/>
+      <Entry name="sbn (store batch name)" signature="sbn HASH NHASH Setting 100" description="Batch write by name." example="ic.batch_write_name(hash, nhash, ic.enums.LogicType.Setting, 100)"/>
+      <Entry name="lbs (load batch slot)" signature="lbs r0 HASH 0 OccupantHash Average" description="Batch read slot." example="local v = ic.batch_read_slot(hash, 0, ic.enums.LogicSlotType.OccupantHash, ic.enums.LogicBatchMethod.Average)"/><!-- Arithmetic -->
+      <Entry name="add/sub/mul/div" signature="add r0 r1 r2" description="Arithmetic." example="local r = a + b  -- or -, *, /"/>
+      <Entry name="mod" signature="mod r0 r1 r2" description="Modulo." example="local r = a % b"/>
+      <Entry name="abs/ceil/floor/round" signature="abs r0 r1" description="Math functions." example="local r = math.abs(v)"/>
+      <Entry name="exp/log" signature="exp r0 r1" description="Exponential / logarithm." example="local r = math.exp(v)"/>
+      <Entry name="sqrt" signature="sqrt r0 r1" description="Square root." example="local r = math.sqrt(v)"/>
+      <Entry name="sin/cos/tan/asin/acos/atan" signature="sin r0 r1" description="Trig (radians)." example="local r = math.sin(v)"/>
+      <Entry name="max/min" signature="max r0 r1 r2" description="Max/min." example="local r = math.max(a, b)"/>
+      <Entry name="rand" signature="rand r0" description="Random number [0,1)." example="local r = math.random()"/><!-- Comparison -->
+      <Entry name="seq/sne/sgt/sge/slt/sle" signature="seq r0 r1 r2" description="Set register on compare." example="local r = (a == b) and 1 or 0"/>
+      <Entry name="beq/bne/bgt/bge/blt/ble" signature="beq r0 r1 label" description="Branch on compare." example="if a == b then ... end"/>
+      <Entry name="bdse/bdns" signature="bdse r0 label" description="Branch if device set/not set." example="if ic.read(0, ic.enums.LogicType.On) ~= nil then ... end"/><!-- Flow control -->
+      <Entry name="j/jr/jal" signature="j label" description="Jump / subroutine call." example="-- Use Lua functions instead"/>
+      <Entry name="yield" signature="yield" description="Pause until the next game tick. Works in the main coroutine, tick(), and user-created coroutines." example="yield()"/>
+      <Entry name="sleep" signature="sleep(seconds)" description="Pause for a real-time duration. Works in the main coroutine, tick(), and user-created coroutines. Each context sleeps independently." example="sleep(1.5)"/>
+      <Entry name="hcf" signature="hcf" description="Halt and catch fire." example="ic.hcf()"/><!-- Register aliases -->
+      <Entry name="move" signature="move r0 r1" description="Copy register value." example="local a = b  -- just assign"/>
+      <Entry name="push/pop/peek" signature="push r0" description="Stack operations." example="ic.stack_push(v) / ic.stack_pop()"/>
+      <Entry name="define" signature="define ALIAS value" description="Named constant." example="local ALIAS = value"/>
+      <Entry name="alias" signature="alias NAME register" description="Register alias." example="local NAME = 0  -- just use variables"/><!-- Hashing -->
+      <Entry name="HASH" signature="HASH(&quot;string&quot;)" description="String hash." example="ic.hash(&quot;string&quot;)"/>
+    </Category>
+  </Section>
+</LuaReference>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Справочные данные Lua API для панели справки IC10Editor.
+  Этот файл компилируется как EmbeddedResource и загружается LuaReferenceData.cs.
+  
+  Схема: <LuaReference> → <Section> → <Category> → <Entry>
+  Каждый Entry имеет: name, signature, description и необязательный example.
+  
+  Поля name, signature и example остаются на английском — это идентификаторы кода.
+  Переведены только описания (description).
+-->
+<LuaReference>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- Вкладка «Функции»                                                    -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <Section name="Функции">
+
+    <Category name="Ввод/вывод устройств">
+      <Entry name="ic.read" signature="ic.read(pin, logicType [, networkIndex])" description="Считать логическое значение с устройства по индексу пина." example="local temp = ic.read(0, ic.enums.LogicType.Temperature)" />
+      <Entry name="ic.write" signature="ic.write(pin, logicType, value [, networkIndex])" description="Записать логическое значение в устройство по индексу пина." example="ic.write(0, ic.enums.LogicType.Setting, 100)" />
+      <Entry name="ic.read_id" signature="ic.read_id(refId, logicType [, networkIndex])" description="Считать логическое значение с устройства по ID ссылки." example="local v = ic.read_id(id, ic.enums.LogicType.On)" />
+      <Entry name="ic.write_id" signature="ic.write_id(refId, logicType, value [, networkIndex])" description="Записать логическое значение в устройство по ID ссылки." example="ic.write_id(id, ic.enums.LogicType.On, 1)" />
+      <Entry name="ic.read_slot" signature="ic.read_slot(pin, slot, slotLogicType [, networkIndex])" description="Считать логическое значение слота устройства по пину." example="local occ = ic.read_slot(0, 0, ic.enums.LogicSlotType.Occupied)" />
+      <Entry name="ic.write_slot" signature="ic.write_slot(pin, slot, slotLogicType, value [, networkIndex])" description="Записать логическое значение слота устройства по пину." />
+      <Entry name="ic.read_slot_id" signature="ic.read_slot_id(refId, slot, slotLogicType [, networkIndex])" description="Считать логическое значение слота устройства по ID ссылки." />
+      <Entry name="ic.write_slot_id" signature="ic.write_slot_id(refId, slot, slotLogicType, value [, networkIndex])" description="Записать логическое значение слота устройства по ID ссылки." />
+      <Entry name="ic.read_reagent" signature="ic.read_reagent(pin, reagentMode, reagentHash [, networkIndex])" description="Считать данные о реагентах с устройства." example="local amt = ic.read_reagent(0, ic.enums.LogicReagentMode.Contents, hash)" />
+      <Entry name="ic.rmap" signature="ic.rmap(pin [, networkIndex])" description="Получить таблицу соответствия реагентов и хешей префабов для устройства." />
+    </Category>
+
+    <Category name="Пакетные операции">
+      <Entry name="ic.batch_read" signature="ic.batch_read(prefabHash, logicType, batchMethod [, networkIndex])" description="Пакетное чтение логического значения со всех подходящих устройств." example="local avg = ic.batch_read(hash, ic.enums.LogicType.Temperature, ic.enums.LogicBatchMethod.Average)" />
+      <Entry name="ic.batch_read_name" signature="ic.batch_read_name(prefabHash, nameHash, logicType, batchMethod [, networkIndex])" description="Пакетное чтение с фильтрацией по хешу префаба И хешу имени." />
+      <Entry name="ic.batch_read_slot" signature="ic.batch_read_slot(prefabHash, slot, slotLogicType, batchMethod [, networkIndex])" description="Пакетное чтение значения слота со всех подходящих устройств." />
+      <Entry name="ic.batch_read_slot_name" signature="ic.batch_read_slot_name(prefabHash, nameHash, slot, slotLogicType, batchMethod [, networkIndex])" description="Пакетное чтение значения слота с фильтрацией по хешу имени." />
+      <Entry name="ic.batch_write" signature="ic.batch_write(prefabHash, logicType, value [, networkIndex])" description="Пакетная запись логического значения во все подходящие устройства." />
+      <Entry name="ic.batch_write_name" signature="ic.batch_write_name(prefabHash, nameHash, logicType, value [, networkIndex])" description="Пакетная запись с фильтрацией по хешу имени." />
+      <Entry name="ic.batch_write_slot" signature="ic.batch_write_slot(prefabHash, slot, slotLogicType, value [, networkIndex])" description="Пакетная запись значения слота во все подходящие устройства." />
+      <Entry name="ic.batch_write_slot_name" signature="ic.batch_write_slot_name(prefabHash, nameHash, slot, slotLogicType, value [, networkIndex])" description="Пакетная запись значения слота с фильтрацией по хешу имени." />
+    </Category>
+
+    <Category name="Поиск по имени">
+      <Entry name="ic.find" signature="ic.find(displayName [, mode [, networkIndex]])" description="Первое устройство по имени. Опциональный mode (строка): auto (по умолчанию) — glob, если в шаблоне есть \ или неэкранированная *, иначе точное совпадение с регистром; exact — точное совпадение всей строки; glob — * подстрока (без учёта регистра вне экранирований), \* буквальная *, \\ буквальный \; regex — .NET по всей строке. Один необязательный числовой аргумент — networkIndex. См. find(pat, regex, net) или find(pat, nil, net). До 512 символов." example="local id = ic.find(&quot;Line\\*A&quot;)" />
+      <Entry name="ic.find_all" signature="ic.find_all(displayName [, mode [, networkIndex]])" description="Все устройства; те же режимы, что ic.find." example="local ids = ic.find_all(&quot;2 * 5kPa&quot;, &quot;exact&quot;)" />
+    </Category>
+
+    <Category name="Информация об устройствах">
+      <Entry name="ic.device_name" signature="ic.device_name(pin [, networkIndex])" description="Получить отображаемое имя устройства по индексу пина." example="local name = ic.device_name(0)" />
+      <Entry name="ic.namehash_name" signature="ic.namehash_name(prefabHash, nameHash [, networkIndex])" description="Получить отображаемое имя устройства по хешу префаба и хешу имени." />
+      <Entry name="ic.device_label" signature="ic.device_label(pin, label)" description="Установить метку устройства по индексу пина." example="ic.device_label(0, &quot;Мой Датчик&quot;)" />
+      <Entry name="ic.device_list" signature="ic.device_list([networkIndex])" description="Список всех устройств в сети данных. Возвращает таблицу {ref_id, prefab_hash, name_hash, display_name}." example="local devs = ic.device_list()" />
+      <Entry name="ic.host_info" signature="ic.host_info()" description="Метаданные о физическом носителе чипа: name, ref_id, prefab_hash, type (suit, scripted_visor, circuit_housing, tablet, motherboard, device или unknown). Для костюма или программируемого визора ScriptedScreens при надевании добавляются wearer, wearer_ref_id и wearer_prefab_hash для Human; если не надето — этих ключей нет." example="local info = ic.host_info()&#xA;if info.type == &apos;suit&apos; or info.type == &apos;scripted_visor&apos; then&#xA;  print(info.wearer or &apos;никого&apos;)&#xA;end" />
+    </Category>
+
+    <Category name="Память и стек">
+      <Entry name="ic.mem_read" signature="ic.mem_read(address)" description="Чтение из внутренней памяти чипа." example="local v = ic.mem_read(0)" />
+      <Entry name="ic.mem_write" signature="ic.mem_write(address, value)" description="Запись во внутреннюю память чипа." example="ic.mem_write(0, 42)" />
+      <Entry name="ic.mem_clear" signature="ic.mem_clear()" description="Обнулить всю внутреннюю память чипа." />
+      <Entry name="ic.mem_get" signature="ic.mem_get(pin, address [, networkIndex])" description="Чтение из памяти другого устройства по пину." />
+      <Entry name="ic.mem_put" signature="ic.mem_put(pin, address, value [, networkIndex])" description="Запись в память другого устройства по пину." />
+      <Entry name="ic.mem_get_id" signature="ic.mem_get_id(refId, address [, networkIndex])" description="Чтение из памяти другого устройства по ID ссылки." />
+      <Entry name="ic.mem_put_id" signature="ic.mem_put_id(refId, address, value [, networkIndex])" description="Запись в память другого устройства по ID ссылки." />
+      <Entry name="ic.mem_clear_device" signature="ic.mem_clear_device(pin [, networkIndex])" description="Обнулить память другого устройства по пину." />
+      <Entry name="ic.mem_clear_id" signature="ic.mem_clear_id(refId [, networkIndex])" description="Обнулить память другого устройства по ID ссылки." />
+      <Entry name="ic.stack_push" signature="ic.stack_push(value)" description="Поместить значение на стек чипа." />
+      <Entry name="ic.stack_pop" signature="ic.stack_pop()" description="Извлечь значение со стека чипа." />
+      <Entry name="ic.stack_peek" signature="ic.stack_peek()" description="Посмотреть верхнее значение стека без извлечения." />
+      <Entry name="ic.stack_poke" signature="ic.stack_poke(address, value)" description="Записать напрямую по адресу стека." />
+      <Entry name="ic.stack_get_sp" signature="ic.stack_get_sp()" description="Получить текущий указатель стека." />
+      <Entry name="ic.stack_set_sp" signature="ic.stack_set_sp(value)" description="Установить указатель стека." />
+      <Entry name="ic.stack_get_ra" signature="ic.stack_get_ra()" description="Получить регистр адреса возврата." />
+      <Entry name="ic.stack_set_ra" signature="ic.stack_set_ra(value)" description="Установить регистр адреса возврата." />
+    </Category>
+
+    <Category name="Утилиты">
+      <Entry name="ic.hash" signature="ic.hash(string)" description="Вычислить хеш строки Stationeers (аналог HASH в IC10)." example="local h = ic.hash(&quot;StructureGasSensor&quot;)" />
+      <Entry name="ic.prefab_name" signature="ic.prefab_name(prefabHash)" description="Обратный поиск: хеш префаба → имя строки." />
+      <Entry name="ic.to_int53" signature="ic.to_int53(value [, signed])" description="Преобразовать double в 53-битное целое. signed по умолчанию true." />
+      <Entry name="ic.sleep" signature="ic.sleep(seconds)" description="Приостановить выполнение на указанное время (уступает игре)." example="ic.sleep(1.5)" />
+      <Entry name="ic.yield" signature="ic.yield()" description="Уступить выполнение на один игровой тик." example="ic.yield()" />
+      <Entry name="ic.hcf" signature="ic.hcf()" description="Halt and Catch Fire — навсегда остановить чип." />
+      <Entry name="ic.raise_error" signature="ic.raise_error(state)" description="Установить или сбросить ошибку на корпусе IC. Ненулевое = ошибка, 0 = сброс." />
+      <Entry name="ic.clear_error" signature="ic.clear_error()" description="Сбросить состояние ошибки на корпусе IC." />
+      <Entry name="ic.throw" signature="ic.throw(message)" description="Вызвать ошибку Lua с указанным сообщением." />
+    </Category>
+
+    <Category name="Время и температура (util)">
+      <Entry name="util.temp" signature="util.temp(value [, from, to])" description="Конвертация температуры между единицами. from/to: 'K', 'C' или 'F'. По умолчанию: from='K', to='C'." example="local c = util.temp(293.15) -- 20.0" />
+      <Entry name="util.game_time" signature="util.game_time()" description="Получить текущее игровое время в секундах с создания мира." />
+      <Entry name="util.days_past" signature="util.days_past()" description="Получить количество прошедших игровых дней." />
+      <Entry name="util.time_of_day" signature="util.time_of_day()" description="Получить текущее время суток (дробь 0..1)." />
+      <Entry name="util.clock_time" signature="util.clock_time([pattern])" description="Получить форматированное время. Токены: HH (24ч), hh (12ч), MM (минуты), ss (секунды), A/a (AM/PM). По умолчанию: 'HH:MM'." example="local t = util.clock_time('hh:MM a')" />
+    </Category>
+
+    <Category name="Побитовые операции">
+      <Entry name="ic.bit.and" signature="ic.bit.and(a, b)" description="Побитовое И (AND)." />
+      <Entry name="ic.bit.or" signature="ic.bit.or(a, b)" description="Побитовое ИЛИ (OR)." />
+      <Entry name="ic.bit.xor" signature="ic.bit.xor(a, b)" description="Побитовое исключающее ИЛИ (XOR)." />
+      <Entry name="ic.bit.nor" signature="ic.bit.nor(a, b)" description="Побитовое ИЛИ-НЕ (NOR)." />
+      <Entry name="ic.bit.not" signature="ic.bit.not(a)" description="Побитовое НЕ (NOT)." />
+      <Entry name="ic.bit.sll" signature="ic.bit.sll(value, shift)" description="Логический сдвиг влево." />
+      <Entry name="ic.bit.srl" signature="ic.bit.srl(value, shift)" description="Логический сдвиг вправо." />
+      <Entry name="ic.bit.sra" signature="ic.bit.sra(value, shift)" description="Арифметический сдвиг вправо." />
+      <Entry name="ic.bit.ext" signature="ic.bit.ext(value, pos, len)" description="Извлечь битовое поле." />
+      <Entry name="ic.bit.ins" signature="ic.bit.ins(dst, src, pos, len)" description="Вставить битовое поле: вставить len бит из src в dst на позицию pos." />
+    </Category>
+
+    <Category name="Строки и ASCII">
+      <Entry name="ic.ascii.pack6" signature="ic.ascii.pack6(string)" description="Упаковать строку в формат IC10 ASCII6 (до 10 символов на double)." />
+      <Entry name="ic.ascii.unpack6" signature="ic.ascii.unpack6(packed [, signed])" description="Распаковать значение ASCII6 обратно в строку. Необязательный флаг signed." />
+      <Entry name="ic.string.strip_color_tags" signature="ic.string.strip_color_tags(text)" description="Удалить теги цвета Unity rich text из строки." />
+    </Category>
+
+    <Category name="Сеть (ic.net)">
+      <Entry name="ic.net.id" signature="ic.net.id()" description="Получить уникальный ID сетевой конечной точки этого чипа." />
+      <Entry name="ic.net.network_id" signature="ic.net.network_id()" description="Получить ID ссылки сети данных. Полезно с read_id/write_id для регистров Channel0-7." />
+      <Entry name="ic.net.listen" signature="ic.net.listen(channel, handler)" description="Зарегистрировать слушателя на канале. handler: функция, строка или nil для отмены." />
+      <Entry name="ic.net.send" signature="ic.net.send(target, channel, data)" description="Отправить сообщение конкретному чипу в сети." />
+      <Entry name="ic.net.broadcast" signature="ic.net.broadcast(channel, data)" description="Отправить сообщение всем чипам. Возвращает число получателей." />
+      <Entry name="ic.net.recv" signature="ic.net.recv()" description="Получить следующее сообщение. Возвращает: fromId, fromName, channel, data (или nil если пусто)." />
+      <Entry name="ic.net.peers" signature="ic.net.peers()" description="Список чипов-соседей в сети. Возвращает таблицу {id, name}." />
+      <Entry name="ic.net.publish" signature="ic.net.publish(topic, data)" description="Опубликовать данные в тему pub/sub." />
+      <Entry name="ic.net.subscribe" signature="ic.net.subscribe(topicFilter, handler)" description="Подписаться на тему pub/sub. handler: функция, строка или nil для отписки." />
+      <Entry name="ic.net.unsubscribe" signature="ic.net.unsubscribe(topicFilter)" description="Отписаться от темы pub/sub." />
+      <Entry name="ic.net.request" signature="ic.net.request(target, method, payload, callback [, timeout])" description="Отправить RPC-запрос. callback получает (success, result, error). timeout по умолчанию 10с, макс 120с." />
+      <Entry name="ic.net.register" signature="ic.net.register(method, handler)" description="Зарегистрировать обработчик RPC: function(sender, payload) -&gt; result. nil для отмены." />
+      <Entry name="ic.net.unregister" signature="ic.net.unregister(method)" description="Удалить обработчик RPC." />
+      <Entry name="ic.net.pack" signature="ic.net.pack(value)" description="Упаковать значение Lua в строку base64 MessagePack." />
+      <Entry name="ic.net.unpack" signature="ic.net.unpack(packed)" description="Распаковать строку base64 MessagePack в значение Lua." />
+    </Category>
+
+    <Category name="HTTP (ic.http)">
+      <Entry name="ic.http.get" signature="ic.http.get(url [, headers, timeout])" description="Асинхронный HTTP GET. Возвращает requestId. Используйте ic.http.poll() для результатов." />
+      <Entry name="ic.http.post" signature="ic.http.post(url, body [, contentType, headers, timeout])" description="Асинхронный HTTP POST. contentType по умолчанию 'application/json'. Возвращает requestId." />
+      <Entry name="ic.http.put" signature="ic.http.put(url, body [, contentType, headers, timeout])" description="Асинхронный HTTP PUT. Возвращает requestId." />
+      <Entry name="ic.http.delete" signature="ic.http.delete(url [, headers, timeout])" description="Асинхронный HTTP DELETE. Возвращает requestId." />
+      <Entry name="ic.http.patch" signature="ic.http.patch(url, body [, contentType, headers, timeout])" description="Асинхронный HTTP PATCH. Возвращает requestId." />
+      <Entry name="ic.http.poll" signature="ic.http.poll()" description="Получить следующий завершённый HTTP-ответ. Возвращает: id, success, statusCode, body, error (или nil)." />
+      <Entry name="ic.http.url_encode" signature="ic.http.url_encode(str)" description="URL-кодирование строки." />
+      <Entry name="ic.http.url_decode" signature="ic.http.url_decode(str)" description="URL-декодирование строки." />
+      <Entry name="ic.http.build_query" signature="ic.http.build_query(table)" description="Построить строку запроса URL из таблицы ключ-значение. Значения автоматически кодируются." />
+      <Entry name="ic.http.build_url" signature="ic.http.build_url(base, params)" description="Построить полный URL: добавляет build_query(params) к базовому URL." />
+    </Category>
+
+    <Category name="JSON (util.json)">
+      <Entry name="util.json.encode" signature="util.json.encode(value)" description="Закодировать значение Lua в строку JSON." />
+      <Entry name="util.json.decode" signature="util.json.decode(jsonString)" description="Декодировать строку JSON в значение Lua." />
+    </Category>
+
+    <Category name="Перечисления (ic.enums)">
+      <Entry name="ic.enums.LogicType" signature="ic.enums.LogicType.&lt;name&gt;" description="Таблица перечисления LogicType. Содержит все имена логических переменных: Temperature, Pressure, On, Setting и т.д." example="local temp = ic.read(0, ic.enums.LogicType.Temperature)" />
+      <Entry name="ic.enums.LogicSlotType" signature="ic.enums.LogicSlotType.&lt;name&gt;" description="Таблица перечисления LogicSlotType. Содержит все имена переменных слотов: Occupied, OccupantHash, Quantity и т.д." example="local occ = ic.read_slot(0, 0, ic.enums.LogicSlotType.Occupied)" />
+      <Entry name="ic.enums.LogicBatchMethod" signature="ic.enums.LogicBatchMethod.&lt;name&gt;" description="Таблица перечисления LogicBatchMethod: Average, Sum, Minimum, Maximum." example="local avg = ic.batch_read(h, ic.enums.LogicType.Temperature, ic.enums.LogicBatchMethod.Average)" />
+      <Entry name="ic.enums.LogicReagentMode" signature="ic.enums.LogicReagentMode.&lt;name&gt;" description="Таблица перечисления LogicReagentMode: Contents, Required, Recipe, TotalContents." example="local amt = ic.read_reagent(0, ic.enums.LogicReagentMode.Contents, hash)" />
+      <Entry name="ic.enums.SoundAlert" signature="ic.enums.SoundAlert.&lt;name&gt;" description="Таблица перечисления SoundAlert. Содержит идентификаторы типов звуковых оповещений." />
+      <Entry name="ic.enums.SorterInstruction" signature="ic.enums.SorterInstruction.&lt;name&gt;" description="Таблица SorterInstruction: опкоды стека Logic Sorter (FilterPrefabHashEquals, None и т.д.). Используйте с ic.mem_put / ic.mem_get на устройстве сортировщика." example="local SI = ic.enums.SorterInstruction" />
+      <Entry name="ic.enums.ConditionOperation" signature="ic.enums.ConditionOperation.&lt;name&gt;" description="Таблица ConditionOperation: Equals, Greater, Less, NotEquals. Режим сравнения в упакованных словах стека логики / памяти сортировщика." example="local CO = ic.enums.ConditionOperation" />
+    </Category>
+
+  </Section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- Переменные (x) — перечисление LogicType с примерами Lua               -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <Section name="Переменные (x)">
+
+    <Category name="ic.enums.LogicType — Основные значения">
+      <!-- Атмосфера / Окружение -->
+      <Entry name="Temperature" signature="ic.enums.LogicType.Temperature" description="Температура в Кельвинах." example="local t = ic.read(0, ic.enums.LogicType.Temperature)" />
+      <Entry name="Pressure" signature="ic.enums.LogicType.Pressure" description="Давление в кПа." />
+      <Entry name="RatioOxygen" signature="ic.enums.LogicType.RatioOxygen" description="Доля кислорода (0..1)." />
+      <Entry name="RatioCarbonDioxide" signature="ic.enums.LogicType.RatioCarbonDioxide" description="Доля CO2 (0..1)." />
+      <Entry name="RatioNitrogen" signature="ic.enums.LogicType.RatioNitrogen" description="Доля азота (0..1)." />
+      <Entry name="RatioMethane" signature="ic.enums.LogicType.RatioMethane" description="Доля летучих веществ / метана (0..1)." />
+      <Entry name="RatioPollutant" signature="ic.enums.LogicType.RatioPollutant" description="Доля загрязнителя (0..1)." />
+      <Entry name="RatioWater" signature="ic.enums.LogicType.RatioWater" description="Доля воды (0..1)." />
+      <Entry name="RatioNitrousOxide" signature="ic.enums.LogicType.RatioNitrousOxide" description="Доля N2O (0..1)." />
+      <Entry name="RatioHydrogen" signature="ic.enums.LogicType.RatioHydrogen" description="Доля водорода (0..1)." />
+      <Entry name="RatioPollutedWater" signature="ic.enums.LogicType.RatioPollutedWater" description="Доля загрязнённой воды (0..1)." />
+      <Entry name="RatioSteam" signature="ic.enums.LogicType.RatioSteam" description="Доля пара (0..1)." />
+      <Entry name="RatioHydrazine" signature="ic.enums.LogicType.RatioHydrazine" description="Доля гидразина (0..1)." />
+      <Entry name="RatioLiquidAlcohol" signature="ic.enums.LogicType.RatioLiquidAlcohol" description="Доля этанола (0..1)." />
+      <Entry name="RatioHelium" signature="ic.enums.LogicType.RatioHelium" description="Доля гелия (0..1)." />
+      <Entry name="RatioSilanol" signature="ic.enums.LogicType.RatioSilanol" description="Доля силанола / хладагента (0..1)." />
+      <Entry name="RatioHydrochloricAcid" signature="ic.enums.LogicType.RatioHydrochloricAcid" description="Доля HCl (0..1)." />
+      <Entry name="RatioOzone" signature="ic.enums.LogicType.RatioOzone" description="Доля озона (0..1)." />
+      <Entry name="RatioLiquidOzone" signature="ic.enums.LogicType.RatioLiquidOzone" description="Доля жидкого озона (0..1)." />
+      <Entry name="RatioOzoneInput" signature="ic.enums.LogicType.RatioOzoneInput" description="Доля озона на основном входном трубопроводе / сети." />
+      <Entry name="RatioOzoneInput2" signature="ic.enums.LogicType.RatioOzoneInput2" description="Доля озона на дополнительном входном трубопроводе / сети." />
+      <Entry name="RatioOzoneOutput" signature="ic.enums.LogicType.RatioOzoneOutput" description="Доля озона на основном выходном трубопроводе / сети." />
+      <Entry name="RatioOzoneOutput2" signature="ic.enums.LogicType.RatioOzoneOutput2" description="Доля озона на дополнительном выходном трубопроводе / сети." />
+      <Entry name="RatioLiquidOzoneInput" signature="ic.enums.LogicType.RatioLiquidOzoneInput" description="Жидкий озон на основном входе." />
+      <Entry name="RatioLiquidOzoneInput2" signature="ic.enums.LogicType.RatioLiquidOzoneInput2" description="Жидкий озон на дополнительном входе." />
+      <Entry name="RatioLiquidOzoneOutput" signature="ic.enums.LogicType.RatioLiquidOzoneOutput" description="Жидкий озон на основном выходе." />
+      <Entry name="RatioLiquidOzoneOutput2" signature="ic.enums.LogicType.RatioLiquidOzoneOutput2" description="Жидкий озон на дополнительном выходе." />
+      <Entry name="TotalMoles" signature="ic.enums.LogicType.TotalMoles" description="Общее количество молей газа." />
+      <!-- Питание и состояние -->
+      <Entry name="On" signature="ic.enums.LogicType.On" description="Состояние вкл/выкл (0 или 1)." example="ic.write(0, ic.enums.LogicType.On, 1)" />
+      <Entry name="Open" signature="ic.enums.LogicType.Open" description="Состояние открыто/закрыто." />
+      <Entry name="Lock" signature="ic.enums.LogicType.Lock" description="Состояние блокировки." />
+      <Entry name="Error" signature="ic.enums.LogicType.Error" description="Состояние ошибки (0 = ОК, 1 = ошибка)." />
+      <Entry name="Power" signature="ic.enums.LogicType.Power" description="Текущее энергопотребление в ваттах." />
+      <Entry name="Setting" signature="ic.enums.LogicType.Setting" description="Общее значение настройки." example="ic.write(0, ic.enums.LogicType.Setting, 50)" />
+      <Entry name="Mode" signature="ic.enums.LogicType.Mode" description="Режим работы." />
+      <Entry name="Activate" signature="ic.enums.LogicType.Activate" description="Состояние активации." />
+      <!-- Солнце / Свет -->
+      <Entry name="Horizontal" signature="ic.enums.LogicType.Horizontal" description="Горизонтальный угол (солнечные панели)." />
+      <Entry name="Vertical" signature="ic.enums.LogicType.Vertical" description="Вертикальный угол (солнечные панели)." />
+      <Entry name="SolarAngle" signature="ic.enums.LogicType.SolarAngle" description="Текущий угол солнца." />
+      <Entry name="SolarIrradiance" signature="ic.enums.LogicType.SolarIrradiance" description="Солнечная освещённость Вт/м2." />
+      <!-- Сетевые каналы -->
+      <Entry name="Channel0" signature="ic.enums.LogicType.Channel0" description="Сетевой канальный регистр 0." example="ic.write_id(netId, ic.enums.LogicType.Channel0, val)" />
+      <Entry name="Channel1" signature="ic.enums.LogicType.Channel1" description="Сетевой канальный регистр 1." />
+      <Entry name="Channel2" signature="ic.enums.LogicType.Channel2" description="Сетевой канальный регистр 2." />
+      <Entry name="Channel3" signature="ic.enums.LogicType.Channel3" description="Сетевой канальный регистр 3." />
+      <!-- Количества -->
+      <Entry name="Quantity" signature="ic.enums.LogicType.Quantity" description="Количество предметов / содержимое." />
+      <Entry name="Charge" signature="ic.enums.LogicType.Charge" description="Уровень заряда батареи (0..1)." />
+      <Entry name="Volume" signature="ic.enums.LogicType.Volume" description="Объём в литрах." />
+      <Entry name="Ratio" signature="ic.enums.LogicType.Ratio" description="Общее соотношение (0..1)." />
+      <Entry name="LineNumber" signature="ic.enums.LogicType.LineNumber" description="Текущий номер строки IC10 / Lua." />
+      <Entry name="PrefabHash" signature="ic.enums.LogicType.PrefabHash" description="Хеш префаба устройства." />
+      <Entry name="ReferenceId" signature="ic.enums.LogicType.ReferenceId" description="ID ссылки устройства." />
+      <Entry name="NameHash" signature="ic.enums.LogicType.NameHash" description="Хеш имени (от инструмента Labeler)." />
+    </Category>
+
+  </Section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- Переменные слотов (s(x)) — LogicSlotType с примерами Lua              -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <Section name="Слоты (s(x))">
+
+    <Category name="ic.enums.LogicSlotType — Основные значения">
+      <Entry name="Occupied" signature="ic.enums.LogicSlotType.Occupied" description="Содержит ли слот предмет (0 или 1)." example="local occ = ic.read_slot(0, 0, ic.enums.LogicSlotType.Occupied)" />
+      <Entry name="OccupantHash" signature="ic.enums.LogicSlotType.OccupantHash" description="Хеш префаба предмета в слоте." example="local hash = ic.read_slot(0, 0, ic.enums.LogicSlotType.OccupantHash)" />
+      <Entry name="Quantity" signature="ic.enums.LogicSlotType.Quantity" description="Количество предметов в слоте." />
+      <Entry name="Damage" signature="ic.enums.LogicSlotType.Damage" description="Значение повреждения предмета в слоте." />
+      <Entry name="Charge" signature="ic.enums.LogicSlotType.Charge" description="Уровень заряда предмета в слоте." />
+      <Entry name="ChargeRatio" signature="ic.enums.LogicSlotType.ChargeRatio" description="Соотношение заряда (0..1) предмета в слоте." />
+      <Entry name="Class" signature="ic.enums.LogicSlotType.Class" description="Значение перечисления класса предмета." />
+      <Entry name="MaxQuantity" signature="ic.enums.LogicSlotType.MaxQuantity" description="Максимальный размер стека для слота." />
+      <Entry name="PrefabHash" signature="ic.enums.LogicSlotType.PrefabHash" description="Хеш префаба предмета слота (то же, что OccupantHash)." />
+      <Entry name="SortingClass" signature="ic.enums.LogicSlotType.SortingClass" description="Класс сортировки предмета." />
+      <Entry name="ReferenceId" signature="ic.enums.LogicSlotType.ReferenceId" description="ID ссылки предмета слота." />
+      <Entry name="LineNumber" signature="ic.enums.LogicSlotType.LineNumber" description="Номер строки для слотов программируемых чипов." />
+      <Entry name="MaturityRatio" signature="ic.enums.LogicSlotType.MaturityRatio" description="Степень зрелости урожая (гидропоника и т.п.)." />
+      <Entry name="SeedingRatio" signature="ic.enums.LogicSlotType.SeedingRatio" description="Прогресс посева / высадки." />
+      <Entry name="FreeSlots" signature="ic.enums.LogicSlotType.FreeSlots" description="Число свободных слотов инвентаря (накопители и т.п.)." />
+      <Entry name="TotalSlots" signature="ic.enums.LogicSlotType.TotalSlots" description="Общее число слотов инвентаря." />
+    </Category>
+
+  </Section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- Миграция IC10 — инструкция IC10 → эквивалент Lua                      -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <Section name="Миграция IC10">
+
+    <Category name="IC10 → Эквивалент Lua">
+      <!-- Загрузка / Запись -->
+      <Entry name="l (load)" signature="l r0 d0 Temperature" description="Считать логическое значение с устройства." example="local temp = ic.read(0, ic.enums.LogicType.Temperature)" />
+      <Entry name="s (store)" signature="s d0 Setting 100" description="Записать логическое значение в устройство." example="ic.write(0, ic.enums.LogicType.Setting, 100)" />
+      <Entry name="ls (load slot)" signature="ls r0 d0 0 OccupantHash" description="Считать значение слота." example="local h = ic.read_slot(0, 0, ic.enums.LogicSlotType.OccupantHash)" />
+      <Entry name="ss (set slot)" signature="ss d0 0 OccupantHash r0" description="Записать значение слота." example="ic.write_slot(0, 0, ic.enums.LogicSlotType.OccupantHash, val)" />
+      <Entry name="lr (load reagent)" signature="lr r0 d0 Contents hash" description="Считать данные реагентов." example="local v = ic.read_reagent(0, ic.enums.LogicReagentMode.Contents, hash)" />
+      <!-- Пакетные -->
+      <Entry name="lb (load batch)" signature="lb r0 HASH Temperature Average" description="Пакетное чтение." example="local v = ic.batch_read(hash, ic.enums.LogicType.Temperature, ic.enums.LogicBatchMethod.Average)" />
+      <Entry name="sb (store batch)" signature="sb HASH Setting 100" description="Пакетная запись." example="ic.batch_write(hash, ic.enums.LogicType.Setting, 100)" />
+      <Entry name="lbn (load batch name)" signature="lbn r0 HASH NHASH Temp Average" description="Пакетное чтение по имени." example="local v = ic.batch_read_name(hash, nhash, ic.enums.LogicType.Temperature, ic.enums.LogicBatchMethod.Average)" />
+      <Entry name="sbn (store batch name)" signature="sbn HASH NHASH Setting 100" description="Пакетная запись по имени." example="ic.batch_write_name(hash, nhash, ic.enums.LogicType.Setting, 100)" />
+      <Entry name="lbs (load batch slot)" signature="lbs r0 HASH 0 OccupantHash Average" description="Пакетное чтение слота." example="local v = ic.batch_read_slot(hash, 0, ic.enums.LogicSlotType.OccupantHash, ic.enums.LogicBatchMethod.Average)" />
+      <!-- Арифметика -->
+      <Entry name="add/sub/mul/div" signature="add r0 r1 r2" description="Арифметика." example="local r = a + b  -- or -, *, /" />
+      <Entry name="mod" signature="mod r0 r1 r2" description="Остаток от деления." example="local r = a % b" />
+      <Entry name="abs/ceil/floor/round" signature="abs r0 r1" description="Математические функции." example="local r = math.abs(v)" />
+      <Entry name="exp/log" signature="exp r0 r1" description="Экспонента / логарифм." example="local r = math.exp(v)" />
+      <Entry name="sqrt" signature="sqrt r0 r1" description="Квадратный корень." example="local r = math.sqrt(v)" />
+      <Entry name="sin/cos/tan/asin/acos/atan" signature="sin r0 r1" description="Тригонометрия (радианы)." example="local r = math.sin(v)" />
+      <Entry name="max/min" signature="max r0 r1 r2" description="Максимум/минимум." example="local r = math.max(a, b)" />
+      <Entry name="rand" signature="rand r0" description="Случайное число [0,1)." example="local r = math.random()" />
+      <!-- Сравнения -->
+      <Entry name="seq/sne/sgt/sge/slt/sle" signature="seq r0 r1 r2" description="Установить регистр по сравнению." example="local r = (a == b) and 1 or 0" />
+      <Entry name="beq/bne/bgt/bge/blt/ble" signature="beq r0 r1 label" description="Переход по сравнению." example="if a == b then ... end" />
+      <Entry name="bdse/bdns" signature="bdse r0 label" description="Переход если устройство подключено/не подключено." example="if ic.read(0, ic.enums.LogicType.On) ~= nil then ... end" />
+      <!-- Управление потоком -->
+      <Entry name="j/jr/jal" signature="j label" description="Переход / вызов подпрограммы." example="-- Используйте функции Lua" />
+      <Entry name="yield" signature="yield" description="Уступить один тик." example="ic.yield()" />
+      <Entry name="sleep" signature="sleep seconds" description="Пауза." example="ic.sleep(1.5)" />
+      <Entry name="hcf" signature="hcf" description="Halt and Catch Fire." example="ic.hcf()" />
+      <!-- Псевдонимы регистров -->
+      <Entry name="move" signature="move r0 r1" description="Скопировать значение регистра." example="local a = b  -- просто присвоение" />
+      <Entry name="push/pop/peek" signature="push r0" description="Операции со стеком." example="ic.stack_push(v) / ic.stack_pop()" />
+      <Entry name="define" signature="define ALIAS value" description="Именованная константа." example="local ALIAS = value" />
+      <Entry name="alias" signature="alias NAME register" description="Псевдоним регистра." example="local NAME = 0  -- используйте переменные" />
+      <!-- Хеширование -->
+      <Entry name="HASH" signature="HASH(&quot;string&quot;)" description="Хеш строки." example="ic.hash(&quot;string&quot;)" />
+    </Category>
+
+  </Section>
+
+</LuaReference>
