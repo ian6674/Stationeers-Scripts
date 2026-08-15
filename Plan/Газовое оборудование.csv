@@ -1,0 +1,49 @@
+Тип Оборудования;Оборудование;Код префаба;Свойства для чтения (Read);Свойства для записи (Write);Особенности работы прибора
+Активное оборудование;Регулятор давления газа;StructurePressureRegulator;On, Lock, Error, Power, RequiredPower, Setting, Ratio;On, Lock, Setting;Нагнетает газ по стрелке, пока в выходной трубе давление не достигнет Setting (0–20265 кПа). Работает на полной скорости.
+Активное оборудование;Регулятор обратного давления газа;StructureBackpressureRegulator;On, Lock, Error, Power, RequiredPower, Setting, Ratio;On, Lock, Setting;Стравливает газ по стрелке, только если во входной трубе давление превысило Setting (0–20265 кПа). Служит предохранителем от взрыва.
+Активное оборудование;Клапан наддува;StructurePressureUpValve;On, Lock, Error, Power, RequiredPower, Setting;On, Lock, Setting;Быстродействующий автоматический клапан. Используется в экстренных системах выравнивания давления и шлюзования.
+Активное оборудование;Продувочный клапан;StructurePurgeValve;On, Lock, Error, Power, RequiredPower, Setting;On, Lock, Setting;Специализированный быстродействующий клапан для аварийного сброса атмосферы или систем пожаротушения.
+Активное оборудование;Газовый насос;StructureVolumePump;On, Lock, Error, Power, RequiredPower, Setting, Ratio;On, Lock, Setting;Перекачивает строго заданный молярный объем газа за тик (0–100 литров). Потребление энергии плавающее и зависит от нагрузки.
+Активное оборудование;Газовый турбонасос;StructureTurboPump;On, Lock, Error, Power, RequiredPower, Setting, Ratio, ClearMemory;On, Lock, Setting, ClearMemory;Промышленный сверхмощный насос со скоростью 0–1000 литров за тик. Потребление до 3.2 кВт. Поддерживает реверсивный (обратный) режим.
+Активное оборудование;Газовый смеситель;StructureGasMixer;On, Lock, Error, Power, RequiredPower, Setting, Ratio;On, Lock, Setting;Смешивает два входа. Переменная Setting задает долю газа со Входа 1 (зеленый фланец) от 0 до 100%. Не контролирует выходное давление самостоятельно.
+Активное оборудование;Газовый электровентиль;StructureDigitalValve;On, Lock, Error, Power, RequiredPower, PrefabHash;On, Lock;Мгновенный электронный затвор (25 Вт). При открытии моментально выравнивает давление между двумя сетями. Требует блокировки Lock=1.
+Активное оборудование;Трубный воспламенитель;StructurePipeIgniter;On, Lock, Error, Power, RequiredPower, Activate;On, Lock, Activate;Создает принудительную искру внутри трубы (Activate=1) для контролируемого сжигания топлива в замкнутых теплообменниках.
+Активное оборудование;Кондиционер;StructureAirConditioner;On, Lock, Error, Power, RequiredPower, Setting, Ratio;On, Lock, Setting;Изменяет температуру проходящего газа до значения Setting (73.15 K – 473.15 K). Избыток энергии/тепла сбрасывает в боковой фланец теплоносителя.
+Активное оборудование;Воздушный фильтр;StructureGasFiltration;On, Lock, Error, Power, RequiredPower, ImportCount, ExportCount;On, Lock, ClearMemory;Очистная установка. Извлекает конкретный газ в соответствии со вставленным картриджем. Работает даже при износе фильтров в 0%.
+Активное оборудование;Электролизёр;StructureElectrolyzer;On, Lock, Error, Power, RequiredPower;On, Lock;Промышленный аппарат. Потребляет 3.6 кВт, расщепляя воду на водород и кислород. Замедляется, если поступающая вода холодная.
+Активное оборудование;Сжигатель водорода;StructureCombustor;On, Lock, Error, Power, RequiredPower;On, Lock;Сжигает водородно-кислородное топливо, выделяя чистую воду и огромное количество тепла. Требует подключения трубы для отвода отходов.
+Активное оборудование;Нитролизёр;StructureNitrolyzer;On, Lock, Error, Power, RequiredPower;On, Lock;Специализированная химическая установка для выделения чистого азота или его соединений из нитрольда и сложных газов.
+Атмосфера;Пассивная вентиляция;StructurePassiveVent;Pressure, Temperature, TotalMoles;Нет;Транслирует физику газов из точки своего размещения в подключенную трубу.
+Атмосфера;Активная вентиляция;StructureActiveVent;On, Lock, Error, Power, Mode, PressureInternal, PressureExternal;On, Lock, Mode, PressureInternal, PressureExternal;Mode=0 (Откачка), Mode=1 (Нагнетание). При аварии выставляем Mode=0, On=1 для вакуумирования.
+Атмосфера;Газовый охладитель воздуха;StructureWallCooler;On, RequiredPower, PowerGenerated;On, Lock;Переносит тепло из комнаты в трубу хладагента. Потребление динамическое до 1000 Вт.
+Атмосфера;Жидкостный охладитель;StructureLiquidWallCooler;On, RequiredPower, PowerGenerated;On, Lock;Использует жидкостные трубы. Выше теплоемкость, идеален для Серверной.
+Атмосфера;Обогреватель;StructureWallHeater;On, RequiredPower, PowerGenerated;On, Lock;Электрический нагреватель воздуха комнаты. Потребление до 1000 Вт в активной фазе.
+Атмосфера;Переносной кондиционер;ItemPortableAirConditioner;Pressure, Temperature, On, Setting;On, Setting;Работает от внутренней батареи. Имеет встроенный мощный нагреватель на 5 кВт.
+Атмосфера;Переносной фильтр;ItemPortableGasScrubber;Pressure, Temperature, On;On;Засасывает воздух. При открытии рычага сбрасывает накопленный газ в коннектор.
+Атмосфера;Воспламенитель;StructureRoomIgniter;On, Activate;On, Activate;Вызывает открытое пламя в комнате при наличии горючей смеси и давлении > 10 кПа.
+Атмосфера;Малый теплообменник;StructureHeatExchangerSmall;Pressure, Temperature;Нет;Компактный пассивный выравниватель температур между двумя контурами труб.
+Атмосфера;Теплообменник;StructureThermodynamicHeatExchanger;Pressure, Temperature, Error;Нет;Стандартный промышленный прибор теплообмена без смешивания газов.
+Атмосфера;Большой теплообменник;StructureHeatExchangerLarge;Pressure, Temperature;Нет;Максимальная площадь теплообмена. Применяется в уличных радиаторных контурах.
+Атмосфера;Рекуператор;StructureRecuperator;Pressure, Temperature;Нет;Забирает до 90% тепла у выбрасываемых токсичных газов для нагрева свежего притока воздуха.
+Пассивное оборудование;Газовая труба;StructurePipeStraight;Pressure, Temperature, TotalMoles;Нет;Базовый сегмент. Переносит газы и обменивается теплом с атмосферой Марса.
+Пассивное оборудование;Изолированная газовая труба;StructurePipeInsulatedStraight;Pressure, Temperature, TotalMoles;Нет;Полностью блокирует теплообмен газа с окружающей средой.
+Пассивное оборудование;Прямоточный расширитель;StructurePipeExpansion;Pressure, Temperature, Volume;Нет;Увеличивает внутренний объем сегмента трубы, создавая буфер потока.
+Пассивное оборудование;Газовый вентиль;StructurePipeValve;Open (On);Нет;Механический затвор. Нет портов данных, управляется только рукой персонажа.
+Пассивное оборудование;Однонаправленный вентиль;StructurePipeCheckValve;Pressure, Temperature;Нет;Пропускает газ только в одну сторону, если давление на входе выше выхода.
+Пассивное оборудование;Конденсационный вентиль;StructurePipeCondensationValve;On, Error, Power, RequiredPower;On;Автоматически отделяет жидкости и конденсат из газовой смеси.
+Пассивное оборудование;Расширительный вентиль;StructurePipeExpansionValve;On, Lock, Error, Setting;On, Lock, Setting;Используется для резкого дросселирования и охлаждения газов в фазовых переходах.
+Пассивное оборудование;Газовый манометр;StructureGasGauge;Pressure, Temperature, TotalMoles, Volume;Нет;Идеальная точка для врезки чипов чтения параметров магистрали (до 60 МПа).
+Пассивное оборудование;Газовый радиатор;StructurePipeRadiator;Pressure, Temperature;Нет;Пассивно излучает тепло. Днем нагревается солнцем, ночью эффективно охлаждает.
+Пассивное оборудование;Стойка газового баллона;StructureGasCanisterStorage;Pressure, Temperature, TotalMoles, Quantity;Нет;Считывает параметры газа внутри баллона. Quantity=1 если баллон вставлен.
+Пассивное оборудование;Универсальный коннектор;StructurePipeConnector;Quantity;Нет;Точка стыковки переносных приборов. Автоматически открывает клапан при подключении.
+Пассивное оборудование;Большой газовый баллон;ItemGasCanisterBig;Pressure, Temperature, TotalMoles;Нет;Взрывается при превышении давления. При переработке стравливает газ.
+Пассивное оборудование;Улучшенный большой баллон;ItemGasCanisterSmart;Pressure, Temperature, TotalMoles;Нет;Снабжен встроенным ЖК-экраном с живым выводом давления на корпусе.
+Пассивное оборудование;Малый газовый резервуар;StructureTankSmall;Pressure, Temperature, TotalMoles, Все долей газов (Ratio*);Нет;Объем 6 000 литров. Отдает точный химический состав газов в Lua.
+Пассивное оборудование;Большой газовый резервуар;StructureTankLarge;Pressure, Temperature, TotalMoles, Все долей газов (Ratio*);Нет;Объем 50 000 литров. Главное хранилище уличной площадки газов.
+Пассивное оборудование;Малый изолированный бак;StructureTankSmallInsulated;Pressure, Temperature, TotalMoles, Все долей газов (Ratio*);Нет;Объем 6 000 литров. Защищает хранящийся газ от марсианского солнца.
+Пассивное оборудование;Большой изолированный бак;StructureTankLargeInsulated;Pressure, Temperature, TotalMoles, Все долей газов (Ratio*);Нет;Объем 50 000 литров. Промышленное изолированное хранилище базы.
+Пассивное оборудование;Орган;StructurePipeOrgan;Pressure;Нет;Музыкальный инструмент. Тональность звука зависит от давления в трубах.
+Фильтры;Малые фильтры;Картридж в слот;Slot.Quantity, Slot.SlotHash;Нет;Базовый тир. Ресурс в Quantity (0-100%). Хватает на 2 часа чистой работы.
+Фильтры;Средние фильтры;Картридж в слот;Slot.Quantity, Slot.SlotHash;Нет;Тир 2. Ресурс увеличен в 5 раз по сравнению с базовыми фильтрами.
+Фильтры;Большие фильтры;Картридж в слот;Slot.Quantity, Slot.SlotHash;Нет;Тир 3. Создаются из суперсплавов. Ресурс увеличен в 20 раз.
+Фильтры;Каталитические фильтры;Картридж в слот;Slot.Quantity, Slot.SlotHash;Нет;Устойчивы к агрессивным средам (Токсины POL и закись азота N2O) в горячих контурах.
